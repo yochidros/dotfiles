@@ -1,0 +1,2 @@
+-- Commnet
+require('Comment').setup()

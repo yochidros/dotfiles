@@ -1,0 +1,6 @@
+require('base')
+require('_private')
+require('highlights')
+require('keymaps')
+require('plugins')
+require('colorscheme')
