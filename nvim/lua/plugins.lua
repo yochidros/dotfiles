@@ -1,9 +1,9 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
--- Plug 'RRethy/nvim-base16'
+Plug 'RRethy/nvim-base16'
 Plug 'morhetz/gruvbox'
 
--- Plug 'dstein64/vim-startuptime'
+Plug 'dstein64/vim-startuptime'
 
 -- Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -58,6 +58,9 @@ Plug 'nvim-lua/plenary.nvim'
 -- Telescope
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
+Plug('nvim-telescope/telescope-fzf-native.nvim', {
+  ['do'] = 'make'
+})
 
 -- Silicon
 Plug 'segeljakt/vim-silicon'
@@ -123,6 +126,9 @@ Plug 'chrisbra/Colorizer'
 -- ALE
 Plug 'dense-analysis/ale'
 
+-- Null-ls
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
 -- Plug
 Plug 'slim-template/vim-slim'
 
@@ -145,8 +151,8 @@ Plug('plasticboy/vim-markdown', { ['for'] = 'markdown' })
 
 -- Haskell
 Plug('neovimhaskell/haskell-vim', { ['for'] = 'haskell' })
-Plug('alx741/vim-hindent', { ['for'] = 'haskell' })
---Plug 'nbouscal/vim-stylish-haskell', { 'for': 'haskell' }
+-- Plug('alx741/vim-hindent', { ['for'] = 'haskell' })
+-- Plug 'nbouscal/vim-stylish-haskell', { 'for': 'haskell' }
 
 -- Ruby
 Plug('tpope/vim-endwise', { ['for'] = 'ruby' })
@@ -161,7 +167,6 @@ Plug 'milch/vim-fastlane'
 
 -- Fern
 Plug 'lambdalisue/fern.vim'
-Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-hijack.vim'

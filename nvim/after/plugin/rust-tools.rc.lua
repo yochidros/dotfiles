@@ -1,8 +1,10 @@
 -- Rust Tools
-local rt = require('rust-tools')
+local status, rt = pcall(require, 'rust-tools')
+if (not status) then return end
+
 rt.setup({
   tools = {
-    reload_workspace_from_cargo_toml = false
+    reload_workspace_from_cargo_toml = true
   },
   server = {
     on_attach = function(_, bufnr)

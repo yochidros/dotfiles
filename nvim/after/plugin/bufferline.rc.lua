@@ -1,6 +1,6 @@
 require('bufferline').setup {
   -- Enable/disable animations
-  animation = true,
+  animation = false,
 
   -- Enable/disable auto-hiding the tab bar when there is a single buffer
   auto_hide = false,
@@ -17,8 +17,8 @@ require('bufferline').setup {
   clickable = true,
 
   -- Excludes buffers from the tabline
-  exclude_ft = {'javascript'},
-  exclude_name = {'package.json'},
+  exclude_ft = { 'javascript' },
+  exclude_name = { 'package.json' },
 
   -- Enable/disable icons
   -- if set to 'numbers', will show buffer index in the tabline
@@ -68,8 +68,8 @@ require('bufferline').setup {
 local keymap = vim.keymap
 local bufferline_opts = { noremap = true, silent = true }
 
-keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', bufferline_opts)
-keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', bufferline_opts)
+keymap.set('n', '<M-,>', '<Cmd>BufferPrevious<CR>', bufferline_opts)
+keymap.set('n', '<M-.>', '<Cmd>BufferNext<CR>', bufferline_opts)
 -- Re-order to previous/next
 keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', bufferline_opts)
 keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', bufferline_opts)

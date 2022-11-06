@@ -6,7 +6,7 @@ setmetatable(kind_labels, kind_labels_mt)
 lsp_status.register_progress()
 
 lsp_status.config({
-  kind_labels = kind_labels,
+  kind_labels = kind_labels
 })
 
 vim.api.nvim_command [[

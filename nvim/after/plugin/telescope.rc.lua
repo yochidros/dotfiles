@@ -1,7 +1,8 @@
 local builtin = require('telescope.builtin')
 local themes = require('telescope.themes')
+local telescope = require('telescope')
 -- Telescope
-require("telescope").setup {
+telescope.setup {
   defaults = {
     layout_config = {
       vertical = { width = 0.9 }
@@ -30,12 +31,20 @@ require("telescope").setup {
       themes.get_dropdown {
         -- even more opts
       }
+    },
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
     }
   }
 }
-require("telescope").load_extension("ui-select")
+telescope.load_extension("ui-select")
+telescope.load_extension('fzf')
 
 vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, { silent = true, noremap = true })
+vim.keymap.set("n", "<C-g>", require("telescope.builtin").live_grep, { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, { silent = true, noremap = true })
