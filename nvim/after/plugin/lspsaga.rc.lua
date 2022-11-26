@@ -1,7 +1,7 @@
-local lspsaga = require('lspsaga')
+local lspsaga = require("lspsaga")
 
 lspsaga.init_lsp_saga({
-  border_style = "rounded",
+	border_style = "rounded",
 })
 
 -- lsp finder to find the cursor word definition and reference
@@ -13,8 +13,8 @@ local action = require("lspsaga.codeaction")
 
 vim.keymap.set("n", "<leader>ca", action.code_action, { silent = true, noremap = true })
 vim.keymap.set("v", "<leader>ca", function()
-  vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-  action.range_code_action()
+	vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
+	action.range_code_action()
 end, { silent = true, noremap = true })
 
 -- hover dock
@@ -54,10 +54,10 @@ vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = tr
 
 -- or jump to error
 vim.keymap.set("n", "[E", function()
-  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
 end, { silent = true, noremap = true })
 vim.keymap.set("n", "]E", function()
-  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+	require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, { silent = true, noremap = true })
 
 -- float terminal also you can pass the cli command in open_float_terminal function

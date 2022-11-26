@@ -63,7 +63,7 @@ o.swapfile = false
 o.fileformats = "unix,dos,mac"
 o.backupskip = "/tmp*,/private/tmp/*"
 o.dictionary = "/usr/share/dict/words/"
-o.cmdheight = 1
+o.cmdheight = 0
 o.loaded_perl_provider = false
 
 -- completion

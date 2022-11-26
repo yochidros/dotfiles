@@ -40,7 +40,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
 	-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+	vim.keymap.set("n", "<C-i>", vim.lsp.buf.signature_help, bufopts)
 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 	vim.keymap.set("n", "<space>wl", function()
@@ -101,21 +101,21 @@ nvim_lsp.sourcekit.setup({
 nvim_lsp.sorbet.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	cmd = { "srb", "tc", "--typed=true", "--lsp" },
+	cmd = { "bundle", "exec", "srb", "tc", "--typed=true", "--lsp" },
 })
 nvim_lsp.solargraph.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	cmd = { "/Users/yochidros/.rbenv/shims/solargraph", "stdio" },
+	cmd = { "/Users/miyazawayoshiki/.rbenv/shims/solargraph", "stdio" },
 	init_options = {
 		formatting = true,
 	},
 	settings = {
 		solargraph = {
-			commandPath = "/Users/yochidros/.rbenv/shims/solargraph",
+			commandPath = "/Users/miyazawayoshiki/.rbenv/shims/solargraph",
 			diagnostics = true,
 			useBundler = true,
-			bundlerPath = "/Users/yochidros/.rbenv/shims/bundler",
+			bundlerPath = "/Users/miyazawayoshiki/.rbenv/shims/bundler",
 		},
 	},
 })
@@ -127,7 +127,9 @@ table.insert(runtime_path, "lua/?/init.lua")
 nvim_lsp.sumneko_lua.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	cmd = { "/Users/yochidros/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server" },
+	cmd = {
+		"/Users/miyazawayoshiki/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server",
+	},
 	settings = {
 		Lua = {
 			runtime = {
@@ -160,7 +162,7 @@ nvim_lsp.hls.setup({
 	},
 })
 
-local servers = { "pyright", "gopls", "kotlin_language_server", "eslint" }
+local servers = { "pylsp", "gopls", "kotlin_language_server", "eslint" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
 		on_attach = on_attach,
@@ -190,6 +192,15 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.flake8,
 		null_ls.builtins.formatting.black,
 		null_ls.builtins.formatting.isort,
+		-- ruby
+		null_ls.builtins.diagnostics.rubocop.with({
+			command = "bundle",
+			args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
+		}),
+		-- null_ls.builtins.formatting.rubocop.with({
+		-- 	command = "bundle",
+		-- 	args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
+		-- }),
 		-- Rust
 		null_ls.builtins.formatting.rustfmt.with({
 			extra_args = function(params)
