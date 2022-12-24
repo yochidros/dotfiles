@@ -34,9 +34,6 @@ Plug("onsails/lspkind-nvim")
 -- For vsnip user.
 --
 Plug("hrsh7th/cmp-vsnip")
--- Plug 'hrsh7th/vim-vsnip'
--- Plug 'hrsh7th/vim-vsnip-integ'
--- Plug 'rafamadriz/friendly-snippets'
 Plug("L3MON4D3/LuaSnip")
 
 -- Syntax highlight
@@ -46,7 +43,6 @@ Plug("nvim-treesitter/nvim-treesitter", {
 
 -- Utils
 Plug("akinsho/bufferline.nvim")
--- Plug("romgrk/barbar.nvim")
 -- -- auto pairs
 Plug("windwp/nvim-autopairs")
 -- auto tag
@@ -74,8 +70,6 @@ Plug("numToStr/Comment.nvim")
 
 -- Align
 Plug("junegunn/vim-easy-align")
--- -- Fish
--- Plug('dag/vim-fish', { ['for'] = 'fish' })
 
 -- Git
 Plug("tpope/vim-fugitive")
