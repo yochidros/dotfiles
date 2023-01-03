@@ -1,4 +1,4 @@
 *_private*
-*.lua*
+.luarc.json
 lazy-lock*
 .DS_Store
