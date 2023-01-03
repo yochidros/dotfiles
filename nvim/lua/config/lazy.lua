@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
 	defaults = { lazy = true },
 	install = { colorscheme = { "tokyonight", "habamax" } },
-	checker = { enabled = true },
+	checker = { enabled = false },
 	--	diff = {
 	--		cmd = "terminal_git",
 	--	},
@@ -34,22 +34,22 @@ require("lazy").setup("plugins", {
 			},
 		},
 	},
-  ui = {
-    icons = {
-      cmd = "⌘",
-      config = "🛠",
-      event = "📅",
-      ft = "📂",
-      init = "⚙",
-      keys = "🗝",
-      plugin = "🔌",
-      runtime = "💻",
-      source = "📄",
-      start = "🚀",
-      task = "📌",
-      lazy = "💤 ",
-    },
-  },
+	ui = {
+		icons = {
+			cmd = "⌘",
+			config = "🛠",
+			event = "📅",
+			ft = "📂",
+			init = "⚙",
+			keys = "🗝",
+			plugin = "🔌",
+			runtime = "💻",
+			source = "📄",
+			start = "🚀",
+			task = "📌",
+			lazy = "💤 ",
+		},
+	},
 	-- debug = true,
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
