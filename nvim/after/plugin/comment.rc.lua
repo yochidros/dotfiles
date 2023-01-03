@@ -1,2 +1,0 @@
--- Commnet
-require('Comment').setup()
