@@ -16,12 +16,14 @@ function M.config()
 		invert_intend_guides = false,
 		inverse = true, -- invert background for search, diffs, statuslines and errors
 		contrast = "hard", -- can be "hard", "soft" or empty string
-		palette_overrides = {},
+		palette_overrides = {
+			dark2 = "#1d2021",
+		},
 		overrides = {},
 		dim_inactive = false,
 		transparent_mode = false,
 	})
-	-- vim.cmd("colorscheme gruvbox")
+	vim.cmd("colorscheme gruvbox")
 end
 
 return M

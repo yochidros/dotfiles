@@ -1,6 +1,6 @@
 -- vim.g.gruvbox_contrast_dark = "hard"
 -- vim.cmd("colorscheme base16-gruvbox-dark-hard")
-vim.cmd("colorscheme gruvbox")
+-- vim.cmd("colorscheme gruvbox")
 
 -- vim.cmd("highlight Comment ctermfg=222")
 -- vim.cmd("highlight CursorColumn term=underline cterm=underline ctermbg=NONE ") --gray46")

@@ -1,5 +1,4 @@
 return {
-
 	{ "lambdalisue/nerdfont.vim", lazy = false },
 	{
 		"dstein64/vim-startuptime",
