@@ -1,4 +1,4 @@
 *_private*
 .luarc.json
 lazy-lock*
-.DS_Store
+*DS_Store*

@@ -1,5 +1,4 @@
 return {
-	---{ "morhetz/gruvbox", lazy = false },
 
 	{ "lambdalisue/nerdfont.vim", lazy = false },
 	{

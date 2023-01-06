@@ -134,17 +134,17 @@ function M.config()
 		experimental = {
 			ghost_text = true,
 		},
-		view = {
-			entries = "custom", --"native"
-		},
+		-- view = {
+		-- 	entries = "custom", --"native"
+		-- },
 		window = {
 			-- document window border
 			documentation = {
-				winhighlight = "Normal:PmenuSelect,FloatBorder:PmenuSelect,CursorLine:Visual,Search:None",
+				winhighlight = "Normal:PmenuSelect,CursorLine:Visual,Search:PmenuSelect",
 				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 			},
 			completion = {
-				winhighlight = "Normal:PmenuSelect,FloatBorder:PmenuSelect,CursorLine:Visual,Search:None",
+				winhighlight = "Normal:PmenuSelect,CursorLine:Visual,Search:PmenuSelect",
 				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 			},
 		},
@@ -162,11 +162,15 @@ function M.config()
 		},
 	})
 
-	-- Use <Tab> and <S-Tab> to navigate through popup menu
+	--  vim.keymap.set("i", "<expr> <Tab>", function ()
+	--    pumvisible() ? "<C-n>" : "<Tab>"
+	--  end, { noremap = true })
+	--
+	-- -- Use <Tab> and <S-Tab> to navigate through popup menu
 	vim.cmd([[
-  inoremap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
-  imap <expr> <C-l>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
+ " --  inoremap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"
+ " --  inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
+ " --  imap <expr> <C-l>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
 
   highlight! default link CmpItemKind CmpItemMenuDefault
   highlight! CmpItemAbbr guibg=NONE guifg=NONE
