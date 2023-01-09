@@ -1,6 +1,7 @@
 local M = {
 	"neovim/nvim-lspconfig",
-	event = "BufReadPre",
+	event = { "BufReadPre", "BufNewFile" },
+	cmd = "LSP",
 	dependencies = {
 		"williamboman/nvim-lsp-installer",
 		{
@@ -186,6 +187,9 @@ function M.config()
 		root_dir = function()
 			return vim.fn.getcwd()
 		end,
+		cmd = {
+			"/Applications/Xcode-14.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+		},
 	})
 
 	nvim_lsp.sorbet.setup({

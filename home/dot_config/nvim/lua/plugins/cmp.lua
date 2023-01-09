@@ -83,6 +83,7 @@ function M.config()
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "path" },
+			{ name = "luasnip" },
 			{ name = "buffer" },
 		}),
 		snippet = {
@@ -139,14 +140,8 @@ function M.config()
 		-- },
 		window = {
 			-- document window border
-			documentation = {
-				winhighlight = "Normal:PmenuSelect,CursorLine:Visual,Search:PmenuSelect",
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-			},
-			completion = {
-				winhighlight = "Normal:PmenuSelect,CursorLine:Visual,Search:PmenuSelect",
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-			},
+			documentation = cmp.config.window.bordered(),
+			completion = cmp.config.window.bordered(),
 		},
 		formatting = {
 			-- fields = { "kind", "abbr", "menu" },
@@ -161,31 +156,40 @@ function M.config()
 			end,
 		},
 	})
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{ name = "cmdline" },
+		}),
+	})
 
-	-- Use <Tab> and <S-Tab> to navigate through popup menu
 	vim.cmd([[
- " --  inoremap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"
- " --  inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
- " --  imap <expr> <C-l>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
-
-  " highlight! default link CmpItemKind CmpItemMenuDefault
-  " highlight! CmpItemAbbr guibg=NONE guifg=NONE
-  " " gray
-  " highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-  " " blue
-  " highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
-  " highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-  " " light blue
-  " highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-  " highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
-  " highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
-  " " pink
-  " highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-  " highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
-  " " front
-  " highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
-  " highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
-  " highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+  highlight! default link CmpItemKind CmpItemMenuDefault
+  highlight! CmpItemAbbr guibg=NONE guifg=NONE
+  " gray
+  highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+  " blue
+  highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+  highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+  " light blue
+  highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+  " pink
+  highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+  highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+  " front
+  highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 ]])
 
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -215,6 +219,7 @@ function M.config()
 						---@param item item completion
 						---@param bufnr buffer number
 						handler = function(char, item, bufnr)
+							print(vim.inspect({ char, item, bufnr }))
 							-- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
 						end,
 					},

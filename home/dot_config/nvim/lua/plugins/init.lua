@@ -16,7 +16,7 @@ return {
 	"nvim-lua/plenary.nvim",
 
 	---- Fuzzy finder
-	{ "airblade/vim-rooter", cmd = "Rooter" },
+	{ "airblade/vim-rooter", event = "VeryLazy" },
 
 	---- auto tag
 	{
@@ -110,10 +110,11 @@ return {
 	-- Rust
 	{ "rust-lang/rust.vim", ft = "rust" },
 
-	---- Markdown
+	-- Markdown
 	{
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",
+		build = "cd app && yarn install",
 		config = function()
 			vim.g.mkdp_browser = "firefox"
 		end,
@@ -125,7 +126,7 @@ return {
 			vim.g.vim_markdown_folding_disabled = 1
 		end,
 	},
-	--
+
 	---- Haskell
 	{ "neovimhaskell/haskell-vim", ft = "haskell" },
 	-- 'alx741/vim-hindent', { ['for'] = 'haskell' },
@@ -140,5 +141,5 @@ return {
 
 	---- Swift
 	{ "keith/swift.vim", ft = "swift" },
-	{ "tokorom/vim-swift-format", ft = "swift" },
+	-- { "tokorom/vim-swift-format", ft = "swift" },
 }
