@@ -4,7 +4,7 @@ return {
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
 		config = function()
-			vim.g.startuptime_tries = 10
+			vim.g.startuptime_tries = 40
 		end,
 	},
 
@@ -46,7 +46,18 @@ return {
 	{ "dag/vim-fish", ft = "fish" },
 
 	---- Git
-	{ "airblade/vim-gitgutter", event = "VeryLazy" },
+	{
+		"airblade/vim-gitgutter",
+		event = "VeryLazy",
+		config = function()
+			vim.keymap.set("n", "[h", "<Plug>(GitGutterNextHunk)", { silent = true })
+			vim.keymap.set("n", "[h", "<Plug>(GitGutterPrevHunk)", { silent = true })
+			-- 記号の色を変更する
+			vim.cmd("highlight GitGutterAdd ctermfg=green")
+			vim.cmd("highlight GitGutterChange ctermfg=blue")
+			vim.cmd("highlight GitGutterDelete ctermfg=red")
+		end,
+	},
 	{ "APZelos/blamer.nvim", event = "VeryLazy" },
 
 	---- Scroll bar
