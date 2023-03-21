@@ -200,16 +200,16 @@ function M.config()
 	nvim_lsp.solargraph.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		cmd = { "/Users/miyazawayoshiki/.rbenv/shims/solargraph", "stdio" },
+		cmd = { "/Users/yochidros/.rbenv/shims/solargraph", "stdio" },
 		init_options = {
 			formatting = true,
 		},
 		settings = {
 			solargraph = {
-				commandPath = "/Users/miyazawayoshiki/.rbenv/shims/solargraph",
+				commandPath = "/Users/yochidros/.rbenv/shims/solargraph",
 				diagnostics = true,
 				useBundler = true,
-				bundlerPath = "/Users/miyazawayoshiki/.rbenv/shims/bundler",
+				bundlerPath = "/Users/yochidros/.rbenv/shims/bundler",
 			},
 		},
 	})
@@ -218,11 +218,11 @@ function M.config()
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
 
-	nvim_lsp.sumneko_lua.setup({
+	nvim_lsp.lua_ls.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
 		cmd = {
-			"/Users/miyazawayoshiki/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server",
+			"/Users/yochidros/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server",
 		},
 		settings = {
 			Lua = {

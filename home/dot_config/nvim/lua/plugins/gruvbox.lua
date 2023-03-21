@@ -8,7 +8,6 @@ function M.config()
 		undercurl = true,
 		underline = true,
 		bold = true,
-		italic = true,
 		strikethrough = true,
 		invert_selection = false,
 		invert_signs = false,

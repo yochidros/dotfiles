@@ -8,7 +8,14 @@ function M.config()
 	if not status then
 		return
 	end
-	lspsaga.setup({})
+
+	lspsaga.setup({
+		diagnostic = {
+			-- if disable diagnostics in Insert mode, turn off on_insert = false
+			on_insert = true,
+			on_insert_follow = true,
+		},
+	})
 
 	-- lsp finder to find the cursor word definition and reference
 	vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
@@ -17,7 +24,7 @@ function M.config()
 	vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
 	-- definition
-	vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
+	vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<R>")
 	vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 
 	vim.keymap.set("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
