@@ -412,7 +412,7 @@ return {
 	tab_max_width = 10,
 	font_size = 14.0,
 	show_tab_index_in_tab_bar = false,
-	color_scheme = "Gruvbox Dark",
+	color_scheme = "GruvboxDarkHard",
 	window_decorations = "RESIZE", -- TITLE/RESIZE
 	window_close_confirmation = "AlwaysPrompt", -- NeverPrompt/AlawaysPrompt
 	window_padding = {
