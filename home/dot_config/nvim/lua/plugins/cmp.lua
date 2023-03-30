@@ -42,6 +42,7 @@ local M = {
 						Struct = "פּ",
 						Event = "",
 						Operator = "",
+						Copilot = "ﯙ",
 						TypeParameter = "",
 					},
 				})
@@ -53,6 +54,13 @@ local M = {
 			"windwp/nvim-autopairs",
 			config = function()
 				require("nvim-autopairs").setup()
+			end,
+		},
+		{
+			"zbirenbaum/copilot-cmp",
+			dependencies = { "copilot.lua" },
+			config = function()
+				require("copilot_cmp").setup()
 			end,
 		},
 	},
@@ -71,6 +79,13 @@ function M.config()
 		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 	end
 
+	local has_words_before = function()
+		if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+			return false
+		end
+		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+	end
 	cmp.setup({
 		enabled = function()
 			local context = require("cmp.config.context")
@@ -82,6 +97,7 @@ function M.config()
 		end,
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
+			{ name = "copilot" }, -- github copitlot
 			{ name = "path" },
 			{ name = "luasnip" },
 			{ name = "buffer" },
@@ -122,15 +138,15 @@ function M.config()
 					fallback()
 				end
 			end, { "i", "s" }),
-			["<Tab>"] = function(fallback)
-				if cmp.visible() then
+			["<Tab>"] = vim.schedule_wrap(function(fallback)
+				if cmp.visible() and has_words_before() then
 					cmp.select_next_item()
 				elseif check_backspace() then
 					fallback()
 				else
 					fallback()
 				end
-			end,
+			end),
 		},
 		experimental = {
 			ghost_text = true,
@@ -163,7 +179,9 @@ function M.config()
 		},
 	})
 	cmp.setup.cmdline(":", {
-		mapping = cmp.mapping.preset.cmdline(),
+		mapping = cmp.mapping.preset.cmdline({
+			["<CR>"] = cmp.mapping.confirm({ select = true }),
+		}),
 		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {
@@ -172,6 +190,7 @@ function M.config()
 	})
 
 	vim.cmd([[
+
   highlight! default link CmpItemKind CmpItemMenuDefault
   highlight! CmpItemAbbr guibg=NONE guifg=NONE
   " gray
@@ -186,6 +205,7 @@ function M.config()
   " pink
   highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
   highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+  highlight! CmpItemKindCopilot guibg=None guifg=#9966CC
   " front
   highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
   highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
