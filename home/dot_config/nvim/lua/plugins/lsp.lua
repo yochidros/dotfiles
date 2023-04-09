@@ -3,7 +3,6 @@ local M = {
 	event = { "BufReadPre", "BufNewFile" },
 	cmd = "LSP",
 	dependencies = {
-		"williamboman/nvim-lsp-installer",
 		{
 			"folke/lsp-colors.nvim",
 			config = {
@@ -265,6 +264,7 @@ function M.config()
 		})
 	end
 
+	require("plugins.rust-tools").setup()
 	require("plugins.null-ls").setup({})
 end
 

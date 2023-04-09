@@ -9,6 +9,14 @@ return {
 	},
 
 	{
+		"williamboman/mason.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		build = ":MasonUpdate",
+		config = function()
+			require("mason").setup()
+		end,
+	},
+	{
 		"nvim-tree/nvim-web-devicons",
 		config = { default = true },
 	},

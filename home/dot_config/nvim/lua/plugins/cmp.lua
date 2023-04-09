@@ -6,6 +6,7 @@ local M = {
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-nvim-lsp-signature-help",
 		{
 			"onsails/lspkind-nvim",
 			config = function()
@@ -97,6 +98,7 @@ function M.config()
 		end,
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
+			{ name = "nvim_lsp_signature_help" },
 			{ name = "copilot" }, -- github copitlot
 			{ name = "path" },
 			{ name = "luasnip" },
@@ -180,37 +182,54 @@ function M.config()
 	})
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline({
-			["<CR>"] = cmp.mapping.confirm({ select = true }),
+			["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i", "c" }),
 		}),
 		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {
-			{ name = "cmdline" },
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = {
+						"q",
+						"qa",
+						"wq",
+						"wqa",
+						"w",
+						"w!",
+						"wa",
+						"wa!",
+						"!",
+						"Man",
+					},
+				},
+				keyword_length = 2,
+			},
+			mapping = cmp.mapping.preset.cmdline({}),
 		}),
 	})
 
 	vim.cmd([[
-
-  highlight! default link CmpItemKind CmpItemMenuDefault
-  highlight! CmpItemAbbr guibg=NONE guifg=NONE
-  " gray
-  highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-  " blue
-  highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
-  highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-  " light blue
-  highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-  highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
-  highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
-  " pink
-  highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-  highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
-  highlight! CmpItemKindCopilot guibg=None guifg=#9966CC
-  " front
-  highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
-  highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
-  highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
-]])
+    highlight! default link CmpItemKind CmpItemMenuDefault
+    highlight! CmpItemAbbr guibg=NONE guifg=NONE
+    " gray
+    highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+    " blue
+    highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+    highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+    " light blue
+    highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+    highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+    highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+    " pink
+    highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+    highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+    highlight! CmpItemKindCopilot guibg=None guifg=#9966CC
+    " front
+    highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+    highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+    highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+  ]])
 
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	local handlers = require("nvim-autopairs.completion.handlers")
