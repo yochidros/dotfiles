@@ -182,8 +182,41 @@ function M.config()
 	})
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline({
-			["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i", "c" }),
+			["<C-n>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				elseif check_backspace() then
+					fallback()
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
+			["<C-p>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				elseif check_backspace() then
+					fallback()
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
+			["<CR>"] = cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = true,
+			}),
 		}),
+		-- 	["<CR>"] = cmp.mapping({
+		-- 		i = function(fallback)
+		-- 			if cmp.visible() then
+		-- 				cmp.confirm({ select = false })
+		-- 			else
+		-- 				fallback()
+		-- 			end
+		-- 		end,
+		-- 		s = cmp.mapping.confirm({ select = true }),
+		-- 		c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		-- 	}),
+		-- }),
 		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {
@@ -203,9 +236,7 @@ function M.config()
 						"Man",
 					},
 				},
-				keyword_length = 2,
 			},
-			mapping = cmp.mapping.preset.cmdline({}),
 		}),
 	})
 
