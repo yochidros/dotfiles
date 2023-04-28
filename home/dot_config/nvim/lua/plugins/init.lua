@@ -20,6 +20,27 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		config = { default = true },
 	},
+	--- chat GPT
+	{
+		"jackMort/ChatGPT.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("chatgpt").setup({
+				openai_params = {
+					model = "gpt-4",
+				},
+				openai_edit_params = {
+					model = "code-davinci-edit-002",
+				},
+				actions_paths = { "~/.config/nvim/custom_actions.json" },
+			})
+		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
