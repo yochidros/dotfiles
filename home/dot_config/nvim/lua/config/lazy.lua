@@ -16,6 +16,9 @@ require("lazy").setup("plugins", {
 	defaults = { lazy = true },
 	install = { colorscheme = { "tokyonight", "habamax" } },
 	checker = { enabled = false },
+	change_detection = {
+		enabled = false,
+	},
 	--	diff = {
 	--		cmd = "terminal_git",
 	--	},
@@ -50,6 +53,6 @@ require("lazy").setup("plugins", {
 			lazy = "💤 ",
 		},
 	},
-	-- debug = true,
+	debug = false,
 })
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")

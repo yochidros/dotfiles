@@ -121,14 +121,48 @@ return {
 	},
 
 	---- check trailing whitespaces
+	-- NOTE: print zero padding width bugs when telescope find_files, live_grep selections.
+	-- {
+	-- 	"ntpeters/vim-better-whitespace",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		vim.g.better_whitespace_enabled = 1
+	-- 		vim.g.strip_whitespace_on_save = 1
+	-- 		vim.g.strip_whitespace_confirm = 0
+	-- 		vim.g.better_whitespace_operator = " "
+	-- 	end,
+	-- },
 	{
-		"ntpeters/vim-better-whitespace",
+		"johnfrankmorgan/whitespace.nvim",
 		event = "VeryLazy",
 		config = function()
-			vim.g.better_whitespace_enabled = 1
-			vim.g.strip_whitespace_on_save = 1
-			vim.g.strip_whitespace_confirm = 0
-			vim.g.better_whitespace_operator = " "
+			require("whitespace-nvim").setup({
+				-- configuration options and their defaults
+
+				-- `highlight` configures which highlight is used to display
+				-- trailing whitespace
+				highlight = "TodoBgFIX",
+
+				-- `ignored_filetypes` configures which filetypes to ignore when
+				-- displaying trailing whitespace
+				ignored_filetypes = { "TelescopePrompt", "Trouble", "help", "Comment" },
+
+				-- `ignore_terminal` configures whether to ignore terminal buffers
+				ignore_terminal = true,
+			})
+			vim.keymap.set("n", "<leader>i", require("whitespace-nvim").trim)
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*",
+				callback = function()
+					require("whitespace-nvim").trim()
+				end,
+			})
+			vim.api.nvim_create_autocmd({ "InsertLeave", "BufReadPost", "InsertEnter" }, {
+				pattern = "*",
+				callback = function()
+					require("whitespace-nvim").highlight()
+				end,
+			})
 		end,
 	},
 

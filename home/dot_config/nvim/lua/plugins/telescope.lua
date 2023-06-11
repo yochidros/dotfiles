@@ -1,7 +1,9 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
+	tag = "0.1.2",
 	event = "VeryLazy",
 	dependencies = {
+		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		-- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
@@ -29,21 +31,30 @@ function M.config()
 				i = {
 					["<C-h>"] = "which_key",
 				},
+				n = {
+					["cd"] = function(prompt_bufnr)
+						local selection = require("telescope.actions.state").get_selected_entry()
+						local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+						require("telescope.actions").close(prompt_bufnr)
+						-- Depending on what you want put `cd`, `lcd`, `tcd`
+						vim.cmd(string.format("silent lcd %s", dir))
+					end,
+				},
 			},
 		},
-		extensions = {
-			["ui-select"] = {
-				themes.get_dropdown({
-					-- even more opts
-				}),
-			},
-		},
+		-- extensions = {
+		-- 	["ui-select"] = {
+		-- 		themes.get_dropdown({
+		-- 			-- even more opts
+		-- 		}),
+		-- 	},
+		-- },
 	})
 	telescope.load_extension("ui-select")
-	vim.keymap.set("n", "<leader>ff", M["find_files"], { silent = true, noremap = true })
-	vim.keymap.set("n", "<C-g>", M["live_grep"], { silent = true, noremap = true })
-	vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, { silent = true, noremap = true })
-	vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, { silent = true, noremap = true })
+	vim.keymap.set("n", "<leader>ff", M["find_files"], {})
+	vim.keymap.set("n", "<C-g>", M["live_grep"], {})
+	vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
+	vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, {})
 
 	vim.api.nvim_set_hl(0, "TelescopePromptNormal", { ctermbg = 255 })
 	vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { ctermbg = 255 })
