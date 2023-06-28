@@ -12,6 +12,7 @@ local M = {
 				Hint = "#10B981",
 			},
 		},
+		"williamboman/mason-lspconfig.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		{
 			"nvim-lua/lsp_extensions.nvim",
@@ -239,11 +240,11 @@ function M.config()
 			},
 		},
 	})
-	nvim_lsp.tsserver.setup({
-		on_attach = on_attach,
-		filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-		capabilities = capabilities,
-	})
+	-- nvim_lsp.tsserver.setup({
+	-- 	on_attach = on_attach,
+	-- 	filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+	-- 	capabilities = capabilities,
+	-- })
 
 	nvim_lsp.hls.setup({
 		on_attach = on_attach,
@@ -256,7 +257,7 @@ function M.config()
 		},
 	})
 
-	local servers = { "pylsp", "gopls", "kotlin_language_server", "eslint" }
+	local servers = { "pylsp", "gopls", "kotlin_language_server", "cssls" }
 	for _, lsp in ipairs(servers) do
 		nvim_lsp[lsp].setup({
 			on_attach = on_attach,
@@ -265,6 +266,10 @@ function M.config()
 	end
 
 	require("plugins.rust-tools").setup()
+	require("plugins.typescript-tools").setup_local({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
 	require("plugins.null-ls").setup({})
 end
 
