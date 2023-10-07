@@ -100,6 +100,11 @@ return {
 		},
 		{
 			key = "r",
+			mods = "CMD",
+			action = wezterm.action.ReloadConfiguration,
+		},
+		{
+			key = "r",
 			mods = "LEADER",
 			action = act.ActivateKeyTable({
 				name = "resize_pane",
@@ -415,6 +420,7 @@ return {
 	color_scheme = "GruvboxDarkHard",
 	window_decorations = "RESIZE", -- TITLE/RESIZE
 	window_close_confirmation = "AlwaysPrompt", -- NeverPrompt/AlawaysPrompt
+	enable_scroll_bar = true,
 	window_padding = {
 		left = 16,
 		right = 16,
