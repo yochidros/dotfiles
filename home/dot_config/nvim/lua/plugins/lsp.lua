@@ -97,6 +97,7 @@ function M.config()
         return ''
         endfunction
         ]])
+	require("mason-lspconfig").setup()
 	local nvim_s, nvim_lsp = pcall(require, "lspconfig")
 	if not nvim_s then
 		return
@@ -112,17 +113,6 @@ function M.config()
 	-- Use an on_attach function to only map the following keys
 	-- after the language server attaches to the current buffer
 	local on_attach = function(client, bufnr)
-		-- LSP enable formatting
-		-- if client.server_capabilities.documentFormattingProvider then
-		--   vim.api.nvim_command [[augroup Format]]
-		--   vim.api.nvim_command [[autocmd! * <buffer>]]
-		--   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-		--   vim.api.nvim_command [[augroup END]]
-		-- end
-		-- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-		--
-		-- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
 		require("lsp_signature").on_attach({}, bufnr)
 		lsp_status.on_attach(client)
 
@@ -144,13 +134,10 @@ function M.config()
 		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
 		vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
 		vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-		vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
+		vim.keymap.set("n", "<space>f", function()
+			vim.lsp.buf.format({ async = true })
+		end, bufopts)
 	end
-
-	-- local lsp_flags = {
-	--   -- This is the default in Nvim 0.7+
-	--   debounce_text_changes = 300,
-	-- }
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
@@ -187,8 +174,9 @@ function M.config()
 		root_dir = function()
 			return vim.fn.getcwd()
 		end,
+		filetypes = { "swift", "objective-c", "objective-cpp" },
 		cmd = {
-			"/Applications/Xcode-14.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+			"/Applications/Xcode-14.3.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
 		},
 	})
 
@@ -200,16 +188,16 @@ function M.config()
 	nvim_lsp.solargraph.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		cmd = { "/Users/yochidros/.rbenv/shims/solargraph", "stdio" },
+		cmd = { "/Users/miyazawayoshiki/.rbenv/shims/solargraph", "stdio" },
 		init_options = {
 			formatting = true,
 		},
 		settings = {
 			solargraph = {
-				commandPath = "/Users/yochidros/.rbenv/shims/solargraph",
+				commandPath = "/Users/miyazawayoshiki/.rbenv/shims/solargraph",
 				diagnostics = true,
 				useBundler = true,
-				bundlerPath = "/Users/yochidros/.rbenv/shims/bundler",
+				bundlerPath = "/Users/miyazawayoshiki/.rbenv/shims/bundler",
 			},
 		},
 	})
@@ -222,7 +210,7 @@ function M.config()
 		on_attach = on_attach,
 		capabilities = capabilities,
 		cmd = {
-			"/Users/yochidros/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server",
+			"/Users/miyazawayoshiki/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server",
 		},
 		settings = {
 			Lua = {
@@ -240,11 +228,6 @@ function M.config()
 			},
 		},
 	})
-	-- nvim_lsp.tsserver.setup({
-	-- 	on_attach = on_attach,
-	-- 	filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-	-- 	capabilities = capabilities,
-	-- })
 
 	nvim_lsp.hls.setup({
 		on_attach = on_attach,
@@ -255,6 +238,12 @@ function M.config()
 				completionSnippetsOn = false,
 			},
 		},
+	})
+	local cap = capabilities
+	cap.offsetEncoding = { "utf-16" }
+	nvim_lsp.clangd.setup({
+		on_attach = on_attach,
+		capabilities = cap,
 	})
 
 	local servers = { "pylsp", "gopls", "kotlin_language_server", "cssls" }
@@ -267,9 +256,9 @@ function M.config()
 
 	require("plugins.rust-tools").setup()
 	require("plugins.typescript-tools").setup_local({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
+		on_attach = on_attach,
+		capabilities = capabilities,
+	})
 	require("plugins.null-ls").setup({})
 end
 

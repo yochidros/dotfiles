@@ -153,16 +153,12 @@ function M.config()
 		experimental = {
 			ghost_text = true,
 		},
-		-- view = {
-		-- 	entries = "custom", --"native"
-		-- },
 		window = {
 			-- document window border
 			documentation = cmp.config.window.bordered(),
 			completion = cmp.config.window.bordered(),
 		},
 		formatting = {
-			-- fields = { "kind", "abbr", "menu" },
 			format = function(entry, vim_item)
 				local _f = lspkind.cmp_format({ wirth_text = false, maxwidth = 40 })
 				vim_item.menu = ({
@@ -205,18 +201,6 @@ function M.config()
 				select = true,
 			}),
 		}),
-		-- 	["<CR>"] = cmp.mapping({
-		-- 		i = function(fallback)
-		-- 			if cmp.visible() then
-		-- 				cmp.confirm({ select = false })
-		-- 			else
-		-- 				fallback()
-		-- 			end
-		-- 		end,
-		-- 		s = cmp.mapping.confirm({ select = true }),
-		-- 		c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-		-- 	}),
-		-- }),
 		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {

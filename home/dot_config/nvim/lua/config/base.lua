@@ -29,8 +29,8 @@ o.wildmenu = true
 o.whichwrap = "h,l,b,s,<,>,[,]"
 o.mouse = "a"
 
-if vim.fn.has("maxunix") == 1 then
-	o.clipboard:prepend({ "unnamed", "unnamedplus" })
+if vim.fn.has("macunix") == 1 then
+	o.clipboard = "unnamed,unnamedplus"
 end
 
 vim.t_Co = 256

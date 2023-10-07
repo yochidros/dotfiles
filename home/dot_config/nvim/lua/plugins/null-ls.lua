@@ -35,6 +35,7 @@ function M.setup(options)
 			-- 	args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
 			-- }),
 			-- Rust
+			null_ls.builtins.formatting.clang_format,
 			null_ls.builtins.formatting.rustfmt.with({
 				extra_args = function(params)
 					local Path = require("plenary.path")
