@@ -53,24 +53,47 @@ function M.config()
 			c = { bg = colors.darkgray, fg = colors.lightgray },
 		},
 	}
-	lualine.setup({
-		options = {
-			icon_enabled = true,
-			theme = gruvbox,
-			-- theme = "auto",
-			disable_filetypes = {},
-		},
-		sections = {
-			lualine_a = { "mode" },
-			lualine_b = { "branch" },
-			lualine_c = {
-				"os.date('%H:%M:%S')",
-				"filename",
-				"require'lsp-status'.status()",
+	if vim.g.started_by_firenvim then
+		lualine.setup({
+			options = {
+				icon_enabled = false,
+				theme = gruvbox,
+				-- theme = "auto",
+				disable_filetypes = {},
+				-- section_separators = { "", "" },
+				-- component_separators = { "", "" },
 			},
-		},
-		extensions = { "fugitive", "fern" },
-	})
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = {},
+				lualine_c = {
+					"os.date('%H:%M:%S')",
+				},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = { "encoding" },
+			},
+		})
+	else
+		lualine.setup({
+			options = {
+				icon_enabled = true,
+				theme = gruvbox,
+				-- theme = "auto",
+				disable_filetypes = {},
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch" },
+				lualine_c = {
+					"os.date('%H:%M:%S')",
+					"filename",
+					"require'lsp-status'.status()",
+				},
+			},
+			extensions = { "fugitive", "fern" },
+		})
+	end
 end
 
 return M

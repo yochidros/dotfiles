@@ -3,6 +3,7 @@ return {
 	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
+		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			vim.g.startuptime_tries = 40
 		end,
@@ -23,6 +24,7 @@ return {
 	{
 		"pwntester/octo.nvim",
 		event = "VeryLazy",
+		lazy = not vim.g.started_by_firenvim,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
@@ -35,8 +37,12 @@ return {
 	--- chat GPT
 	{
 		"jackMort/ChatGPT.nvim",
+		lazy = not vim.g.started_by_firenvim,
 		event = "VeryLazy",
 		config = function()
+			if vim.g.started_by_firenvim then
+				return
+			end
 			require("chatgpt").setup({
 				openai_params = {
 					model = "gpt-4",
@@ -53,6 +59,18 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	--- enabled textarea in browser using neovim
+	{
+		"glacambre/firenvim",
+
+		-- Lazy load firenvim
+		-- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+		lazy = not vim.g.started_by_firenvim,
+		build = function()
+			vim.fn["firenvim#install"](0)
+		end,
+	},
+
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
@@ -90,6 +108,7 @@ return {
 	{
 		"airblade/vim-gitgutter",
 		event = "VeryLazy",
+		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			vim.keymap.set("n", "[h", "<Plug>(GitGutterNextHunk)", { silent = true })
 			vim.keymap.set("n", "[h", "<Plug>(GitGutterPrevHunk)", { silent = true })
@@ -105,6 +124,7 @@ return {
 	{
 		"petertriho/nvim-scrollbar",
 		event = "VeryLazy",
+		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			require("scrollbar").setup()
 		end,
@@ -114,6 +134,7 @@ return {
 	{
 		"simeji/winresizer",
 		event = "VeryLazy",
+		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			vim.g.winresizer_gui_enable = 1
 		end,

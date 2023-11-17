@@ -87,89 +87,168 @@ function M.config()
 		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 		return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 	end
-	cmp.setup({
-		enabled = function()
-			local context = require("cmp.config.context")
-			if vim.api.nvim_get_mode().mode == "c" then
-				return true
-			else
-				return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
-			end
-		end,
-		sources = cmp.config.sources({
-			{ name = "nvim_lsp" },
-			{ name = "nvim_lsp_signature_help" },
-			{ name = "copilot" }, -- github copitlot
-			{ name = "path" },
-			{ name = "luasnip" },
-			{ name = "buffer" },
-		}),
-		snippet = {
-			expand = function(args)
-				require("luasnip").lsp_expand(args.body)
+	if vim.g.started_by_firenvim then
+		cmp.setup({
+			enabled = function()
+				local context = require("cmp.config.context")
+				if vim.api.nvim_get_mode().mode == "c" then
+					return true
+				else
+					return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+				end
 			end,
-		},
-		completion = {
-			completeopt = "menu,menuone,noinsert",
-		},
-		mapping = {
-			["<C-d>"] = cmp.mapping.scroll_docs(-4),
-			["<C-b>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete({}),
-			["<C-e>"] = cmp.mapping.close(),
-			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Replace,
-				select = true,
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp" },
+				{ name = "copilot" }, -- github copitlot
+				{ name = "buffer" },
 			}),
-			["<C-n>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif check_backspace() then
-					fallback()
+			completion = {
+				completeopt = "menu,menuone,noinsert",
+			},
+			mapping = {
+				["<C-d>"] = cmp.mapping.scroll_docs(-4),
+				["<C-b>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				["<C-Space>"] = cmp.mapping.complete({}),
+				["<C-e>"] = cmp.mapping.close(),
+				["<CR>"] = cmp.mapping.confirm({
+					behavior = cmp.ConfirmBehavior.Replace,
+					select = true,
+				}),
+				["<C-n>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					elseif check_backspace() then
+						fallback()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+				["<C-p>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					elseif check_backspace() then
+						fallback()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+				["<Tab>"] = vim.schedule_wrap(function(fallback)
+					if cmp.visible() and has_words_before() then
+						cmp.select_next_item()
+					elseif check_backspace() then
+						fallback()
+					else
+						fallback()
+					end
+				end),
+			},
+			experimental = {
+				ghost_text = true,
+			},
+			-- window = {
+			-- 	-- document window border
+			-- 	documentation = cmp.config.window.bordered(),
+			-- 	completion = cmp.config.window.bordered(),
+			-- },
+			-- formatting = {
+			-- 	format = function(entry, vim_item)
+			-- 		local _f = lspkind.cmp_format({ wirth_text = false, maxwidth = 40 })
+			-- 		vim_item.menu = ({
+			-- 			luasnip = "[Snippet]",
+			-- 			buffer = "[Buffer]",
+			-- 			path = "[Path]",
+			-- 		})[entry.source.name]
+			-- 		return _f(entry, vim_item)
+			-- 	end,
+			-- },
+		})
+	else
+		cmp.setup({
+			enabled = function()
+				local context = require("cmp.config.context")
+				if vim.api.nvim_get_mode().mode == "c" then
+					return true
 				else
-					fallback()
+					return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 				end
-			end, { "i", "s" }),
-			["<C-p>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif check_backspace() then
-					fallback()
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-			["<Tab>"] = vim.schedule_wrap(function(fallback)
-				if cmp.visible() and has_words_before() then
-					cmp.select_next_item()
-				elseif check_backspace() then
-					fallback()
-				else
-					fallback()
-				end
-			end),
-		},
-		experimental = {
-			ghost_text = true,
-		},
-		window = {
-			-- document window border
-			documentation = cmp.config.window.bordered(),
-			completion = cmp.config.window.bordered(),
-		},
-		formatting = {
-			format = function(entry, vim_item)
-				local _f = lspkind.cmp_format({ wirth_text = false, maxwidth = 40 })
-				vim_item.menu = ({
-					luasnip = "[Snippet]",
-					buffer = "[Buffer]",
-					path = "[Path]",
-				})[entry.source.name]
-				return _f(entry, vim_item)
 			end,
-		},
-	})
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp" },
+				{ name = "nvim_lsp_signature_help" },
+				{ name = "copilot" }, -- github copitlot
+				{ name = "path" },
+				{ name = "luasnip" },
+				{ name = "buffer" },
+			}),
+			snippet = {
+				expand = function(args)
+					require("luasnip").lsp_expand(args.body)
+				end,
+			},
+			completion = {
+				completeopt = "menu,menuone,noinsert",
+			},
+			mapping = {
+				["<C-d>"] = cmp.mapping.scroll_docs(-4),
+				["<C-b>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				["<C-Space>"] = cmp.mapping.complete({}),
+				["<C-e>"] = cmp.mapping.close(),
+				["<CR>"] = cmp.mapping.confirm({
+					behavior = cmp.ConfirmBehavior.Replace,
+					select = true,
+				}),
+				["<C-n>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					elseif check_backspace() then
+						fallback()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+				["<C-p>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					elseif check_backspace() then
+						fallback()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+				["<Tab>"] = vim.schedule_wrap(function(fallback)
+					if cmp.visible() and has_words_before() then
+						cmp.select_next_item()
+					elseif check_backspace() then
+						fallback()
+					else
+						fallback()
+					end
+				end),
+			},
+			experimental = {
+				ghost_text = true,
+			},
+			window = {
+				-- document window border
+				documentation = cmp.config.window.bordered(),
+				completion = cmp.config.window.bordered(),
+			},
+			formatting = {
+				format = function(entry, vim_item)
+					local _f = lspkind.cmp_format({ wirth_text = false, maxwidth = 40 })
+					vim_item.menu = ({
+						luasnip = "[Snippet]",
+						buffer = "[Buffer]",
+						path = "[Path]",
+					})[entry.source.name]
+					return _f(entry, vim_item)
+				end,
+			},
+		})
+	end
+
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = {

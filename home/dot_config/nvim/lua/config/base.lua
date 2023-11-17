@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.LANG = "en"
+vim.g.LANG = "en_US.UTF-8"
 
 local o = vim.o
 

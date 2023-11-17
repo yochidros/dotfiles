@@ -171,20 +171,25 @@ function M.config()
 	nvim_lsp.sourcekit.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		root_dir = function()
-			return vim.fn.getcwd()
+		root_dir = function(filename, _)
+			local git_root = nvim_lsp.util.find_git_ancestor(filename)
+			if git_root then
+				return git_root
+			else
+				return vim.fn.getcwd()
+			end
 		end,
 		filetypes = { "swift", "objective-c", "objective-cpp" },
 		cmd = {
-			"/Applications/Xcode-14.3.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+			"/Applications/Xcode-15.0.1-Release.Candidate.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
 		},
 	})
 
-	nvim_lsp.sorbet.setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-		cmd = { "bundle", "exec", "srb", "tc", "--typed=true", "--lsp" },
-	})
+	-- nvim_lsp.sorbet.setup({
+	-- 	on_attach = on_attach,
+	-- 	capabilities = capabilities,
+	-- 	cmd = { "bundle", "exec", "srb", "tc", "--typed=true", "--lsp" },
+	-- })
 	nvim_lsp.solargraph.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
@@ -196,8 +201,8 @@ function M.config()
 			solargraph = {
 				commandPath = "/Users/miyazawayoshiki/.rbenv/shims/solargraph",
 				diagnostics = true,
-				useBundler = true,
-				bundlerPath = "/Users/miyazawayoshiki/.rbenv/shims/bundler",
+				useBundler = false,
+				-- bundlerPath = "/Users/miyazawayoshiki/.rbenv/shims/bundler",
 			},
 		},
 	})

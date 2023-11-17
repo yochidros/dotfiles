@@ -30,10 +30,8 @@ function M.setup(options)
 			-- null_ls.builtins.formatting.black,
 			-- null_ls.builtins.formatting.isort,
 			-- ruby
-			-- null_ls.builtins.formatting.rubocop.with({
-			-- 	command = "bundle",
-			-- 	args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
-			-- }),
+			null_ls.builtins.diagnostics.rubocop,
+			null_ls.builtins.formatting.rufo,
 			-- Rust
 			null_ls.builtins.formatting.clang_format,
 			null_ls.builtins.formatting.rustfmt.with({
