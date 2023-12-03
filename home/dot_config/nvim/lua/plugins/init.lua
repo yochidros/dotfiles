@@ -1,6 +1,35 @@
 return {
 	{ "lambdalisue/nerdfont.vim", lazy = false },
 	{
+		"vim-skk/skkeleton",
+		lazy = false,
+		dependencies = {
+			"vim-denops/denops.vim",
+		},
+		config = function()
+			local dict = "~/Library/Application Support/AquaSKK/"
+			vim.fn["skkeleton#config"]({
+				eggLikeNewline = true,
+				debug = true,
+				immediatelyCancel = false,
+				globalDictionaries = {
+					dict .. "SKK-JISYO.L",
+					dict .. "SKK-JISYO.jinmei",
+					dict .. "SKK-JISYO.geo",
+					dict .. "SKK-JISYO.station",
+					dict .. "SKK-JISYO.propernoun",
+					dict .. "SKK-JISYO.jawiki",
+				},
+				keepState = false,
+				markerHenkan = "▽ ",
+				markerHenkanSelect = "▼ ",
+				useGoogleJapaneseInput = true,
+				usePopup = true,
+			})
+			vim.keymap.set({ "i" }, "<C-x>", "<Plug>(skkeleton-toggle)")
+		end,
+	},
+	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
 		lazy = not vim.g.started_by_firenvim,
