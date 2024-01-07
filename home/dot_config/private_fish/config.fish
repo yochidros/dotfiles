@@ -22,9 +22,8 @@ set -Ux PYENV_ROOT $HOME/.pyenv
 set -Ux fish_user_paths $PYENV_ROOT/shims $fish_user_paths
 status is-login; and pyenv init --path | source
 
-# fish-fzf
-set -U FZF_LEGACY_KEYBINDINGS 0
-set -U FZF_REVERSE_ISEARCH_OPTS "--reverse --height=100%"
+bind -M insert \cr _fzf_search_history
+bind -M insert \cF _fzf_search_directory
 
 # golang
 set -x GOENV_ROOT $HOME/.goenv
@@ -58,3 +57,12 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 # startup
 starship init fish | source
 zoxide init fish | source
+
+# if needed
+# --google-japanese-input=notfound
+# --no-daemonize
+pkill yaskkserv2
+yaskkserv2 --port 1179 \
+  --google-suggest \
+  --google-cache-filename=$HOME/yaskkserv/tmp/yaskkserv2.cache \
+  $HOME/yaskkserv/tmp/dictionary.yaskkserv2
