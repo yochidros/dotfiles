@@ -9,6 +9,12 @@ return {
 		end,
 	},
 	{
+		"tris203/hawtkeys.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = {},
+	},
+	{
 		"nvim-tree/nvim-web-devicons",
 		config = { default = true },
 	},
