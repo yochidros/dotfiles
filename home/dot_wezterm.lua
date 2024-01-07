@@ -79,12 +79,19 @@ wezterm.on("window-config-reloaded", function(window)
 	recompute_padding(window)
 end)
 
+local fish_path = function()
+	if wezterm.target_triple == "aarch64-apple-darwin" then
+		return "/opt/homebrew/bin/fish"
+	else
+		return "/usr/local/bin/fish"
+	end
+end
+
 return {
 	font = wezterm.font("MesloLGM Nerd Font"),
 	warn_about_missing_glyphs = false,
 	adjust_window_size_when_changing_font_size = false,
 	debug_key_events = true,
-	default_cwd = "/Users/miyazawayoshiki/",
 	leader = { key = "s", mods = "CTRL" },
 	keys = {
 		{
@@ -467,6 +474,6 @@ return {
 		saturation = 0.5,
 		brightness = 0.6,
 	},
-	default_prog = { "/opt/homebrew/bin/fish" },
+	default_prog = { fish_path() },
 	skip_close_confirmation_for_processes_named = {},
 }
