@@ -24,7 +24,7 @@ function M.config()
 	vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
 	-- definition
-	vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<R>")
+	vim.keymap.set("n", "pd", "<cmd>Lspsaga peek_definition<R>")
 	vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 
 	vim.keymap.set("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
@@ -34,11 +34,10 @@ function M.config()
 
 	-- hover dock
 	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-
 	-- Outline
 	vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>")
 	-- rename
-	vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>")
+	vim.keymap.set("n", "rn", "<cmd>Lspsaga rename<CR>")
 
 	-- show signature help
 	-- vim.keymap.set("n", "gs", require("lspsaga.signaturehelp").signature_help)

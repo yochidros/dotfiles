@@ -6,7 +6,6 @@ local M = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"jonarrien/telescope-cmdline.nvim",
-		-- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 }
 
@@ -43,13 +42,6 @@ function M.config()
 				},
 			},
 		},
-		-- extensions = {
-		-- 	["ui-select"] = {
-		-- 		themes.get_dropdown({
-		-- 			-- even more opts
-		-- 		}),
-		-- 	},
-		-- },
 	})
 	telescope.load_extension("ui-select")
 	telescope.load_extension("cmdline")
