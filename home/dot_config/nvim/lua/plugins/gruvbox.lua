@@ -23,6 +23,8 @@ function M.config()
 		transparent_mode = false,
 	})
 	vim.cmd("colorscheme gruvbox")
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "FloatBorder", { fg = "white" })
 end
 
 return M

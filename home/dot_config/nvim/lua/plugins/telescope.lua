@@ -5,6 +5,7 @@ local M = {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
+		"jonarrien/telescope-cmdline.nvim",
 		-- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 }
@@ -51,10 +52,12 @@ function M.config()
 		-- },
 	})
 	telescope.load_extension("ui-select")
+	telescope.load_extension("cmdline")
 	vim.keymap.set("n", "<leader>ff", M["find_files"], {})
 	vim.keymap.set("n", "<C-g>", M["live_grep"], {})
 	vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
 	vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, {})
+	vim.keymap.set("n", "<leader><leader>", ":silent Telescope cmdline<CR>", { noremap = true, desc = "Cmdline" })
 
 	vim.api.nvim_set_hl(0, "TelescopePromptNormal", { ctermbg = 255 })
 	vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { ctermbg = 255 })

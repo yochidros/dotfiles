@@ -12,6 +12,12 @@ local M = {
 				Hint = "#10B981",
 			},
 		},
+		{
+			"lvimuser/lsp-inlayhints.nvim",
+			config = function()
+				require("lsp-inlayhints").setup()
+			end,
+		},
 		"williamboman/mason-lspconfig.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		{
@@ -76,6 +82,10 @@ function M.config()
 	if not lsp_s then
 		return
 	end
+	if vim.g.started_by_firenvim then
+		return
+	end
+
 	local kind_labels_mt = {
 		__index = function(_, k)
 			return k
@@ -98,11 +108,23 @@ function M.config()
         endfunction
         ]])
 	require("mason-lspconfig").setup()
+
 	local nvim_s, nvim_lsp = pcall(require, "lspconfig")
 	if not nvim_s then
 		return
 	end
+	require("lspconfig.ui.windows").default_options.border = {
+		{ "╭", "FloatBorder" },
+		{ "─", "FloatBorder" },
+		{ "╮", "FloatBorder" },
+		{ "│", "FloatBorder" },
+		{ "╯", "FloatBorder" },
+		{ "─", "FloatBorder" },
+		{ "╰", "FloatBorder" },
+		{ "│", "FloatBorder" },
+	}
 
+	vim.api.nvim_set_hl(0, "LspInfoBorder", { fg = "#ffffff" })
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 	local opts = { noremap = true, silent = true }
 	vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
@@ -127,9 +149,7 @@ function M.config()
 		vim.keymap.set("n", "<C-i>", vim.lsp.buf.signature_help, bufopts)
 		vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 		vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-		vim.keymap.set("n", "<space>wl", function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, bufopts)
+		vim.keymap.set("n", "<space>wl", function() end, bufopts)
 		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
 		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
 		vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
@@ -180,9 +200,11 @@ function M.config()
 			end
 		end,
 		filetypes = { "swift", "objective-c", "objective-cpp" },
-		cmd = {
-			"/Applications/Xcode-15.0.1-Release.Candidate.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
-		},
+		cmd = function()
+			local xcode_path = vim.fn.system("xcodes installed | grep 'Selected' | awk '{print $5}'")
+			print(xcode_path)
+			return xcode_path .. "/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
+		end,
 	})
 
 	-- nvim_lsp.sorbet.setup({
@@ -190,19 +212,20 @@ function M.config()
 	-- 	capabilities = capabilities,
 	-- 	cmd = { "bundle", "exec", "srb", "tc", "--typed=true", "--lsp" },
 	-- })
+	local home_path = vim.fn.expand("$HOME/")
 	nvim_lsp.solargraph.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		cmd = { "/Users/yochidros/.rbenv/shims/solargraph", "stdio" },
+		cmd = { home_path .. "/.rbenv/shims/solargraph", "stdio" },
 		init_options = {
 			formatting = true,
 		},
 		settings = {
 			solargraph = {
-				commandPath = "/Users/yochidros/.rbenv/shims/solargraph",
+				commandPath = home_path .. "/.rbenv/shims/solargraph",
 				diagnostics = true,
 				useBundler = false,
-				bundlerPath = "/Users/yochidros/.rbenv/shims/bundler",
+				bundlerPath = home_path .. "/.rbenv/shims/bundler",
 			},
 		},
 	})
@@ -215,7 +238,7 @@ function M.config()
 		on_attach = on_attach,
 		capabilities = capabilities,
 		cmd = {
-			"/Users/yochidros/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server",
+			home_path .. "/.local/share/nvim/mason/bin/lua-language-server",
 		},
 		settings = {
 			Lua = {
@@ -258,8 +281,20 @@ function M.config()
 			capabilities = capabilities,
 		})
 	end
+	vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = "LspAttach_inlayhints",
+		callback = function(args)
+			if not (args.data and args.data.client_id) then
+				return
+			end
 
-	require("plugins.rust-tools").setup()
+			local bufnr = args.buf
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			require("lsp-inlayhints").on_attach(client, bufnr)
+		end,
+	})
+
 	require("plugins.typescript-tools").setup_local({
 		on_attach = on_attach,
 		capabilities = capabilities,
