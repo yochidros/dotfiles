@@ -1,7 +1,7 @@
 # common
 set -gx TERM xterm-256color
 alias ls='lsd'
-alias vim='/usr/local/bin/nvim'
+alias vim='nvim'
 
 set -g ANDROID_SDK_ROOT $HOME/Library/Android/sdk
 set -Ux fish_user_paths $HOME/Library/Android/sdk/platform-tools $fish_user_paths
@@ -15,7 +15,7 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x EDITOR nvim
 
 # homebrew
-eval (/usr/local/bin/brew shellenv)
+eval (/opt/homebrew/bin/brew shellenv)
 
 # pyenv
 set -Ux PYENV_ROOT $HOME/.pyenv
@@ -33,6 +33,9 @@ eval (goenv init - | source)
 
 # direnv
 eval (direnv hook fish)
+
+# deno
+set -x PATH $HOME/.deno/bin $PATH
 
 # rbenv
 set -Ux fish_user_paths $HOME/.rbenv/bin $fish_user_paths
@@ -52,7 +55,7 @@ set -x PATH $HOME/.nodenv/shims $PATH
 set -x OPENAI_API_KEY (cat ~/.chatgpt)
 
 # haskell
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /Users/yochidros/.ghcup/bin $PATH # ghcup-env
+# set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /Users/yochidros/.ghcup/bin $PATH # ghcup-env
 
 # startup
 starship init fish | source
