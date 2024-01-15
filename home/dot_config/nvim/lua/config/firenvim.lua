@@ -8,6 +8,8 @@ local height = vim.fn.system(
 
 if tonumber(width) >= 2580 and tonumber(height) >= 1800 then
 	vim.o.guifont = "Hack:h14"
+elseif tonumber(width) >= 1980 and tonumber(height) >= 1080 then
+	vim.o.guifont = "Hack:h12"
 else
 	vim.o.guifont = "Hack:h8"
 end
@@ -35,6 +37,7 @@ end
 setup_dynamic_font_adjst()
 
 vim.g.firenvim_config.localSettings[".*"] = { cmdline = "neovim" }
+vim.g.firenvim_config.localSettings["https?://bit-key.atlassian.net/"] = { takeover = "never", priority = 1 }
 vim.g.firenvim_config = {
 	globalSettings = {
 		all = { "<C-->" },
@@ -42,6 +45,11 @@ vim.g.firenvim_config = {
 	localSettings = {
 		[".*"] = {
 			cmdline = "neovim",
+			takeover = "never",
+		},
+		["https?://bit-key.atlassian.net/"] = {
+			takeover = "never",
+			priority = 1,
 		},
 	},
 }
@@ -51,6 +59,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = "github.com_*.txt",
 	callback = function()
 		vim.cmd("set filetype=markdown")
+		vim.cmd("set lines=10")
+	end,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "chat.openai.com_*.txt",
+	callback = function()
+		vim.cmd("set lines=8")
 	end,
 })
 -- vim.api.nvim_set_keymap("n", "<Esc><Esc>", "<Cmd>call firenvim#focus_page()<CR>", {})

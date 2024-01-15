@@ -1,6 +1,9 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
 	event = "VimEnter",
+	dependencies = {
+		"yasunori0418/statusline_skk.vim",
+	},
 }
 
 function M.config()
@@ -64,7 +67,7 @@ function M.config()
 				-- component_separators = { "", "" },
 			},
 			sections = {
-				lualine_a = { "mode" },
+				lualine_a = { "mode", "statusline_skk#mode" },
 				lualine_b = {},
 				lualine_c = {
 					"os.date('%H:%M:%S')",
@@ -83,7 +86,7 @@ function M.config()
 				disable_filetypes = {},
 			},
 			sections = {
-				lualine_a = { "mode" },
+				lualine_a = { "mode", "statusline_skk#mode" },
 				lualine_b = { "branch" },
 				lualine_c = {
 					"os.date('%H:%M:%S')",

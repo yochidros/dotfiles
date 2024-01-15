@@ -202,9 +202,7 @@ function M.config()
 		end,
 		filetypes = { "swift", "objective-c", "objective-cpp" },
 		cmd = function()
-			local xcode_path = vim.fn.system("xcodes installed | grep 'Selected' | awk '{print $5}'")
-			print(xcode_path)
-			return xcode_path .. "/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
+			return "/Applications/Xcode-15.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
 		end,
 	})
 
