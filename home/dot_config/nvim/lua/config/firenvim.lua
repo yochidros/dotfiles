@@ -59,13 +59,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = "github.com_*.txt",
 	callback = function()
 		vim.cmd("set filetype=markdown")
-		vim.cmd("set lines=10")
 	end,
 })
-vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "chat.openai.com_*.txt",
+
+vim.api.nvim_create_autocmd("UIEnter", {
 	callback = function()
-		vim.cmd("set lines=8")
+		vim.fn.timer_start(500, function()
+			vim.opt.lines = 6
+		end)
 	end,
 })
 -- vim.api.nvim_set_keymap("n", "<Esc><Esc>", "<Cmd>call firenvim#focus_page()<CR>", {})
