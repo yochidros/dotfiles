@@ -192,18 +192,37 @@ function M.config()
 	nvim_lsp.sourcekit.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
+		single_file_support = true,
 		root_dir = function(filename, _)
-			local git_root = nvim_lsp.util.find_git_ancestor(filename)
-			if git_root then
-				return git_root
+			-- local git_root = nvim_lsp.util.find_git_ancestor(filename)
+			local util = nvim_lsp.util
+			local root = util.root_pattern("buildServer.json")(filename)
+				or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
+				or util.find_git_ancestor(filename)
+				or util.root_pattern("Package.swift")(filename)
+			if root then
+				return root
 			else
 				return vim.fn.getcwd()
 			end
 		end,
 		filetypes = { "swift", "objective-c", "objective-cpp" },
-		cmd = function()
-			return "/Applications/Xcode-15.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
-		end,
+		cmd = { "xcrun", "sourcekit-lsp" },
+		settings = {
+			serverArguments = function()
+				local sdk_path = vim.fn.system("xcrun --sdk iphones --show-sdk-path")
+				print(sdk_path)
+				return {
+					"-Xswiftc",
+					"-sdk",
+					"-Xswiftc",
+					sdk_path,
+					"-Xswiftc",
+					"-target",
+					"arm64-apple-ios17.2-simulator",
+				}
+			end,
+		},
 	})
 
 	-- nvim_lsp.sorbet.setup({

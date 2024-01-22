@@ -7,6 +7,8 @@ set -g ANDROID_SDK_ROOT $HOME/Library/Android/sdk
 set -Ux fish_user_paths $HOME/Library/Android/sdk/platform-tools $fish_user_paths
 set -x PATH $PATH /usr/local/bin
 
+# Wezterm
+set -Ux fish_user_paths /Applications/WezTerm.app/Contents/MacOS $fish_user_paths
 # Rust
 set -x PATH $PATH $HOME/.cargo/bin
 
@@ -64,8 +66,10 @@ zoxide init fish | source
 # if needed
 # --google-japanese-input=notfound
 # --no-daemonize
-pkill yaskkserv2
-yaskkserv2 --port 1179 \
-  --google-suggest \
-  --google-cache-filename=$HOME/yaskkserv/tmp/yaskkserv2.cache \
-  $HOME/yaskkserv/tmp/dictionary.yaskkserv2
+# pkill yaskkserv2
+# alias yasskserv_start="yaskkserv2 --port 1179 \
+#   --no-daemonize \
+#   --google-suggest \
+#   --google-cache-filename=$HOME/yaskkserv/tmp/yaskkserv2.cache \
+#   $HOME/yaskkserv/tmp/dictionary.yaskkserv2"
+

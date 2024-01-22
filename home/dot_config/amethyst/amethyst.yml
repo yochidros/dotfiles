@@ -15,8 +15,8 @@
 
 # layouts - Ordered list of layouts to use by layout key (default tall, wide, fullscreen, and column).
 layouts:
-  - tall
   - fullscreen
+  - tall
   # - tall-right
   # - wide
   - two-pane
@@ -82,12 +82,12 @@ expand-main:
 
 # Increase the number of windows in the main pane. Note that not all layouts respond to this command.
 increase-main:
-  mod: mod1
+  mod: mod2
   key: ","
 
 # Decrease the number of windows in the main pane. Note that not all layouts respond to this command.
 decrease-main:
-  mod: mod1
+  mod: mod2
   key: "."
 
 # General purpose command for custom layouts. Functionality is layout-dependent.
@@ -204,7 +204,7 @@ select-wide-layout:
 
 # Select fullscreen layout
 select-fullscreen-layout:
-  mod: mod1
+  mod: mod2
   key: d
 
 # Select column layout

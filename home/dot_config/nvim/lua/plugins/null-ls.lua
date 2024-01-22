@@ -20,9 +20,10 @@ function M.setup(options)
 		sources = {
 			-- Lua
 			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.diagnostics.eslint_d.with({
-				diagnostics_format = "[eslint] #{m}\n(#{c})",
-			}),
+			null_ls.builtins.diagnostics.eslint_d,
+			-- null_ls.builtins.diagnostics.eslint_d.with({
+			-- 	diagnostics_format = "[eslint] #{m}\n(#{c})",
+			-- }),
 			null_ls.builtins.formatting.prettierd,
 			-- python
 			-- null_ls.builtins.diagnostics.mypy,
