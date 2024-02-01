@@ -30,9 +30,8 @@ function M.config()
 		},
 		sources = {
 			"skk_dictionary",
-			"skk_server",
+			"google_japanese_input",
 		},
-		skkServerPort = 1179,
 		keepState = false,
 		markerHenkan = "▽ ",
 		markerHenkanSelect = "▼ ",
