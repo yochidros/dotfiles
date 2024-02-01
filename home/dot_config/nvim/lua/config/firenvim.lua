@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("UIEnter", {
 	callback = function()
 		vim.fn.timer_start(500, function()
-			vim.opt.lines = 6
+			vim.opt.lines = 20
 		end)
 	end,
 })
