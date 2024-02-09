@@ -1,3 +1,7 @@
+if not vim.g.started_by_firenvim then
+	return
+end
+
 local width = vim.fn.system(
 	"system_profiler SPDisplaysDataType | grep Resolution | head -n 1 | sed  -e 's/.*Resolution://' -e 's/\\ //g' -e 's/Retina//' -e 's/(.*$//g' | cut -d'x' -f1"
 )

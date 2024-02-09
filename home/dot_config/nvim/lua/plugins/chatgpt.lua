@@ -1,6 +1,7 @@
 local M = {
 	"jackMort/ChatGPT.nvim",
 	lazy = not vim.g.started_by_firenvim,
+	enabled = false,
 	event = "VeryLazy",
 	config = function()
 		if vim.g.started_by_firenvim then

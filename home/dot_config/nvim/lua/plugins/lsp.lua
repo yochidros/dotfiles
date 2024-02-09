@@ -192,7 +192,6 @@ function M.config()
 	nvim_lsp.sourcekit.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		single_file_support = true,
 		root_dir = function(filename, _)
 			-- local git_root = nvim_lsp.util.find_git_ancestor(filename)
 			local util = nvim_lsp.util
@@ -208,21 +207,6 @@ function M.config()
 		end,
 		filetypes = { "swift", "objective-c", "objective-cpp" },
 		cmd = { "xcrun", "sourcekit-lsp" },
-		settings = {
-			serverArguments = function()
-				local sdk_path = vim.fn.system("xcrun --sdk iphones --show-sdk-path")
-				print(sdk_path)
-				return {
-					"-Xswiftc",
-					"-sdk",
-					"-Xswiftc",
-					sdk_path,
-					"-Xswiftc",
-					"-target",
-					"arm64-apple-ios17.2-simulator",
-				}
-			end,
-		},
 	})
 
 	-- nvim_lsp.sorbet.setup({
@@ -234,7 +218,10 @@ function M.config()
 	nvim_lsp.solargraph.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		cmd = { home_path .. "/.rbenv/shims/solargraph", "stdio" },
+		cmd = {
+			home_path .. ".local/share/nvim/mason/bin/solargraph",
+			"stdio",
+		},
 		init_options = {
 			formatting = true,
 		},
@@ -317,7 +304,7 @@ function M.config()
 		on_attach = on_attach,
 		capabilities = capabilities,
 	})
-	require("plugins.null-ls").setup({})
+	require("plugins.none-ls").setup({})
 end
 
 return M

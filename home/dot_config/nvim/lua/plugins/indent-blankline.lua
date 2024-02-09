@@ -1,8 +1,7 @@
 local M = {
 	"lukas-reineke/indent-blankline.nvim",
 	main = "ibl",
-	opt = {},
-	event = "BufEnter",
+	event = "VeryLazy",
 }
 
 function M.config()
@@ -10,10 +9,6 @@ function M.config()
 	if not status then
 		return
 	end
-
-	vim.opt.list = true
-	vim.opt.listchars:append("space:⋅")
-	vim.opt.listchars:append("eol:↴")
 
 	local highlight = {
 		"RainbowRed",
@@ -43,6 +38,26 @@ function M.config()
 		scope = {
 			enabled = true,
 			char = "|",
+		},
+		exclude = {
+			filetypes = {
+				"alpha",
+				"lspinfo",
+				"packer",
+				"checkhealth",
+				"help",
+				"man",
+				"gitcommit",
+				"TelescopePrompt",
+				"TelescopeResults",
+				"",
+			},
+			buftypes = {
+				"terminal",
+				"nofile",
+				"quickfix",
+				"prompt",
+			},
 		},
 	})
 end

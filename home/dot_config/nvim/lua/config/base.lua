@@ -67,6 +67,7 @@ o.loaded_perl_provider = false
 
 -- completion
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+o.foldmethod = "indent"
 
 -- Podfileにrubyのsyntaxを当てる
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {

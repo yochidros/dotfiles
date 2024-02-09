@@ -135,7 +135,7 @@ return {
 	{
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",
-		build = "cd app && yarn install",
+		build = "cd app && npx yarn install",
 		config = function()
 			vim.g.mkdp_browser = "firefox"
 		end,

@@ -1,6 +1,6 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
-	event = "VimEnter",
+	event = "VeryLazy",
 	dependencies = {
 		{
 			"yasunori0418/statusline_skk.vim",

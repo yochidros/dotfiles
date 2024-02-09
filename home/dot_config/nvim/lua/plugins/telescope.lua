@@ -56,6 +56,7 @@ function M.config()
 	vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { ctermbg = 255 })
 	vim.api.nvim_set_hl(0, "TelescopePromptBorder", { ctermbg = 255 })
 	vim.api.nvim_set_hl(0, "TelescopeBorder", { ctermbg = 255 })
+	vim.api.nvim_create_autocmd("FileType", { pattern = "TelescopeResults", command = [[setlocal nofoldenable]] })
 end
 function M.find_files()
 	require("telescope.builtin").find_files({

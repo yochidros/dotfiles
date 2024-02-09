@@ -12,6 +12,7 @@ local M = {
 			-- `ignored_filetypes` configures which filetypes to ignore when
 			-- displaying trailing whitespace
 			ignored_filetypes = {
+				"alpha",
 				"TelescopePrompt",
 				"Trouble",
 				"help",
