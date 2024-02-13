@@ -21,9 +21,9 @@ function M.config()
 	end
 	local status, obsidian = pcall(require, "obsidian")
 	if not status then
-		print("hoge")
 		return
 	end
+	vim.cmd("set conceallevel=1")
 	obsidian.setup({
 		workspaces = {
 			{
@@ -36,7 +36,7 @@ function M.config()
 			},
 		},
 		ui = {
-			enable = false,
+			enable = true,
 		},
 		templates = {
 			subdir = "Templates",
@@ -54,10 +54,10 @@ function M.config()
 			-- Optional, if you want to change the date format of the default alias of daily notes.
 			alias_format = "%B %-d, %Y",
 			-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-			template = "daily-notes/Template.md",
+			template = "nvim_daily_template.md",
 		},
 		attachments = {
-			img_folder = "Assets", -- This is the default
+			img_folder = "Asset", -- This is the default
 		},
 	})
 end

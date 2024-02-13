@@ -4,9 +4,6 @@ local M = {
 	dependencies = {
 		{
 			"yasunori0418/statusline_skk.vim",
-			options = function()
-				vim.g.lightline_skk_announce = true
-			end,
 		},
 	},
 }
@@ -17,6 +14,7 @@ function M.config()
 		return
 	end
 
+	vim.g.lightline_skk_announce = true
 	local colors = {
 		black = "#282828",
 		white = "#ebdbb2",

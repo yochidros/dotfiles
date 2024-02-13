@@ -1,6 +1,6 @@
 local M = {
 	"hrsh7th/cmp-nvim-lsp",
-	event = "InsertEnter",
+	event = "VeryLazy",
 	dependencies = {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/nvim-cmp",
