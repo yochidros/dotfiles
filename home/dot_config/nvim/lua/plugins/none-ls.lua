@@ -33,6 +33,7 @@ function M.setup(options)
 			-- null_ls.builtins.formatting.isort,
 			-- swift
 			null_ls.builtins.diagnostics.swiftlint,
+			-- null_ls.builtins.formatting.swiftlint,
 			null_ls.builtins.formatting.swiftformat,
 			-- ruby
 			null_ls.builtins.diagnostics.rubocop,

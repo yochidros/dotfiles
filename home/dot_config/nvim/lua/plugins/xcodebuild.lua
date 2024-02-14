@@ -40,7 +40,7 @@ local M = {
 					vim.notify(message, severity)
 				end,
 				notify_progress = function(message) -- function to show live progress (like during tests)
-					vim.cmd("echo '" .. message .. "'")
+					vim.notify(message, vim.log.levels.INFO)
 				end,
 			},
 			marks = {

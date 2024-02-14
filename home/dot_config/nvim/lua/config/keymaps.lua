@@ -24,3 +24,6 @@ keymap.set("n", "sv", ":vsplit<CR><C-w>w", { silent = true })
 
 -- noh
 keymap.set("n", "no", ":noh<CR>", { silent = true })
+
+-- fold
+keymap.set("n", "<leader>m", "")
