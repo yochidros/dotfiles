@@ -195,7 +195,7 @@ throw-screen-3:
 # Select tall layout
 select-tall-layout:
   mod: mod1
-  key: a
+  key: t
 
 # Select wide layout
 select-wide-layout:
@@ -278,14 +278,13 @@ window-minimum-height: 0
 window-minimum-width: 0
 
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
-floating:
-  [
+floating: [
     "com.apple.systempreferences",
     "com.apple.Preview",
     "com.apple.QuickTimePlayerX",
     "com.apple.finder",
     "com.raycast.macos",
-    "com.apple.iphonesimulator",
+    # "com.apple.iphonesimulator",
   ]
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).
@@ -325,7 +324,7 @@ new-windows-to-main: false
 follow-space-thrown-windows: true
 
 # The integer percentage of the screen dimension to increment and decrement main pane ratios by (default 5).
-window-resize-step: 5
+window-resize-step: 3
 
 # Padding to apply between windows and the left edge of the screen (in px, default 0).
 screen-padding-left: 8
