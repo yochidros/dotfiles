@@ -19,11 +19,6 @@ set -x EDITOR nvim
 # homebrew
 eval (/opt/homebrew/bin/brew shellenv)
 
-# pyenv
-set -Ux PYENV_ROOT $HOME/.pyenv
-set -Ux fish_user_paths $PYENV_ROOT/shims $fish_user_paths
-status is-login; and pyenv init --path | source
-
 bind -M insert \cr _fzf_search_history
 bind -M insert \cF _fzf_search_directory
 
@@ -39,9 +34,6 @@ eval (direnv hook fish)
 # deno
 set -x PATH $HOME/.deno/bin $PATH
 
-# rbenv
-set -Ux fish_user_paths $HOME/.rbenv/bin $fish_user_paths
-status --is-interactive; and rbenv init - fish | source
 
 # Base16 Shell
 if status --is-interactive
@@ -49,10 +41,6 @@ if status --is-interactive
     source "$BASE16_SHELL/profile_helper.fish"
 end
 
-# nodenv
-eval (nodenv init - | source)
-set -Ux fish_user_paths $HOME/.nodenv/shims $fish_user_paths
-set -x PATH $HOME/.nodenv/shims $PATH
 
 set -x OPENAI_API_KEY (cat ~/.chatgpt)
 

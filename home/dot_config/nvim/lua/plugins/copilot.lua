@@ -6,6 +6,6 @@ local M = {
 }
 
 function M.config()
-	require("copilot").setup({})
+	-- require("copilot").setup({})
 end
 return M

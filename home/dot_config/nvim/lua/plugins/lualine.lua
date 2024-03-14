@@ -1,6 +1,7 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+	lazy = false,
 	dependencies = {
 		{
 			"yasunori0418/statusline_skk.vim",
@@ -85,7 +86,6 @@ function M.config()
 			options = {
 				icon_enabled = true,
 				theme = gruvbox,
-				-- theme = "auto",
 				disable_filetypes = {},
 			},
 			sections = {

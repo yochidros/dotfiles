@@ -13,6 +13,7 @@ local M = {
 			-- displaying trailing whitespace
 			ignored_filetypes = {
 				"Alpha",
+				"alpha",
 				"TelescopePrompt",
 				"Trouble",
 				"help",

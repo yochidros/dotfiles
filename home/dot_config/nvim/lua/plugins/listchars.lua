@@ -1,6 +1,7 @@
 return {
 	"fraso-dev/nvim-listchars",
-	event = "VeryLazy",
+	-- event = "VeryLazy",
+	priority = 100,
 	config = function()
 		require("nvim-listchars").setup({
 			save_state = false,
@@ -14,6 +15,7 @@ return {
 				"alpha",
 			},
 			lighten_step = 10,
+			notifications = false,
 		})
 		vim.cmd([[ListcharsEnable]])
 	end,

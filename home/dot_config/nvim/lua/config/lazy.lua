@@ -17,7 +17,9 @@ require("lazy").setup("plugins", {
 	install = { colorscheme = { "tokyonight", "habamax" } },
 	checker = { enabled = false },
 	change_detection = {
-		enabled = false,
+		-- automatically check for config file changes and reload the ui
+		enabled = true,
+		notify = true, -- get a notification when changes are found
 	},
 	--	diff = {
 	--		cmd = "terminal_git",
