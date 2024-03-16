@@ -1,11 +1,10 @@
 return {
 	"j-hui/fidget.nvim",
 	event = "VeryLazy",
-	lazy = false,
 	priority = 200,
-	dependencies = {
-		"wojciech-kulik/xcodebuild.nvim",
-	},
+	-- dependencies = {
+	-- 	"wojciech-kulik/xcodebuild.nvim",
+	-- },
 	config = function()
 		require("fidget").setup({
 			-- Options related to LSP progress subsystem
@@ -109,11 +108,11 @@ return {
 			},
 
 			-- Options related to integrating with other plugins
-			integration = {
-				["xcodebuild-nvim"] = {
-					enable = true, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
-				},
-			},
+			-- integration = {
+			-- 	["xcodebuild-nvim"] = {
+			-- 		enable = true, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
+			-- 	},
+			-- },
 
 			-- Options related to logging
 			logger = {

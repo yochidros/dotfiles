@@ -1,11 +1,16 @@
 local M = {
 	"wojciech-kulik/xcodebuild.nvim",
-	event = "VeryLazy",
+	cmd = "Xcodebuild",
+	enabled = false,
 	dependencies = {
 		"nvim-telescope/telescope.nvim",
 		"MunifTanjim/nui.nvim",
 	},
 	config = function()
+		if vim.g.started_by_firenvim then
+			return
+		end
+
 		require("xcodebuild").setup({
 			restore_on_start = true, -- logs, diagnostics, and marks will be loaded on VimEnter (may affect performance)
 			auto_save = true, -- save all buffers before running build or tests (command: silent wa!)
