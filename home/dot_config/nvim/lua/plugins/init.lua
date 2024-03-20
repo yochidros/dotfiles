@@ -47,7 +47,7 @@ return {
 	},
 
 	---- Silicon
-	{ "segeljakt/vim-silicon", cmd = "Silicon" },
+	-- { "segeljakt/vim-silicon", cmd = "Silicon" },
 
 	---- Align
 	{
@@ -108,8 +108,8 @@ return {
 		"voldikss/vim-translator",
 		cmd = "Translate",
 		config = function()
-			vim.g.vtm_target_lang = "ja"
-			vim.g.vtm_default_engines = { "google", "bing" }
+			vim.g.translator_target_lang = "ja"
+			vim.g.translator_default_engines = { "google" }
 		end,
 	},
 

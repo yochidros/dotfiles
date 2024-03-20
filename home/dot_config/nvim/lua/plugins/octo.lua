@@ -1,7 +1,7 @@
 local M = {
 	"pwntester/octo.nvim",
-	event = "VeryLazy",
-	lazy = not vim.g.started_by_firenvim,
+	-- event = "VeryLazy",
+	command = "Octo",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope.nvim",

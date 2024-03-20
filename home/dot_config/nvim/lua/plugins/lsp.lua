@@ -18,19 +18,8 @@ local M = {
 				require("lsp-inlayhints").setup()
 			end,
 		},
-		"williamboman/mason-lspconfig.nvim",
+		-- "williamboman/mason-lspconfig.nvim",
 		"hrsh7th/cmp-nvim-lsp",
-		{
-			"nvim-lua/lsp_extensions.nvim",
-			config = function()
-				vim.keymap.set(
-					"n",
-					"<leader>T",
-					require("lsp_extensions").inlay_hints,
-					{ noremap = true, silent = true }
-				)
-			end,
-		},
 		{
 			"nvim-lua/lsp-status.nvim",
 			config = function()
@@ -64,7 +53,7 @@ local M = {
 				require("lsp_signature").setup({
 					bind = true,
 					handler_opts = {
-						border = "shadow",
+						border = "rounded",
 					},
 					zindex = 50,
 					shadow_guibg = "Green",
@@ -85,8 +74,6 @@ function M.config()
 	if vim.g.started_by_firenvim then
 		return
 	end
-
-	require("mason-lspconfig").setup()
 
 	local nvim_s, nvim_lsp = pcall(require, "lspconfig")
 	if not nvim_s then
@@ -214,30 +201,42 @@ function M.config()
 		},
 	})
 
-	local runtime_path = vim.split(package.path, ";")
-	table.insert(runtime_path, "lua/?.lua")
-	table.insert(runtime_path, "lua/?/init.lua")
-
 	nvim_lsp.lua_ls.setup({
+		on_init = function(client)
+			local path = client.workspace_folders[1].name
+			if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+				return
+			end
+
+			client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+				runtime = {
+					version = "LuaJIT",
+				},
+				diagnostics = {
+					globals = { "vim" },
+				},
+				hint = {
+					enable = true,
+				},
+				format = {
+					enable = false, -- Use StyLua
+				},
+				-- Make the server aware of Neovim runtime files
+				workspace = {
+					checkThirdParty = false,
+					library = {
+						vim.env.VIMRUNTIME,
+					},
+				},
+			})
+		end,
 		on_attach = on_attach,
 		capabilities = capabilities,
 		cmd = {
 			home_path .. "/.local/share/nvim/mason/bin/lua-language-server",
 		},
 		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-					path = runtime_path,
-				},
-				diagnostics = {
-					globals = { "vim" },
-				},
-				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
-					checkThirdParty = false,
-				},
-			},
+			Lua = {},
 		},
 	})
 

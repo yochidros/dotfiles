@@ -2,7 +2,7 @@ local M = {
 	"hrsh7th/cmp-nvim-lsp",
 	event = "VeryLazy",
 	dependencies = {
-		"hrsh7th/cmp-buffer",
+		-- "hrsh7th/cmp-buffer",
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
@@ -146,7 +146,7 @@ function M.config()
 	}
 	local sources = {
 		{ name = "nvim_lsp" },
-		{ name = "copilot" }, -- github copitlot
+		-- { name = "copilot" }, -- github copitlot
 		{ name = "buffer" },
 		{ name = "skkeleton" },
 	}
@@ -232,6 +232,7 @@ function M.config()
 				name = "cmdline",
 				option = {
 					ignore_cmds = {
+						"so",
 						"q",
 						"qa",
 						"wq",
@@ -263,21 +264,6 @@ function M.config()
 							cmp.lsp.CompletionItemKind.Method,
 						},
 						handler = handlers["*"],
-					},
-				},
-				lua = {
-					["("] = {
-						kind = {
-							cmp.lsp.CompletionItemKind.Function,
-							cmp.lsp.CompletionItemKind.Method,
-						},
-						---@param char string
-						---@param item item completion
-						---@param bufnr buffer number
-						handler = function(char, item, bufnr)
-							-- print(vim.inspect({ char, item, bufnr }))
-							-- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
-						end,
 					},
 				},
 				-- Disable for tex
