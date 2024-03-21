@@ -6,7 +6,8 @@ local M = {
 		{
 			"vim-denops/denops.vim",
 			config = function()
-				vim.g["denops#deno"] = "/opt/homebrew/bin/deno"
+				local home = vim.fn.expand("$HOME/")
+				vim.g["denops#deno"] = home .. ".deno/bin/deno"
 			end,
 		},
 	},

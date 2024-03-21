@@ -8,6 +8,7 @@ return {
 			vim.g.startuptime_tries = 40
 		end,
 	},
+
 	{
 		"tris203/hawtkeys.nvim",
 		event = "VeryLazy",

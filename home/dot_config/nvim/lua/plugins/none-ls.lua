@@ -2,7 +2,7 @@ local M = {
 	"nvimtools/none-ls.nvim",
 }
 
-function M.setup(options)
+function M.setup(capabilities)
 	local lsp_formatting = function(bufnr)
 		vim.lsp.buf.format({
 			filter = function(client)
@@ -28,35 +28,17 @@ function M.setup(options)
 			null_ls.builtins.formatting.prettierd,
 			-- python
 			-- null_ls.builtins.diagnostics.mypy,
-			-- null_ls.builtins.diagnostics.flake8,
+			-- -- null_ls.builtins.diagnostics.flake8,
 			-- null_ls.builtins.formatting.black,
 			-- null_ls.builtins.formatting.isort,
 			-- swift
 			null_ls.builtins.diagnostics.swiftlint,
-			-- null_ls.builtins.formatting.swiftlint,
 			null_ls.builtins.formatting.swiftformat,
 			-- ruby
 			null_ls.builtins.diagnostics.rubocop,
 			null_ls.builtins.formatting.rufo,
 			-- Rust
 			null_ls.builtins.formatting.clang_format,
-		-- 	null_ls.builtins.formatting.rustfmt.with({
-		-- 		extra_args = function(params)
-		-- 			local Path = require("plenary.path")
-		-- 			local cargo_toml = Path:new(params.root .. "/" .. "Cargo.toml")
-		--
-		-- 			if cargo_toml:exists() and cargo_toml:is_file() then
-		-- 				for _, line in ipairs(cargo_toml:readlines()) do
-		-- 					local edition = line:match([[^edition%s*=%s*%"(%d+)%"]])
-		-- 					if edition then
-		-- 						return { "--edition=" .. edition }
-		-- 					end
-		-- 				end
-		-- 			end
-		-- 			-- default edition when we don't find `Cargo.toml` or the `edition` in it.
-		-- 			return { "--edition=2021" }
-		-- 		end,
-		-- 	}),
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
