@@ -1,6 +1,6 @@
 local M = {
 	"j-hui/fidget.nvim",
-	lazy = false,
+	event = "VeryLazy",
 	opt = {},
 }
 function M.config()
@@ -19,6 +19,16 @@ function M.config()
 				relative = "editor", -- What the notification window position is relative to
 			},
 		},
+		progress = {
+			ignore = { "null-ls", "gleam" },
+		},
 	})
+
+	-- vim.api.nvim_create_autocmd("VimLeavePre", {
+	-- 	group = vim.api.nvim_create_augroup("UserLeavePre", {}),
+	-- 	callback = function(ev)
+	-- 		require("fidget").clear()
+	-- 	end,
+	-- })
 end
 return M

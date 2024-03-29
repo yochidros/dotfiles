@@ -1,3 +1,12 @@
+local function contains(table, val)
+	for _, value in ipairs(table) do
+		if value == val then
+			return true
+		end
+	end
+	return false
+end
+
 local M = {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -73,14 +82,13 @@ function M.config()
 				capabilities = capabilities,
 			})
 		end,
-		-- Next, you can provide targeted overrides for specific servers.
-		["rust_analyzer"] = function()
-			-- require("rust-tools").setup({})
-		end,
-		["tsserver"] = function()
-			require("plugins.typescript-tools").setup_local({
+		["pylsp"] = function()
+			nvim_lsp.pylsp.setup({
 				capabilities = capabilities,
 			})
+		end,
+		["rust_analyzer"] = function()
+			-- automatically setup via rustacean.nvim
 		end,
 		["clangd"] = function()
 			capabilities.offsetEncoding = { "utf-16" }
@@ -89,7 +97,7 @@ function M.config()
 			})
 		end,
 		["solargraph"] = function()
-			local home_path = vim.fn.expand("$HOME/")
+			local home_path = vim.fn.expand("$HOME")
 			nvim_lsp.solargraph.setup({
 				capabilities = capabilities,
 				init_options = {
@@ -138,6 +146,9 @@ function M.config()
 	}
 	require("mason-lspconfig").setup_handlers(handlers)
 
+	nvim_lsp.gleam.setup({
+		capabilities = capabilities,
+	})
 	-- swift
 	nvim_lsp.sourcekit.setup({
 		capabilities = capabilities,
@@ -174,6 +185,25 @@ function M.config()
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(ev)
 			local bufnr = ev.buf
+			local clients = vim.lsp.get_active_clients({
+				id = ev.data.client_id,
+				bufnr = bufnr,
+			})
+
+			if #clients > 0 and contains({ "gleam" }, clients[1].name) then
+				local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					group = augroup,
+					buffer = bufnr,
+					callback = function()
+						vim.lsp.buf.format({
+							async = false,
+						})
+						require("fidget").notify("LSP Formatted!!", vim.log.levels.INFO)
+					end,
+				})
+			end
 
 			require("lsp_signature").on_attach({}, bufnr)
 			local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -183,7 +213,7 @@ function M.config()
 			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
 			-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-			vim.keymap.set("n", "<C-i>", vim.lsp.buf.signature_help, bufopts)
+			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 			vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 			vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 			vim.keymap.set("n", "<space>wl", function() end, bufopts)
@@ -195,8 +225,6 @@ function M.config()
 			end, bufopts)
 		end,
 	})
-
-	require("plugins.none-ls").setup(capabilities)
 end
 
 return M

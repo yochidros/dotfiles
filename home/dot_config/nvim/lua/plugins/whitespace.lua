@@ -21,6 +21,7 @@ local M = {
 				"lazy",
 				"lspinfo",
 				"mason",
+        "null-ls-info"
 			},
 
 			-- `ignore_terminal` configures whether to ignore terminal buffers

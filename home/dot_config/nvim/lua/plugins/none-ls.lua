@@ -1,19 +1,26 @@
 local M = {
 	"nvimtools/none-ls.nvim",
+	event = "VeryLazy",
+	dependencies = {
+		"nvimtools/none-ls-extras.nvim",
+		"hrsh7th/cmp-nvim-lsp",
+	},
 }
 
-function M.setup(capabilities)
+function M.config()
 	local lsp_formatting = function(bufnr)
 		vim.lsp.buf.format({
 			filter = function(client)
 				return client.name == "null-ls"
 			end,
 			bufnr = bufnr,
+			async = false,
 		})
 	end
 
 	local null_ls = require("null-ls")
 
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup({
 		capabilities = capabilities,
@@ -21,16 +28,15 @@ function M.setup(capabilities)
 		sources = {
 			-- Lua
 			null_ls.builtins.formatting.stylua,
-			-- null_ls.builtins.diagnostics.eslint_d,
-			-- null_ls.builtins.diagnostics.eslint_d.with({
-			-- 	diagnostics_format = "[eslint] #{m}\n(#{c})",
-			-- }),
+			require("none-ls.diagnostics.eslint_d").with({
+				diagnostics_format = "[eslint] #{m}\n#{c}",
+			}),
+			require("none-ls.code_actions.eslint_d"),
 			null_ls.builtins.formatting.prettierd,
 			-- python
-			-- null_ls.builtins.diagnostics.mypy,
-			-- -- null_ls.builtins.diagnostics.flake8,
-			-- null_ls.builtins.formatting.black,
-			-- null_ls.builtins.formatting.isort,
+			require("none-ls.diagnostics.flake8"),
+			null_ls.builtins.formatting.black,
+			null_ls.builtins.formatting.isort,
 			-- swift
 			null_ls.builtins.diagnostics.swiftlint,
 			null_ls.builtins.formatting.swiftformat,
@@ -53,8 +59,6 @@ function M.setup(capabilities)
 			end
 		end,
 	})
-
-	vim.api.nvim_create_autocmd("FileType", { pattern = "NullLsInfo", command = [[setlocal nofoldenable]] })
 end
 
 return M
