@@ -107,6 +107,7 @@ local M = {
 				open_expanded = false,
 			},
 		})
+		vim.keymap.set("n", "<leader>xr", "<cmd>XcodebuildRun<cr>", { desc = "Run Project" })
 		vim.keymap.set("n", "<leader>xb", "<cmd>XcodebuildBuild<cr>", { desc = "Build Project" })
 	end,
 }

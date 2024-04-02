@@ -72,11 +72,6 @@ function M.config()
 		["rust_analyzer"] = function()
 			-- require("rust-tools").setup({})
 		end,
-		["tsserver"] = function()
-			require("plugins.typescript-tools").setup_local({
-				capabilities = capabilities,
-			})
-		end,
 		["clangd"] = function()
 			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
@@ -160,8 +155,6 @@ function M.config()
 			end, bufopts)
 		end,
 	})
-
-	require("plugins.none-ls").setup(capabilities)
 end
 
 return M
