@@ -124,12 +124,12 @@ focus-main:
 
 # Focus the next screen in the list going counter-clockwise.
 focus-screen-ccw:
-  mod: mod1
+  mod: mod2
   key: p
 
 # Focus the next screen in the list going clockwise.
 focus-screen-cw:
-  mod: mod1
+  mod: mod2
   key: n
 
 # Move the currently focused window onto the next screen in the list going counter-clockwise.
@@ -278,13 +278,14 @@ window-minimum-height: 0
 window-minimum-width: 0
 
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
-floating: [
+floating:
+  [
     "com.apple.systempreferences",
     "com.apple.Preview",
     "com.apple.QuickTimePlayerX",
     "com.apple.finder",
     "com.raycast.macos",
-    # "com.apple.iphonesimulator",
+    "com.apple.iphonesimulator",
   ]
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).

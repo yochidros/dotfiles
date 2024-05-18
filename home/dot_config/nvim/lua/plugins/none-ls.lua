@@ -45,6 +45,7 @@ function M.config()
 			null_ls.builtins.formatting.rufo,
 			-- Rust
 			null_ls.builtins.formatting.clang_format,
+			require("none-ls.formatting.rustfmt"),
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then

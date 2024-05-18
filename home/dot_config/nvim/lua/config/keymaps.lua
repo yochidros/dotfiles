@@ -27,3 +27,5 @@ keymap.set("n", "no", ":noh<CR>", { silent = true })
 
 -- fold
 keymap.set("n", "<leader>m", "")
+
+keymap.set("n", "<leader>dt", ":r!echo -n '\\#\\#\\#\\# ' && date +\\%Y年\\%m月\\%d日\\ \\%H:\\%m:\\%S\\ \\%Z<CR>")

@@ -94,6 +94,7 @@ function M.config()
 			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
 				capabilities = capabilities,
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "swift" },
 			})
 		end,
 		["solargraph"] = function()
@@ -164,7 +165,7 @@ function M.config()
 				return vim.fn.getcwd()
 			end
 		end,
-		filetypes = { "swift", "objective-c", "objective-cpp" },
+		filetypes = { "swift", "objc", "objcpp" },
 		cmd = { "xcrun", "sourcekit-lsp" },
 	})
 
