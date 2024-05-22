@@ -13,6 +13,14 @@ local M = {
 	-- },
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		{
+			"oflisback/obsidian-bridge.nvim",
+			dependencies = { "nvim-telescope/telescope.nvim" },
+			event = {
+				"BufReadPre *.md",
+				"BufNewFile *.md",
+			},
+		},
 	},
 }
 function M.config()
@@ -23,6 +31,10 @@ function M.config()
 	if not status then
 		return
 	end
+	require("obsidian-bridge").setup({
+		obsidian_server_address = "http://localhost:27123",
+		scroll_sync = true,
+	})
 	vim.cmd("set conceallevel=1")
 	obsidian.setup({
 		workspaces = {

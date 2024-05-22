@@ -1,6 +1,9 @@
 local M = {
 	"akinsho/bufferline.nvim",
 	event = "VeryLazy",
+	dependencies = {
+		"kazhala/close-buffers.nvim",
+	},
 }
 
 function M.config()
