@@ -42,6 +42,7 @@ if status --is-interactive
 end
 
 
+set -x OBSIDIAN_REST_API_KEY ""
 set -x OPENAI_API_KEY (cat ~/.chatgpt)
 
 # haskell
