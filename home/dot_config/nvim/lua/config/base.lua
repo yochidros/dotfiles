@@ -64,6 +64,7 @@ o.backupskip = "/tmp*,/private/tmp/*"
 o.dictionary = "/usr/share/dict/words/"
 o.cmdheight = 1
 --o.loaded_perl_provider = false
+o.laststatus = 3
 
 -- completion
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }

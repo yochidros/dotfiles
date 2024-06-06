@@ -29,9 +29,6 @@ function M.config()
 			extended_mode = true,
 			max_file_lines = nil,
 		},
-		autotag = {
-			enable = true,
-		},
 	})
 end
 

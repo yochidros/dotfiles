@@ -93,7 +93,7 @@ return {
 	font = wezterm.font("MesloLGM Nerd Font"),
 	warn_about_missing_glyphs = false,
 	adjust_window_size_when_changing_font_size = false,
-	debug_key_events = true,
+	debug_key_events = false,
 	leader = { key = "s", mods = "CTRL" },
 	keys = {
 		{
@@ -130,6 +130,12 @@ return {
 			mods = "LEADER",
 			action = act.ShowLauncher,
 		},
+		{
+			key = "b",
+			mods = "LEADER",
+			action = act.RotatePanes("CounterClockwise"),
+		},
+		{ key = "n", mods = "LEADER", action = act.RotatePanes("Clockwise") },
 
 		-- Split
 		{
@@ -162,7 +168,7 @@ return {
 			key = "x",
 			mods = "LEADER",
 			action = act.CloseCurrentPane({
-				confirm = true,
+				confirm = false,
 			}),
 		},
 		{
@@ -428,7 +434,7 @@ return {
 	show_tab_index_in_tab_bar = false,
 	color_scheme = "GruvboxDarkHard",
 	window_decorations = "RESIZE", -- TITLE/RESIZE
-	window_close_confirmation = "AlwaysPrompt", -- NeverPrompt/AlawaysPrompt
+	window_close_confirmation = "NeverPrompt", -- NeverPrompt/AlawaysPrompt
 	enable_scroll_bar = true,
 	window_padding = {
 		left = 16,
