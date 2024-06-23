@@ -6,7 +6,7 @@ local M = {
 		vim.o.timeoutlen = 300
 	end,
 	opts = {
-		vim.keymap.set("n", "<C-h>", ":WhichKey<CR>", { silent = true }),
+		vim.keymap.set("n", "<Leader>h", ":WhichKey<CR>", { silent = true }),
 	},
 }
 return M

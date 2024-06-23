@@ -7,9 +7,6 @@ local o = vim.o
 vim.api.nvim_create_autocmd({ "FileType" }, { command = "setlocal formatoptions-=r" })
 vim.api.nvim_create_autocmd({ "FileType" }, { command = "setlocal formatoptions-=o" })
 
--- "コマンドを全て除去
--- "autocmd!
-
 -- Encoding
 vim.scriptencoding = "utf-8"
 o.encoding = "utf-8"
@@ -64,7 +61,6 @@ o.backupskip = "/tmp*,/private/tmp/*"
 o.dictionary = "/usr/share/dict/words/"
 o.cmdheight = 1
 --o.loaded_perl_provider = false
-o.laststatus = 3
 
 -- completion
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
@@ -72,6 +68,7 @@ vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 -- o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldmethod = "indent"
 o.foldlevelstart = 99
+o.laststatus = 3
 -- o.foldlevel = 2
 
 -- reload current source

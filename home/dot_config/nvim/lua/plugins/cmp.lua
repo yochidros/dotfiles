@@ -150,49 +150,39 @@ function M.config()
 		{ name = "buffer" },
 		{ name = "skkeleton" },
 	}
-	if vim.g.started_by_firenvim then
-		cmp.setup({
-			enabled = enabled,
-			sources = cmp.config.sources(sources),
-			completion = completion,
-			mapping = mapping,
-			experimental = experimental,
-		})
-	else
-		cmp.setup({
-			enabled = enabled,
-			sources = cmp.config.sources({
-				unpack(sources),
-				{ name = "nvim_lsp_signature_help" },
-				{ name = "path" },
-				{ name = "luasnip" },
-			}),
-			snippet = {
-				expand = function(args)
-					require("luasnip").lsp_expand(args.body)
-				end,
-			},
-			completion = completion,
-			mapping = mapping,
-			experimental = experimental,
-			window = {
-				-- document window border
-				documentation = cmp.config.window.bordered(),
-				completion = cmp.config.window.bordered(),
-			},
-			formatting = {
-				format = function(entry, vim_item)
-					local _f = lspkind.cmp_format({ wirth_text = false, maxwidth = 40 })
-					vim_item.menu = ({
-						luasnip = "[Snippet]",
-						buffer = "[Buffer]",
-						path = "[Path]",
-					})[entry.source.name]
-					return _f(entry, vim_item)
-				end,
-			},
-		})
-	end
+	cmp.setup({
+		enabled = enabled,
+		sources = cmp.config.sources({
+			unpack(sources),
+			{ name = "nvim_lsp_signature_help" },
+			{ name = "path" },
+			{ name = "luasnip" },
+		}),
+		snippet = {
+			expand = function(args)
+				require("luasnip").lsp_expand(args.body)
+			end,
+		},
+		completion = completion,
+		mapping = mapping,
+		experimental = experimental,
+		window = {
+			-- document window border
+			documentation = cmp.config.window.bordered(),
+			completion = cmp.config.window.bordered(),
+		},
+		formatting = {
+			format = function(entry, vim_item)
+				local _f = lspkind.cmp_format({ wirth_text = false, maxwidth = 40 })
+				vim_item.menu = ({
+					luasnip = "[Snippet]",
+					buffer = "[Buffer]",
+					path = "[Path]",
+				})[entry.source.name]
+				return _f(entry, vim_item)
+			end,
+		},
+	})
 
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = cmp.mapping.preset.cmdline(),

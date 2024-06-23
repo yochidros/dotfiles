@@ -1,14 +1,23 @@
 local M = {
 	"vim-skk/skkeleton",
 	lazy = false,
-	commit = "8d0b7337013e466c578e024b7c8e5b5d297f0a3e", -- kowareteru
 	dependencies = {
 		{
 			"vim-denops/denops.vim",
 			config = function()
-				local home = vim.fn.expand("$HOME/")
-				vim.g["denops#deno"] = home .. ".deno/bin/deno"
+				vim.g["denops#deno"] = "/opt/homebrew/bin/deno"
 			end,
+		},
+		{
+			"delphinus/skkeleton_indicator.nvim",
+			opts = {
+				abbrevHlName = "SkkeletonIndicatorHankata",
+				eijiText = "A1",
+				hiraText = "あ",
+				kataText = "ア",
+				abbrevText = "Aa",
+				border = "none",
+			},
 		},
 	},
 }
@@ -25,8 +34,9 @@ function M.config()
 		},
 		sources = {
 			"skk_dictionary",
-			"google_japanese_input",
+			"skk_server",
 		},
+		skkServerPort = 1179,
 		keepState = false,
 		markerHenkan = "▽ ",
 		markerHenkanSelect = "▼ ",

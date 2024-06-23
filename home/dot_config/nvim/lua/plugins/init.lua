@@ -3,10 +3,22 @@ return {
 	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
-		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			vim.g.startuptime_tries = 40
 		end,
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
 	},
 
 	{
@@ -19,19 +31,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		config = { default = true },
 	},
-	--- chat GPT
-	--- enabled textarea in browser using neovim
-	{
-		"glacambre/firenvim",
-
-		-- Lazy load firenvim
-		-- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
-		lazy = not vim.g.started_by_firenvim,
-		build = function()
-			vim.fn["firenvim#install"](0)
-		end,
-	},
-
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
@@ -62,14 +61,10 @@ return {
 		end,
 	},
 
-	-- Fish
-	{ "dag/vim-fish", ft = "fish" },
-
 	---- Git
 	{
 		"airblade/vim-gitgutter",
 		event = "VeryLazy",
-		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			vim.keymap.set("n", "[h", "<Plug>(GitGutterNextHunk)", { silent = true })
 			vim.keymap.set("n", "]h", "<Plug>(GitGutterPrevHunk)", { silent = true })
@@ -85,7 +80,6 @@ return {
 	{
 		"petertriho/nvim-scrollbar",
 		event = "VeryLazy",
-		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			require("scrollbar").setup()
 		end,
@@ -95,7 +89,6 @@ return {
 	{
 		"simeji/winresizer",
 		event = "VeryLazy",
-		lazy = not vim.g.started_by_firenvim,
 		config = function()
 			vim.g.winresizer_gui_enable = 1
 		end,
@@ -163,5 +156,4 @@ return {
 
 	---- Swift
 	{ "keith/swift.vim", ft = "swift" },
-	-- { "tokorom/vim-swift-format", ft = "swift" },
 }

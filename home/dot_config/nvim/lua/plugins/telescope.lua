@@ -10,7 +10,6 @@ local M = {
 }
 
 function M.config()
-	local themes = require("telescope.themes")
 	local telescope = require("telescope")
 	-- Telescope
 	telescope.setup({

@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.config()
-	local status, number = pcall(require, "numbers")
+	local status, _ = pcall(require, "numbers")
 	if not status then
 		return
 	end

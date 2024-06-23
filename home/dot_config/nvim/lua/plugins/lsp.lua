@@ -38,10 +38,13 @@ local M = {
 					handler_opts = {
 						border = "rounded",
 					},
+					max_width = 150,
+					auto_close_after = 1000,
+					close_timeout = 2000,
 					zindex = 50,
 					shadow_guibg = "Green",
 					shadow_blend = 0,
-					toggle_key = "<M-x>",
+					toggle_key = "<M-X>",
 				})
 			end,
 		},
@@ -49,10 +52,6 @@ local M = {
 }
 
 function M.config()
-	if vim.g.started_by_firenvim then
-		return
-	end
-
 	local nvim_s, nvim_lsp = pcall(require, "lspconfig")
 	if not nvim_s then
 		return
@@ -179,14 +178,16 @@ function M.config()
 
 			local bufnr = args.buf
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			require("lsp-inlayhints").on_attach(client, bufnr)
+			if client then
+				require("lsp-inlayhints").on_attach(client, bufnr)
+			end
 		end,
 	})
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(ev)
 			local bufnr = ev.buf
-			local clients = vim.lsp.get_active_clients({
+			local clients = vim.lsp.get_clients({
 				id = ev.data.client_id,
 				bufnr = bufnr,
 			})
@@ -214,7 +215,7 @@ function M.config()
 			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
 			-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-			-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+			vim.keymap.set("n", "<M-x>", vim.lsp.buf.signature_help, bufopts)
 			vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 			vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 			vim.keymap.set("n", "<space>wl", function() end, bufopts)
