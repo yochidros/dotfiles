@@ -13,15 +13,21 @@ function M.config()
 		invert_signs = false,
 		invert_tabline = false,
 		invert_intend_guides = false,
-		inverse = false, -- invert background for search, diffs, statuslines and errors
+		inverse = true, -- invert background for search, diffs, statuslines and errors
 		contrast = "hard", -- can be "hard", "soft" or empty string
 		palette_overrides = {
 			-- dark2 = "#1d2021",
 		},
 		overrides = {},
-		dim_inactive = false,
+		dim_inactive = true,
 		transparent_mode = false,
 	})
+	local _ = require("config.dark_mode")
+	if is_dark_mode then
+		vim.api.nvim_set_option_value("background", "dark", {})
+	else
+		vim.api.nvim_set_option_value("background", "light", {})
+	end
 	vim.cmd("colorscheme gruvbox")
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 	vim.api.nvim_set_hl(0, "FloatBorder", { fg = "white" })
