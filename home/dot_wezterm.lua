@@ -87,10 +87,22 @@ local fish_path = function()
 	end
 end
 
+color_scheme = "GruvboxDarkHard"
+
+if wezterm.gui then
+	is_dark = wezterm.gui.get_appearance():find("Dark")
+	if is_dark then
+		color_scheme = "GruvboxDarkHard"
+	else
+		color_scheme = "GruvboxLight"
+	end
+end
+
 return {
 	use_ime = true,
 	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 	font = wezterm.font("MesloLGM Nerd Font"),
+	color_scheme = color_scheme,
 	warn_about_missing_glyphs = false,
 	adjust_window_size_when_changing_font_size = false,
 	debug_key_events = false,
@@ -432,7 +444,6 @@ return {
 	tab_max_width = 10,
 	font_size = 14.0,
 	show_tab_index_in_tab_bar = false,
-	color_scheme = "GruvboxDarkHard",
 	window_decorations = "RESIZE", -- TITLE/RESIZE
 	window_close_confirmation = "NeverPrompt", -- NeverPrompt/AlawaysPrompt
 	enable_scroll_bar = true,

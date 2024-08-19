@@ -10,11 +10,11 @@ function M.config()
 	end
 
 	bufferline.setup({
-		highlights = {
-			fill = {
-				bg = "#1d2021",
-			},
-		},
+		-- highlights = {
+		-- 	fill = {
+		-- 		bg = "#1d2021",
+		-- 	},
+		-- },
 		options = {
 			mode = "buffers", -- set to "tabs" to only show tabpages instead
 			numbers = "none", --| "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,

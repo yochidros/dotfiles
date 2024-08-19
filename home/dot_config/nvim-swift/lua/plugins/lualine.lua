@@ -28,42 +28,17 @@ function M.config()
 		lightgray = "#3c3836",
 		inactivegray = "#7c6f64",
 	}
-	local gruvbox = {
-		normal = {
-			a = { bg = colors.gray, fg = colors.black, gui = "bold" },
-			b = { bg = colors.darkgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.gray },
-		},
-		insert = {
-			a = { bg = colors.blue, fg = colors.black, gui = "bold" },
-			b = { bg = colors.darkgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.white },
-		},
-		visual = {
-			a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
-			b = { bg = colors.darkgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.black },
-		},
-		replace = {
-			a = { bg = colors.red, fg = colors.black, gui = "bold" },
-			b = { bg = colors.darkgray, fg = colors.white },
-			c = { bg = colors.black, fg = colors.white },
-		},
-		command = {
-			a = { bg = colors.green, fg = colors.black, gui = "bold" },
-			b = { bg = colors.darkgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.black },
-		},
-		inactive = {
-			a = { bg = colors.darkgray, fg = colors.lightgray, gui = "bold" },
-			b = { bg = colors.darkgray, fg = colors.lightgray },
-			c = { bg = colors.darkgray, fg = colors.lightgray },
-		},
-	}
+	local dark_theme = require("lualine.themes.gruvbox_dark")
+	local light_theme = require("lualine.themes.gruvbox_light")
+	local _ = require("config.dark_mode")
+	local theme = light_theme
+	if is_dark_mode then
+		theme = dark_theme
+	end
 	lualine.setup({
 		options = {
 			icon_enabled = true,
-			theme = gruvbox,
+			theme = theme,
 			disable_filetypes = {},
 		},
 		sections = {
