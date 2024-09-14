@@ -15,6 +15,12 @@ function M.config()
 			on_insert = true,
 			on_insert_follow = true,
 		},
+		code_action = {
+			extend_gitsigns = false,
+		},
+		lightbulb = {
+			debounce = 500,
+		},
 	})
 
 	-- lsp finder to find the cursor word definition and reference
