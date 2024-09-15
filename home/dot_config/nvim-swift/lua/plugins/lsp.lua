@@ -76,6 +76,7 @@ function M.config()
 			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
 				capabilities = capabilities,
+				filetypes = { "cpp", "objcpp", "cuda", "proto", "c" },
 			})
 		end,
 		["solargraph"] = function()
@@ -98,23 +99,34 @@ function M.config()
 	}
 	require("mason-lspconfig").setup_handlers(handlers)
 
+	local swift_capabilities = capabilities
+	swift_capabilities.workspace = {
+		didChangeWatchedFiles = {
+			dynamicRegistration = true,
+		},
+	}
+
 	-- swift
 	nvim_lsp.sourcekit.setup({
-		capabilities = capabilities,
+		capabilities = swift_capabilities,
 		root_dir = function(filename, _)
 			local util = nvim_lsp.util
 			local root = util.root_pattern("buildServer.json")(filename)
 				or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
-				or util.find_git_ancestor(filename)
+				or util.root_pattern("compile_commands.json")(filename)
 				or util.root_pattern("Package.swift")(filename)
+				or util.find_git_ancestor(filename)
 			if root then
 				return root
 			else
 				return vim.fn.getcwd()
 			end
 		end,
-		filetypes = { "swift", "objective-c", "objective-cpp", "objcpp" },
-		cmd = { "xcrun", "sourcekit-lsp" },
+		filetypes = { "swift", "objc", "objcpp" },
+		cmd = {
+			"xcrun",
+			"sourcekit-lsp",
+		},
 	})
 
 	vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
