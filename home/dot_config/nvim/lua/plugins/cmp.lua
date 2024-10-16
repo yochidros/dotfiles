@@ -2,7 +2,7 @@ local M = {
 	"hrsh7th/cmp-nvim-lsp",
 	event = "VeryLazy",
 	dependencies = {
-		-- "hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-buffer",
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
@@ -19,41 +19,47 @@ local M = {
 					mode = "symbol_text",
 					preset = "codicons",
 					symbol_map = {
-						Text = "",
-						Method = "",
-						Function = "",
+						Text = "󰉿",
+						Method = "󰆧",
+						Function = "󰊕",
 						Constructor = "",
-						Field = "ﰠ",
-						Variable = "",
-						Class = "ﴯ",
+						Field = "󰜢",
+						Variable = "󰀫",
+						Class = "󰠱",
 						Interface = "",
 						Module = "",
-						Property = "ﰠ",
-						Unit = "塞",
-						Value = "",
+						Property = "󰜢",
+						Unit = "󰑭",
+						Value = "󰎠",
 						Enum = "",
-						Keyword = "",
+						Keyword = "󰌋",
 						Snippet = "",
-						Color = "",
-						File = "",
-						Reference = "",
-						Folder = "",
+						Color = "󰏘",
+						File = "󰈙",
+						Reference = "󰈇",
+						Folder = "󰉋",
 						EnumMember = "",
-						Constant = "",
-						Struct = "פּ",
+						Constant = "󰏿",
+						Struct = "󰙅",
 						Event = "",
-						Operator = "",
-						Copilot = "ﯙ",
+						Operator = "󰆕",
 						TypeParameter = "",
+						Copilot = "",
 					},
 				})
 			end,
 		},
-		{ "delphinus/cmp-skkeleton2", branch = "fix/method-name" },
-		"hrsh7th/cmp-vsnip",
+		{ "rinx/cmp-skkeleton", dependencies = { "vim-skk/skkeleton" } },
+		{
+			"hrsh7th/cmp-vsnip",
+			dependencies = {
+				"hrsh7th/vim-vsnip",
+				"hrsh7th/vim-vsnip-integ",
+			},
+		},
 		{
 			"L3MON4D3/LuaSnip",
-			version = "v2.1.1",
+			version = "v2.*",
 			build = "make install_jsregexp",
 		},
 		{
@@ -62,13 +68,13 @@ local M = {
 				require("nvim-autopairs").setup()
 			end,
 		},
-		-- {
-		-- 	"zbirenbaum/copilot-cmp",
-		-- 	dependencies = { "copilot.lua" },
-		-- 	config = function()
-		-- 		require("copilot_cmp").setup()
-		-- 	end,
-		-- },
+		{
+			"zbirenbaum/copilot-cmp",
+			dependencies = { "copilot.lua" },
+			config = function()
+				require("copilot_cmp").setup()
+			end,
+		},
 	},
 }
 
@@ -130,7 +136,7 @@ function M.config()
 		end, { "i", "s" }),
 		["<Tab>"] = vim.schedule_wrap(function(fallback)
 			if cmp.visible() and has_words_before() then
-				cmp.select_next_item()
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 			elseif check_backspace() then
 				fallback()
 			else
@@ -145,23 +151,42 @@ function M.config()
 		ghost_text = true,
 	}
 	local sources = {
-		{ name = "nvim_lsp" },
-		-- { name = "copilot" }, -- github copitlot
-		{ name = "buffer" },
-		{ name = "skkeleton" },
+		{ name = "copilot", group_index = 2 }, -- github copitlot
+		{ name = "nvim_lsp", group_index = 2, keyword_length = 1 },
+		{ name = "buffer", group_index = 2 },
+		{ name = "skkeleton", group_index = 2 },
+
+		{ name = "nvim_lsp_signature_help", group_index = 2 },
+		{ name = "path", group_index = 2 },
+		{ name = "vsnip", group_index = 2 },
 	}
 	cmp.setup({
 		enabled = enabled,
-		sources = cmp.config.sources({
-			unpack(sources),
-			{ name = "nvim_lsp_signature_help" },
-			{ name = "path" },
-			{ name = "luasnip" },
-		}),
+		sources = sources,
+		sorting = {
+			priority_weight = 2,
+			comparators = {
+				require("copilot_cmp.comparators").prioritize,
+				cmp.config.compare.offset,
+				cmp.config.compare.exact,
+				-- cmp.config.compare.scopes,
+				cmp.config.compare.score,
+				cmp.config.compare.recently_used,
+				cmp.config.compare.locality,
+				cmp.config.compare.kind,
+				-- cmp.config.compare.sort_text,
+				cmp.config.compare.length,
+				cmp.config.compare.order,
+			},
+		},
 		snippet = {
 			expand = function(args)
 				require("luasnip").lsp_expand(args.body)
 			end,
+		},
+		performance = {
+			debounce = 0, -- default is 60ms
+			throttle = 0, -- default is 30ms
 		},
 		completion = completion,
 		mapping = mapping,
@@ -178,6 +203,7 @@ function M.config()
 					luasnip = "[Snippet]",
 					buffer = "[Buffer]",
 					path = "[Path]",
+					copilot = "[Copilot]",
 				})[entry.source.name]
 				return _f(entry, vim_item)
 			end,

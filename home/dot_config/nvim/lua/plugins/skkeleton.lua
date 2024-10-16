@@ -1,7 +1,6 @@
 local M = {
 	"vim-skk/skkeleton",
 	-- これ以上に上げるとstreamsが見つからないエラーに遭遇する
-	commit = "0e5a7dc5984e6043ee6d3af81e0d8dbb554dca70",
 	lazy = false,
 	dependencies = {
 		{
