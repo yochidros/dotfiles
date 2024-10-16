@@ -6,6 +6,11 @@ local M = {
 }
 
 function M.config()
-	-- require("copilot").setup({})
+	vim.g.copilot_proxy_strict_ssl = false
+	require("copilot").setup({
+		server_opts_overrides = {
+			trace = "verbose",
+		},
+	})
 end
 return M
