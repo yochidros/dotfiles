@@ -2,10 +2,14 @@
 set -gx TERM xterm-256color
 alias ls='lsd'
 alias vim='nvim'
+alias dcdn='docker compose down'
+alias dcup='docker compose up'
+alias vv='select_nvim'
 
 set -g ANDROID_SDK_ROOT $HOME/Library/Android/sdk
 set -Ux fish_user_paths $HOME/Library/Android/sdk/platform-tools $fish_user_paths
 set -x PATH $PATH /usr/local/bin
+set -Ux fish_user_paths /opt/homebrew/opt/llvm/bin $fish_user_paths
 
 # Wezterm
 set -Ux fish_user_paths /Applications/WezTerm.app/Contents/MacOS $fish_user_paths
@@ -34,6 +38,7 @@ eval (direnv hook fish)
 # deno
 set -x PATH $HOME/.deno/bin $PATH
 
+fzf --fish | source
 
 # Base16 Shell
 if status --is-interactive
@@ -52,6 +57,8 @@ set -x OPENAI_API_KEY (cat ~/.chatgpt)
 starship init fish | source
 zoxide init fish | source
 
+atuin init fish | source
+
 # if needed
 # --google-japanese-input=notfound
 # --no-daemonize
@@ -61,4 +68,3 @@ zoxide init fish | source
 #   --google-suggest \
 #   --google-cache-filename=$HOME/yaskkserv/tmp/yaskkserv2.cache \
 #   $HOME/yaskkserv/tmp/dictionary.yaskkserv2"
-
