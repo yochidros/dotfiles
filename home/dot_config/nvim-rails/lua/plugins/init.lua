@@ -115,16 +115,6 @@ return {
 	---- TOML
 	{ "cespare/vim-toml", ft = "toml" },
 
-	-- Go
-	{
-		"fatih/vim-go",
-		ft = "go",
-		build = ":GoInstallBinaries",
-	},
-
-	-- Rust
-	{ "rust-lang/rust.vim", ft = "rust" },
-
 	-- Markdown
 	{
 		"iamcco/markdown-preview.nvim",
@@ -142,18 +132,23 @@ return {
 		end,
 	},
 
-	---- Haskell
-	{ "neovimhaskell/haskell-vim", ft = "haskell" },
-	-- 'alx741/vim-hindent', { ['for'] = 'haskell' },
-	-- Plug 'nbouscal/vim-stylish-haskell', { 'for': 'haskell' }
-
 	---- Ruby
 	{ "tpope/vim-endwise", ft = "ruby" },
 	{ "tpope/vim-rails", ft = "ruby" },
-
+	{
+		"mogulla3/rspec.nvim",
+		ft = "ruby",
+		config = function()
+			require("rspec").setup({
+				open_quickfix_when_spec_failed = false,
+			})
+			vim.keymap.set("n", "<leader>rt", ":RSpecNearest<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>rf", ":RSpecCurrentFile<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>rr", ":RSpecRerun<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>rF", ":RSpecOnlyFailures<CR>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>rs", ":RSpecShowLastResult<CR>", { noremap = true, silent = true })
+		end,
+	},
 	-- Fastlane
 	{ "milch/vim-fastlane", ft = { "ruby" } },
-
-	---- Swift
-	{ "keith/swift.vim", ft = "swift" },
 }

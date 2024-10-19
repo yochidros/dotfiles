@@ -52,7 +52,7 @@ return {
 	},
 
 	-- Fish
-	{ "dag/vim-fish", ft = "fish" },
+	-- { "dag/vim-fish", ft = "fish" },
 
 	---- Git
 	{
@@ -102,22 +102,22 @@ return {
 
 	---- display color code
 	{ "gorodinskiy/vim-coloresque", event = "VeryLazy" },
-	{ "ap/vim-css-color", event = "VeryLazy" },
+	-- { "ap/vim-css-color", event = "VeryLazy" },
 	{ "chrisbra/Colorizer", event = "VeryLazy" },
 
 	---- TOML
 	{ "cespare/vim-toml", ft = "toml" },
 
 	-- Go
-	{
-		"fatih/vim-go",
-		ft = "go",
-		build = ":GoInstallBinaries",
-	},
+	-- {
+	-- 	"fatih/vim-go",
+	-- 	ft = "go",
+	-- 	build = ":GoInstallBinaries",
+	-- },
 
-	-- Rust
-	{ "rust-lang/rust.vim", ft = "rust" },
-
+	-- -- Rust
+	-- { "rust-lang/rust.vim", ft = "rust" },
+	--
 	-- Markdown
 	{
 		"iamcco/markdown-preview.nvim",
@@ -135,10 +135,10 @@ return {
 		end,
 	},
 
-	---- Ruby
-	{ "tpope/vim-endwise", ft = "ruby" },
-	{ "tpope/vim-rails", ft = "ruby" },
-
+	-- ---- Ruby
+	-- { "tpope/vim-endwise", ft = "ruby" },
+	-- { "tpope/vim-rails", ft = "ruby" },
+	--
 	-- Fastlane
 	{ "milch/vim-fastlane", ft = { "ruby" } },
 

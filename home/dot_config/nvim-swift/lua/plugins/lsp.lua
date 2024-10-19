@@ -79,23 +79,6 @@ function M.config()
 				filetypes = { "cpp", "objcpp", "cuda", "proto", "c" },
 			})
 		end,
-		["solargraph"] = function()
-			local home_path = vim.fn.expand("$HOME/")
-			nvim_lsp.solargraph.setup({
-				capabilities = capabilities,
-				init_options = {
-					formatting = true,
-				},
-				settings = {
-					solargraph = {
-						commandPath = home_path .. "/.rbenv/shims/solargraph",
-						diagnostics = true,
-						useBundler = false,
-						bundlerPath = home_path .. "/.rbenv/shims/bundler",
-					},
-				},
-			})
-		end,
 	}
 	require("mason-lspconfig").setup_handlers(handlers)
 
