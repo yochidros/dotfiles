@@ -259,7 +259,7 @@ return {
 				key = "Enter",
 				mods = "NONE",
 				action = act.Multiple({
-					{ CopyTo = "ClipboardAndPrimarySelection" },
+					{ CopyTo = "Clipboard" },
 					{ CopyMode = "Close" },
 					"PopKeyTable",
 				}),
@@ -414,8 +414,9 @@ return {
 				key = "y",
 				mods = "NONE",
 				action = act.Multiple({
-					{ CopyTo = "ClipboardAndPrimarySelection" },
+					{ CopyTo = "Clipboard" },
 					{ CopyMode = "Close" },
+					"PopKeyTable",
 				}),
 			},
 			{ key = "PageUp", mods = "NONE", action = act.CopyMode("PageUp") },
@@ -446,7 +447,7 @@ return {
 	show_tab_index_in_tab_bar = false,
 	window_decorations = "RESIZE", -- TITLE/RESIZE
 	window_close_confirmation = "NeverPrompt", -- NeverPrompt/AlawaysPrompt
-	enable_scroll_bar = true,
+	enable_scroll_bar = false,
 	window_padding = {
 		left = 16,
 		right = 16,
