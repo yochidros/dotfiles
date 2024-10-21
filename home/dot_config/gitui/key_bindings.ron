@@ -7,11 +7,9 @@
 
  stash_open: Some(( code: Char('l'), modifiers: "")),
  open_help: Some(( code: Char('?'), modifiers: "")),
- stashing_save: Some(( code: Char('s'), modifiers: "")),
+ stashing_save: Some(( code: Char('s'), modifiers: "SHIFT")),
 
  status_reset_item: Some(( code: Char('U'), modifiers: "SHIFT")),
  diff_reset_lines: Some(( code: Char('u'), modifiers: "")),
  diff_stage_lines: Some(( code: Char('s'), modifiers: "")),
  )
-
-
