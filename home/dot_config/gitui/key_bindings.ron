@@ -3,9 +3,11 @@
  move_right: Some(( code: Char('l'), modifiers: "")),
  move_up: Some(( code: Char('k'), modifiers: "")),
  move_down: Some(( code: Char('j'), modifiers: "")),
+ push: Some(( code: Char('p'), modifiers: "SHIFT")),
 
  stash_open: Some(( code: Char('l'), modifiers: "")),
  open_help: Some(( code: Char('?'), modifiers: "")),
+ stashing_save: Some(( code: Char('S'), modifiers: "")),
 
  status_reset_item: Some(( code: Char('U'), modifiers: "SHIFT")),
  )
