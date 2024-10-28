@@ -96,23 +96,6 @@ function M.config()
 				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "swift" },
 			})
 		end,
-		["solargraph"] = function()
-			local home_path = vim.fn.expand("$HOME")
-			nvim_lsp.solargraph.setup({
-				capabilities = capabilities,
-				init_options = {
-					formatting = true,
-				},
-				settings = {
-					solargraph = {
-						commandPath = home_path .. "/.rbenv/shims/solargraph",
-						diagnostics = true,
-						useBundler = false,
-						bundlerPath = home_path .. "/.rbenv/shims/bundler",
-					},
-				},
-			})
-		end,
 		["lua_ls"] = function()
 			require("neodev").setup()
 			nvim_lsp.lua_ls.setup({

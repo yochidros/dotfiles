@@ -49,7 +49,6 @@ local M = {
 				})
 			end,
 		},
-		{ "rinx/cmp-skkeleton", dependencies = { "vim-skk/skkeleton" } },
 		{
 			"hrsh7th/cmp-vsnip",
 			dependencies = {
@@ -100,6 +99,10 @@ function M.config()
 	end
 	local enabled = function()
 		local context = require("cmp.config.context")
+		local skk_enabled = vim.fn["skkeleton#is_enabled"]()
+		if skk_enabled then
+			return false
+		end
 		if vim.api.nvim_get_mode().mode == "c" then
 			return true
 		else
