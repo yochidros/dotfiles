@@ -49,7 +49,6 @@ local M = {
 				})
 			end,
 		},
-		{ "rinx/cmp-skkeleton", dependencies = { "vim-skk/skkeleton" } },
 		{
 			"hrsh7th/cmp-vsnip",
 			dependencies = {
@@ -100,6 +99,10 @@ function M.config()
 	end
 	local enabled = function()
 		local context = require("cmp.config.context")
+		local skk_enabled = vim.fn["skkeleton#is_enabled"]()
+		if skk_enabled then
+			return false
+		end
 		if vim.api.nvim_get_mode().mode == "c" then
 			return true
 		else
@@ -154,7 +157,7 @@ function M.config()
 		{ name = "copilot", group_index = 2 }, -- github copitlot
 		{ name = "nvim_lsp", group_index = 2, keyword_length = 1 },
 		{ name = "buffer", group_index = 2 },
-		{ name = "skkeleton", group_index = 2 },
+		-- { name = "skkeleton", group_index = 2 },
 
 		{ name = "nvim_lsp_signature_help", group_index = 2 },
 		{ name = "path", group_index = 2 },

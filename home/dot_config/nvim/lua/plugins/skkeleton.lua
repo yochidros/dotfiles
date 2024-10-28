@@ -29,6 +29,7 @@ function M.config()
 		eggLikeNewline = true,
 		debug = false,
 		immediatelyCancel = false,
+		showCandidatesCount = 1,
 		globalDictionaries = {
 			dict .. "SKK-JISYO.S",
 			dict .. "SKK-JISYO.emoji.utf8",
@@ -38,7 +39,7 @@ function M.config()
 			"skk_server",
 		},
 		skkServerPort = 1179,
-		keepState = false,
+		keepState = true,
 		markerHenkan = "▽ ",
 		markerHenkanSelect = "▼ ",
 		usePopup = true,
