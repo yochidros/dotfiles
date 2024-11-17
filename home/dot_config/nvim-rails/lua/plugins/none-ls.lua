@@ -35,7 +35,8 @@ function M.config()
 			null_ls.builtins.formatting.prettierd,
 			-- ruby
 			null_ls.builtins.diagnostics.rubocop,
-			null_ls.builtins.formatting.rufo,
+			null_ls.builtins.formatting.rubocop,
+			-- null_ls.builtins.formatting.rufo,
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
