@@ -46,10 +46,6 @@ if status --is-interactive
     source "$BASE16_SHELL/profile_helper.fish"
 end
 
-
-set -x OBSIDIAN_REST_API_KEY ""
-set -x OPENAI_API_KEY (cat ~/.chatgpt)
-
 # haskell
 # set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /Users/yochidros/.ghcup/bin $PATH # ghcup-env
 
@@ -68,3 +64,4 @@ atuin init fish | source
 #   --google-suggest \
 #   --google-cache-filename=$HOME/yaskkserv/tmp/yaskkserv2.cache \
 #   $HOME/yaskkserv/tmp/dictionary.yaskkserv2"
+
