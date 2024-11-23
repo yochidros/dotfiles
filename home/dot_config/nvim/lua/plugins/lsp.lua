@@ -74,7 +74,9 @@ function M.config()
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-	require("mason-lspconfig").setup()
+	require("mason-lspconfig").setup({
+		ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "pylsp" },
+	})
 	local handlers = {
 		function(server_name) -- default handler (optional)
 			nvim_lsp[server_name].setup({

@@ -40,11 +40,11 @@ function M.config()
 		workspaces = {
 			{
 				name = "root",
-				path = "~/yochidros/my-obsidian",
+				path = os.getenv("OBSIDIAN_HOME"),
 			},
 			{
 				name = "daily",
-				path = "~/yochidros/my-obsidian/daily-notes",
+				path = os.getenv("OBSIDIAN_HOME") .. "/daily-notes",
 			},
 		},
 		ui = {
