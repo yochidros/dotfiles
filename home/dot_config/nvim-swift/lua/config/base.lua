@@ -76,6 +76,16 @@ o.foldlevelstart = 99
 -- reload current source
 vim.keymap.set("n", "<leader>rc", ":so $MYVIMRC<CR>", { silent = true, noremap = false })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "make",
+	callback = function()
+		vim.opt.tabstop = 4
+		vim.opt.shiftwidth = 4
+		vim.opt.softtabstop = 0
+		vim.opt.expandtab = false
+	end,
+})
+
 -- Podfileにrubyのsyntaxを当てる
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "Podfile", "*.podspec" },
