@@ -10,11 +10,6 @@ function M.config()
 	end
 
 	bufferline.setup({
-		-- highlights = {
-		-- 	fill = {
-		-- 		bg = "#1d2021",
-		-- 	},
-		-- },
 		options = {
 			mode = "buffers", -- set to "tabs" to only show tabpages instead
 			numbers = "none", --| "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
@@ -110,6 +105,7 @@ function M.config()
 	keymap.set("n", "<M-,>", "<Cmd>BufferLineCyclePrev<CR>", bufferline_opts)
 	keymap.set("n", "<M-.>", "<Cmd>BufferLineCycleNext<CR>", bufferline_opts)
 	keymap.set("n", "<M-c>", "<Cmd>bdelete!<CR>", bufferline_opts)
+	keymap.set("n", "<M-a>", "<Cmd>BufferLineCloseOthers<CR>", bufferline_opts)
 end
 
 return M

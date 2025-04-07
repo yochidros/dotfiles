@@ -1,6 +1,7 @@
 local M = {
 	"hrsh7th/cmp-nvim-lsp",
 	event = "VeryLazy",
+	enabled = false,
 	dependencies = {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/nvim-cmp",
@@ -169,7 +170,6 @@ function M.config()
 		sorting = {
 			priority_weight = 2,
 			comparators = {
-				require("copilot_cmp.comparators").prioritize,
 				cmp.config.compare.offset,
 				cmp.config.compare.exact,
 				-- cmp.config.compare.scopes,
@@ -180,11 +180,12 @@ function M.config()
 				-- cmp.config.compare.sort_text,
 				cmp.config.compare.length,
 				cmp.config.compare.order,
+				require("copilot_cmp.comparators").prioritize,
 			},
 		},
 		performance = {
-			debounce = 0, -- default is 60ms
-			throttle = 0, -- default is 30ms
+			debounce = 40, -- default is 60ms
+			throttle = 30, -- default is 30ms
 		},
 		snippet = {
 			expand = function(args)

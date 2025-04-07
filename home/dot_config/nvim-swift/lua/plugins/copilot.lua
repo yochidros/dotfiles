@@ -2,7 +2,6 @@ local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "VeryLazy",
-	enable = false,
 }
 
 function M.config()
@@ -11,6 +10,8 @@ function M.config()
 		server_opts_overrides = {
 			trace = "verbose",
 		},
+		suggestion = { enabled = false },
+		panel = { enabled = false },
 	})
 end
 return M

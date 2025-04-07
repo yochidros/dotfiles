@@ -41,6 +41,7 @@ o.autoindent = true
 o.si = true
 o.shell = "fish"
 o.showtabline = 1
+o.cmdheight = 1
 vim.hidden = true
 
 o.wrap = false
@@ -62,8 +63,6 @@ o.swapfile = false
 o.fileformats = "unix,dos,mac"
 o.backupskip = "/tmp*,/private/tmp/*"
 o.dictionary = "/usr/share/dict/words/"
-o.cmdheight = 1
--- o.loaded_perl_provider = false
 
 -- completion
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }

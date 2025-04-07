@@ -19,7 +19,8 @@ local M = {
 			end,
 		},
 		{ "williamboman/mason-lspconfig.nvim" },
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
+		-- "hrsh7th/cmp-nvim-lsp",
 		{
 			"ray-x/lsp_signature.nvim",
 			config = function()
@@ -59,7 +60,8 @@ function M.config()
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 	require("mason-lspconfig").setup()
 	local handlers = {
@@ -76,7 +78,7 @@ function M.config()
 			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
 				capabilities = capabilities,
-				filetypes = { "cpp", "objcpp", "cuda", "proto", "c" },
+				filetypes = { "swift", "cpp", "objcpp", "cuda", "proto", "c" },
 			})
 		end,
 	}
@@ -98,14 +100,13 @@ function M.config()
 				or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
 				or util.root_pattern("compile_commands.json")(filename)
 				or util.root_pattern("Package.swift")(filename)
-				or util.find_git_ancestor(filename)
 			if root then
 				return root
 			else
 				return vim.fn.getcwd()
 			end
 		end,
-		filetypes = { "swift", "objc", "objcpp" },
+		filetypes = { "swift", "objc", "objcpp", "cpp", "c" },
 		cmd = {
 			"xcrun",
 			"sourcekit-lsp",

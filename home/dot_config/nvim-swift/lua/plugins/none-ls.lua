@@ -3,7 +3,8 @@ local M = {
 	event = "VeryLazy",
 	dependencies = {
 		"nvimtools/none-ls-extras.nvim",
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
+		-- "hrsh7th/cmp-nvim-lsp",
 	},
 }
 
@@ -20,7 +21,8 @@ function M.config()
 
 	local null_ls = require("null-ls")
 
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	local capabilities = require("blink.cmp").get_lsp_capabilities()
+	-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup({
 		capabilities = capabilities,
@@ -38,7 +40,7 @@ function M.config()
 			null_ls.builtins.formatting.black,
 			null_ls.builtins.formatting.isort,
 			-- swift
-			null_ls.builtins.diagnostics.swiftlint,
+			-- null_ls.builtins.diagnostics.swiftlint,
 			null_ls.builtins.formatting.swiftformat,
 			-- ruby
 			null_ls.builtins.diagnostics.rubocop,

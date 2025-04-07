@@ -21,6 +21,7 @@ local M = {
 				"lazy",
 				"lspinfo",
 				"mason",
+				"blink-cmp-menu",
 			},
 
 			-- `ignore_terminal` configures whether to ignore terminal buffers

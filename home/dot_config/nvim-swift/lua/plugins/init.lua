@@ -19,12 +19,10 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		config = { default = true },
 	},
-	--- chat GPT
 	--- enabled textarea in browser using neovim
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
-	---- Fuzzy finder
 	{ "airblade/vim-rooter", event = "VeryLazy" },
 
 	---- auto tag
@@ -35,9 +33,6 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-
-	---- Silicon
-	-- { "segeljakt/vim-silicon", cmd = "Silicon" },
 
 	---- Align
 	{
@@ -50,9 +45,6 @@ return {
 			map("n", "gA", "<Plug>(EasyAlign)")
 		end,
 	},
-
-	-- Fish
-	-- { "dag/vim-fish", ft = "fish" },
 
 	---- Git
 	{
@@ -108,16 +100,6 @@ return {
 	---- TOML
 	{ "cespare/vim-toml", ft = "toml" },
 
-	-- Go
-	-- {
-	-- 	"fatih/vim-go",
-	-- 	ft = "go",
-	-- 	build = ":GoInstallBinaries",
-	-- },
-
-	-- -- Rust
-	-- { "rust-lang/rust.vim", ft = "rust" },
-	--
 	-- Markdown
 	{
 		"iamcco/markdown-preview.nvim",
@@ -134,13 +116,6 @@ return {
 			vim.g.vim_markdown_folding_disabled = 1
 		end,
 	},
-
-	-- ---- Ruby
-	-- { "tpope/vim-endwise", ft = "ruby" },
-	-- { "tpope/vim-rails", ft = "ruby" },
-	--
-	-- Fastlane
-	{ "milch/vim-fastlane", ft = { "ruby" } },
 
 	---- Swift
 	{ "keith/swift.vim", ft = "swift" },
