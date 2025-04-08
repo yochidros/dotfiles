@@ -4,7 +4,6 @@ local M = {
 	dependencies = {
 		"nvimtools/none-ls-extras.nvim",
 		"saghen/blink.cmp",
-		-- "hrsh7th/cmp-nvim-lsp",
 	},
 }
 
@@ -22,7 +21,6 @@ function M.config()
 	local null_ls = require("null-ls")
 
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
-	-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup({
 		capabilities = capabilities,

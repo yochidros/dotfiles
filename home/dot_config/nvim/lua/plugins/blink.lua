@@ -8,7 +8,7 @@ local M = {
 			if skk_enabled then
 				return false
 			end
-			return not vim.tbl_contains({ "lua", "markdown" }, vim.bo.filetype)
+			return not vim.tbl_contains({ "markdown" }, vim.bo.filetype)
 		end,
 		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
 		-- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -195,4 +195,5 @@ local M = {
 		},
 	},
 }
+
 return M

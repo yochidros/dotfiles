@@ -20,7 +20,6 @@ local M = {
 		},
 		{ "williamboman/mason-lspconfig.nvim" },
 		"saghen/blink.cmp",
-		-- "hrsh7th/cmp-nvim-lsp",
 		{
 			"ray-x/lsp_signature.nvim",
 			config = function()
@@ -60,7 +59,6 @@ function M.config()
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
-	-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 	require("mason-lspconfig").setup()
@@ -78,7 +76,7 @@ function M.config()
 			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
 				capabilities = capabilities,
-				filetypes = { "swift", "cpp", "objcpp", "cuda", "proto", "c" },
+				filetypes = { "cpp", "objcpp", "cuda", "proto", "c" },
 			})
 		end,
 	}
@@ -106,7 +104,7 @@ function M.config()
 				return vim.fn.getcwd()
 			end
 		end,
-		filetypes = { "swift", "objc", "objcpp", "cpp", "c" },
+		filetypes = { "swift", "objc" },
 		cmd = {
 			"xcrun",
 			"sourcekit-lsp",

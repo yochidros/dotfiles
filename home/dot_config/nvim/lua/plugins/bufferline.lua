@@ -113,6 +113,7 @@ function M.config()
 	keymap.set("n", "<M-,>", "<Cmd>BufferLineCyclePrev<CR>", bufferline_opts)
 	keymap.set("n", "<M-.>", "<Cmd>BufferLineCycleNext<CR>", bufferline_opts)
 	keymap.set("n", "<M-c>", "<Cmd>bdelete!<CR>", bufferline_opts)
+	keymap.set("n", "<M-a>", "<Cmd>BufferLineCloseOthers<CR>", bufferline_opts)
 end
 
 return M

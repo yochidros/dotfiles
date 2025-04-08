@@ -29,7 +29,7 @@ local M = {
 			end,
 		},
 		{ "williamboman/mason-lspconfig.nvim" },
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
 		{
 			"ray-x/lsp_signature.nvim",
 			config = function()
@@ -72,7 +72,7 @@ function M.config()
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 	require("mason-lspconfig").setup({
 		ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "pylsp" },
@@ -95,7 +95,7 @@ function M.config()
 			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
 				capabilities = capabilities,
-				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "swift" },
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 			})
 		end,
 		["lua_ls"] = function()
@@ -150,7 +150,7 @@ function M.config()
 			end
 		end,
 		filetypes = { "swift", "objc", "objcpp" },
-		cmd = { "xcrun", "sourcekit-lsp" },
+		cmd = { "sourcekit-lsp" },
 	})
 
 	vim.api.nvim_create_augroup("LspAttach_inlayhints", {})

@@ -35,7 +35,14 @@ return {
 	"nvim-lua/plenary.nvim",
 
 	---- Fuzzy finder
-	{ "airblade/vim-rooter", event = "VeryLazy" },
+	{
+		"airblade/vim-rooter",
+		event = "VeryLazy",
+		config = function()
+			vim.g.rooter_targets = { "*/.local/", "/", "*" }
+			vim.g.rooter_patterns = { ".git", "Makefile" }
+		end,
+	},
 
 	---- auto tag
 	{
@@ -149,11 +156,8 @@ return {
 
 	---- Ruby
 	{ "tpope/vim-endwise", ft = "ruby" },
-	{ "tpope/vim-rails", ft = "ruby" },
-
-	-- Fastlane
-	{ "milch/vim-fastlane", ft = { "ruby" } },
-
-	---- Swift
+	-- { "tpope/vim-rails", ft = "ruby" },
+	--
+	-- Swift
 	{ "keith/swift.vim", ft = "swift" },
 }

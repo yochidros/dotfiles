@@ -23,7 +23,14 @@ return {
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
-	{ "airblade/vim-rooter", event = "VeryLazy" },
+	{
+		"airblade/vim-rooter",
+		event = "VeryLazy",
+		config = function()
+			vim.g.rooter_targets = { "*/.local/", "/", "*" }
+			vim.g.rooter_patterns = { ".git", "Makefile" }
+		end,
+	},
 
 	---- auto tag
 	{
@@ -41,7 +48,7 @@ return {
 		config = function()
 			local map = vim.keymap.set
 			map("x", "ga", "<Plug>(EasyAlign)")
-			--Start⋅interactive⋅EasyAlign⋅for⋅a
+			--Start interactive⋅EasyAlign⋅for⋅a
 			map("n", "gA", "<Plug>(EasyAlign)")
 		end,
 	},

@@ -1,13 +1,17 @@
 is_dark_mode = true
 
-function eval_dark_mode()
+local function eval_dark_mode()
 	if vim.fn.has("macunix") == 1 then
 		local dark_mode = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" })
+		if is_dark_mode == dark_mode then
+			return false
+		end
 		if string.find(dark_mode, "Dark") then
 			is_dark_mode = true
 		else
 			is_dark_mode = false
 		end
+		return true
 	end
 end
 
@@ -18,7 +22,10 @@ timer:start(
 	4000,
 	5000, -- 5s
 	vim.schedule_wrap(function()
-		eval_dark_mode()
+		if not eval_dark_mode() then
+			return
+		end
+		require("plugins.lualine").refresh()
 		if is_dark_mode then
 			vim.api.nvim_set_option_value("background", "dark", {})
 		else
