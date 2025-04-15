@@ -1,13 +1,13 @@
 return {
 	{ "lambdalisue/nerdfont.vim", lazy = false },
-	-- {
-	-- 	"dstein64/vim-startuptime",
-	-- 	cmd = "StartupTime",
-	-- 	lazy = not vim.g.started_by_firenvim,
-	-- 	config = function()
-	-- 		vim.g.startuptime_tries = 40
-	-- 	end,
-	-- },
+	{
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
+		lazy = not vim.g.started_by_firenvim,
+		config = function()
+			vim.g.startuptime_tries = 40
+		end,
+	},
 
 	{
 		"tris203/hawtkeys.nvim",

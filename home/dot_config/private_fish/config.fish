@@ -7,7 +7,7 @@ alias dcup='docker compose up'
 alias vv='select_nvim'
 
 set -g ANDROID_SDK_ROOT $HOME/Library/Android/sdk
-set -Ux fish_user_paths $HOME/Library/Android/sdk/platform-tools $fish_user_paths
+# set -Ux fish_user_paths $HOME/Library/Android/sdk/platform-tools $fish_user_paths
 set -x PATH $PATH /usr/local/bin
 set -Ux fish_user_paths /opt/homebrew/opt/llvm/bin $fish_user_paths
 
@@ -15,6 +15,16 @@ set -Ux fish_user_paths /opt/homebrew/opt/llvm/bin $fish_user_paths
 set -Ux fish_user_paths /Applications/WezTerm.app/Contents/MacOS $fish_user_paths
 # Rust
 set -x PATH $PATH $HOME/.cargo/bin
+set -x PATH $PATH $HOME/.local/bin
+# set -g JAVA_HOME /Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
+
+# swiftly
+set -x SWIFTLY_HOME_DIR "$HOME/.swiftly"
+set -x SWIFTLY_BIN_DIR "$HOME/.swiftly/bin"
+
+if not contains $SWIFTLY_BIN_DIR $PATH
+    set -x PATH $SWIFTLY_BIN_DIR $PATH
+end
 
 # neovim
 set -x XDG_CONFIG_HOME $HOME/.config
@@ -25,15 +35,6 @@ eval (/opt/homebrew/bin/brew shellenv)
 
 bind -M insert \cr _fzf_search_history
 bind -M insert \cF _fzf_search_directory
-
-# golang
-set -x GOENV_ROOT $HOME/.goenv
-set -x PATH $GOENV_ROOT/bin $PATH
-set -x PATH $GOPATH/bin $PATH
-eval (goenv init - | source)
-
-# direnv
-eval (direnv hook fish)
 
 # deno
 set -x PATH $HOME/.deno/bin $PATH
@@ -54,6 +55,7 @@ starship init fish | source
 zoxide init fish | source
 
 atuin init fish | source
+mise activate fish | source
 
 # if needed
 # --google-japanese-input=notfound

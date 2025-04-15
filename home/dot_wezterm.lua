@@ -101,7 +101,10 @@ end
 return {
 	use_ime = true,
 	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
-	font = wezterm.font("MesloLGM Nerd Font"),
+	font = wezterm.font_with_fallback({
+		"MesloLGM Nerd Font",
+		"HiraginoSans",
+	}),
 	color_scheme = color_scheme,
 	warn_about_missing_glyphs = false,
 	adjust_window_size_when_changing_font_size = false,
