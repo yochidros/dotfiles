@@ -65,7 +65,7 @@ local M = {
 						-- When `true`, will automatically select the first item in the completion list
 						preselect = true,
 						-- When `true`, inserts the completion item automatically when selecting it
-						auto_insert = false,
+						auto_insert = true,
 					},
 				},
 			},
@@ -121,7 +121,7 @@ local M = {
 				},
 			},
 			list = {
-				selection = { preselect = false, auto_insert = false },
+				selection = { preselect = true, auto_insert = false },
 			},
 			accept = {
 				auto_brackets = {
@@ -147,7 +147,7 @@ local M = {
 			},
 			documentation = {
 				auto_show = true,
-				auto_show_delay_ms = 500,
+				auto_show_delay_ms = 300,
 				window = {
 					border = "rounded",
 					winhighlight = "EndOfBuffer:BlinkCmpDoc",

@@ -21,7 +21,7 @@ function M.config()
 		},
 		integration = {
 			["xcodebuild-nvim"] = {
-				enable = true,
+				enable = false,
 			},
 		},
 	})

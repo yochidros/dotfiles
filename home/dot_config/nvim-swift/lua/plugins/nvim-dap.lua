@@ -2,6 +2,7 @@ local M = {
 	"mfussenegger/nvim-dap",
 	ft = "swift",
 	event = "VeryLazy",
+	cmd = { "XcodeBuildRun", "XcodeBuildBuild" },
 	dependencies = {
 		"wojciech-kulik/xcodebuild.nvim",
 	},

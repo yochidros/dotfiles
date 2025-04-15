@@ -106,7 +106,6 @@ function M.config()
 		end,
 		filetypes = { "swift", "objc" },
 		cmd = {
-			"xcrun",
 			"sourcekit-lsp",
 		},
 	})
@@ -121,7 +120,9 @@ function M.config()
 
 			local bufnr = args.buf
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			require("lsp-inlayhints").on_attach(client, bufnr)
+			if client then
+				require("lsp-inlayhints").on_attach(client, bufnr)
+			end
 		end,
 	})
 	vim.api.nvim_create_autocmd("LspAttach", {
@@ -134,7 +135,7 @@ function M.config()
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
 
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
 			-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 			vim.keymap.set("n", "<C-i>", vim.lsp.buf.signature_help, bufopts)

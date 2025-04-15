@@ -2,6 +2,7 @@ local progress_handle
 local M = {
 	"wojciech-kulik/xcodebuild.nvim",
 	event = "VeryLazy",
+	cmd = "XcodeBuild",
 	dependencies = {
 		"nvim-telescope/telescope.nvim",
 		"MunifTanjim/nui.nvim",
