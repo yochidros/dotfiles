@@ -73,7 +73,7 @@ cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 
 alt-shift-c = 'reload-config'
-alt-r = 'mode resize'
+alt-shift-r = 'mode resize'
 
 # All possible keys:
 # - Letters.        a, b, c, ..., z
@@ -116,8 +116,8 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -100'
-alt-shift-equal = 'resize smart +100'
+alt-shift-minus = 'resize smart -80'
+alt-shift-equal = 'resize smart +80'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-1 = 'workspace 1'

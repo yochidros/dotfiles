@@ -10,7 +10,7 @@ function M.config()
 	end
 
 	vim.api.nvim_command([[
-    let g:numbers_exclude = ['alpha', 'tagbar','w3m', 'Fern', 'vimshell', 'bufferline']
+    let g:numbers_exclude = ['alpha', 'tagbar','w3m', 'Fern', 'vimshell', 'bufferline', 'terminal']
   ]])
 end
 

@@ -32,14 +32,36 @@ function M.config()
 				diagnostics_format = "[eslint] #{m}\n#{c}",
 			}),
 			-- require("none-ls.code_actions.eslint_d"),
-			null_ls.builtins.formatting.prettierd,
+			null_ls.builtins.formatting.prettierd.with({
+				filetypes = {
+					"css",
+					"scss",
+					"less",
+					"html",
+					"yaml",
+					"markdown",
+					"handlebars",
+					"htmlangular",
+				},
+			}),
+			null_ls.builtins.formatting.biome.with({
+				filetypes = {
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact",
+					"json",
+					"jsonc",
+					"graphql",
+				},
+			}),
 			-- python
 			require("none-ls.diagnostics.flake8"),
 			null_ls.builtins.formatting.black,
 			null_ls.builtins.formatting.isort,
 			-- swift
-			null_ls.builtins.diagnostics.swiftlint,
-			null_ls.builtins.formatting.swiftformat,
+			-- null_ls.builtins.diagnostics.swiftlint,
+			-- null_ls.builtins.formatting.swiftformat,
 			-- ruby
 			null_ls.builtins.diagnostics.rubocop,
 			null_ls.builtins.formatting.rufo,

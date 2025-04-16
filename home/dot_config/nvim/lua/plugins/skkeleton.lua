@@ -42,7 +42,6 @@ function M.config()
 		keepState = true,
 		markerHenkan = "▽ ",
 		markerHenkanSelect = "▼ ",
-		usePopup = true,
 	})
 	vim.keymap.set({ "i" }, "<C-x>", "<Plug>(skkeleton-toggle)")
 end
