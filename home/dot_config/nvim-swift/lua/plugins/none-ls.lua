@@ -38,13 +38,13 @@ function M.config()
 			null_ls.builtins.formatting.black,
 			null_ls.builtins.formatting.isort,
 			-- swift
-			-- null_ls.builtins.diagnostics.swiftlint,
+			null_ls.builtins.diagnostics.swiftlint,
 			null_ls.builtins.formatting.swiftformat,
-			-- ruby
-			null_ls.builtins.diagnostics.rubocop,
-			null_ls.builtins.formatting.rufo,
-			-- Rust
-			null_ls.builtins.formatting.clang_format,
+			-- -- ruby
+			-- null_ls.builtins.diagnostics.rubocop,
+			-- null_ls.builtins.formatting.rufo,
+			-- -- Rust
+			-- null_ls.builtins.formatting.clang_format,
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then

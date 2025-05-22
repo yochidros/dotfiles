@@ -1,12 +1,12 @@
 local M = {
 	"vim-skk/skkeleton",
 	lazy = false,
-	commit = "8d0b7337013e466c578e024b7c8e5b5d297f0a3e", -- kowareteru
 	dependencies = {
 		{
 			"vim-denops/denops.vim",
 			config = function()
 				vim.g["denops#deno"] = "/opt/homebrew/bin/deno"
+				vim.g["denops#server#deno_arg"] = { "-q", "--no-lock", "-A", "--allow-import" }
 			end,
 		},
 	},
@@ -31,7 +31,6 @@ function M.config()
 		keepState = true,
 		markerHenkan = "▽ ",
 		markerHenkanSelect = "▼ ",
-		usePopup = true,
 	})
 	vim.keymap.set({ "i" }, "<C-x>", "<Plug>(skkeleton-toggle)")
 end

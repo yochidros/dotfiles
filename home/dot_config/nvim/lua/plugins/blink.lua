@@ -65,7 +65,7 @@ local M = {
 						-- When `true`, will automatically select the first item in the completion list
 						preselect = true,
 						-- When `true`, inserts the completion item automatically when selecting it
-						auto_insert = false,
+						auto_insert = true,
 					},
 				},
 			},
@@ -159,7 +159,6 @@ local M = {
 			enabled = true,
 			window = { border = "rounded" },
 		},
-
 		snippets = { preset = "luasnip" },
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`

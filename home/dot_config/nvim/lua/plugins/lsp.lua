@@ -22,12 +22,6 @@ local M = {
 				Hint = "#10B981",
 			},
 		},
-		{
-			"lvimuser/lsp-inlayhints.nvim",
-			config = function()
-				require("lsp-inlayhints").setup()
-			end,
-		},
 		{ "williamboman/mason-lspconfig.nvim" },
 		"saghen/blink.cmp",
 		{
@@ -68,8 +62,6 @@ function M.config()
 	}
 
 	local opts = { noremap = true, silent = true }
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -92,7 +84,6 @@ function M.config()
 			-- automatically setup via rustacean.nvim
 		end,
 		["clangd"] = function()
-			capabilities.offsetEncoding = { "utf-16" }
 			nvim_lsp.clangd.setup({
 				capabilities = capabilities,
 				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
@@ -141,7 +132,7 @@ function M.config()
 			local util = nvim_lsp.util
 			local root = util.root_pattern("buildServer.json")(filename)
 				or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
-				or util.find_git_ancestor(filename)
+				or vim.fs.dirname(vim.fs.find(".git", { path = filename, upward = true })[1])
 				or util.root_pattern("Package.swift")(filename)
 			if root then
 				return root
@@ -153,21 +144,6 @@ function M.config()
 		cmd = { "sourcekit-lsp" },
 	})
 
-	vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-	vim.api.nvim_create_autocmd("LspAttach", {
-		group = "LspAttach_inlayhints",
-		callback = function(args)
-			if not (args.data and args.data.client_id) then
-				return
-			end
-
-			local bufnr = args.buf
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			if client then
-				require("lsp-inlayhints").on_attach(client, bufnr)
-			end
-		end,
-	})
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(ev)

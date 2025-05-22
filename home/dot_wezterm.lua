@@ -102,6 +102,7 @@ return {
 	use_ime = true,
 	macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 	font = wezterm.font_with_fallback({
+		"Comic Mono",
 		"MesloLGS NF",
 		"Hiragino Sans",
 		"SF Pro Display",
