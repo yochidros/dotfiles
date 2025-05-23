@@ -23,14 +23,14 @@ return {
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
-	{
-		"airblade/vim-rooter",
-		event = "VeryLazy",
-		config = function()
-			vim.g.rooter_targets = { "*/.local/", "/", "*" }
-			vim.g.rooter_patterns = { ".git", "Makefile" }
-		end,
-	},
+	-- {
+	-- 	"airblade/vim-rooter",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		vim.g.rooter_targets = { "*/.local/", "/", "*" }
+	-- 		vim.g.rooter_patterns = { ".git", "Makefile" }
+	-- 	end,
+	-- },
 
 	---- auto tag
 	{
@@ -122,6 +122,19 @@ return {
 		config = function()
 			vim.g.vim_markdown_folding_disabled = 1
 		end,
+	},
+	{
+		"OXY2DEV/markview.nvim",
+		ft = "markdown",
+		lazy = false,
+		enabled = false,
+
+		-- For blink.cmp's completion
+		-- source
+		dependencies = {
+			"saghen/blink.cmp",
+		},
+		opts = {},
 	},
 
 	---- Swift

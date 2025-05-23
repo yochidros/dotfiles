@@ -232,15 +232,15 @@ esc = 'mode main'
     run = 'move-node-to-workspace 3' # mnemonics 3 - slack
 
 [[on-window-detected]]
-    if.app-id = 'com.openai.chat'
-    run = 'move-node-to-workspace 4' # mnemonics 4 - chat gpt
+    if.app-id = 'com.apple.dt.Xcode'
+    run = 'move-node-to-workspace 1' # mnemonics 1
 
 [[on-window-detected]]
-    if.app-id = 'com.apple.dt.Xcode'
+    if.app-id = 'com.apple.iphonesimulator'
     run = 'move-node-to-workspace 1' # mnemonics 1
 
 [[on-window-detected]]
     if.app-id = 'com.github.CopilotForXcode.ExtensionService'
     if.during-aerospace-startup = false
-    run = ['layout floating', 'move-node-to-workspace S']
+    run = ['layout floating', 'move-node-to-workspace 1']
 
