@@ -12,7 +12,6 @@ local M = {
 	event = { "BufReadPre", "BufNewFile" },
 	cmd = "LSP",
 	dependencies = {
-		{ "folke/neodev.nvim", opts = {} },
 		{
 			"folke/lsp-colors.nvim",
 			config = {
@@ -21,12 +20,6 @@ local M = {
 				Information = [[#0db9d7]],
 				Hint = "#10B981",
 			},
-		},
-		{
-			"lvimuser/lsp-inlayhints.nvim",
-			config = function()
-				require("lsp-inlayhints").setup()
-			end,
 		},
 		{ "williamboman/mason-lspconfig.nvim" },
 		"saghen/blink.cmp",
@@ -67,81 +60,55 @@ function M.config()
 		{ "│", "FloatBorder" },
 	}
 
-	local opts = { noremap = true, silent = true }
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-	vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
-
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "pylsp" },
-	})
-	local handlers = {
-		function(server_name) -- default handler (optional)
-			nvim_lsp[server_name].setup({
-				capabilities = capabilities,
-			})
-		end,
-		["pylsp"] = function()
-			nvim_lsp.pylsp.setup({
-				capabilities = capabilities,
-			})
-		end,
-		["rust_analyzer"] = function()
-			-- automatically setup via rustacean.nvim
-		end,
-		["clangd"] = function()
-			capabilities.offsetEncoding = { "utf-16" }
-			nvim_lsp.clangd.setup({
-				capabilities = capabilities,
-				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-			})
-		end,
-		["lua_ls"] = function()
-			require("neodev").setup()
-			nvim_lsp.lua_ls.setup({
-				on_init = function(client)
-					local path = client.workspace_folders[1].name
-					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-						return
-					end
-					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-						runtime = {
-							version = "LuaJIT",
-						},
-						diagnostics = {
-							globals = { "vim" },
-						},
-						hint = {
-							enable = true,
-						},
-						format = {
-							enable = false, -- Use StyLua
-						},
-						workspace = {
-							checkThirdParty = false,
-						},
-						unusedLocalExclude = { "_*" },
-					})
-				end,
-				capabilities = capabilities,
-			})
-		end,
-	}
-	require("mason-lspconfig").setup_handlers(handlers)
-
-	nvim_lsp.gleam.setup({
+	vim.lsp.config("*", {
 		capabilities = capabilities,
 	})
+
+	nvim_lsp.lua_ls.setup({
+		cmd = { "lua-language-server", "--force-accept-workspace" },
+		settings = {
+			Lua = {
+				runtime = {
+					version = "LuaJIT",
+				},
+				diagnostics = {
+					globals = {
+						"vim",
+						"require",
+					},
+				},
+				hint = {
+					enable = true,
+				},
+				format = {
+					enable = false, -- Use StyLua
+				},
+				workspace = {
+					ignoreDir = { "*" },
+					checkThirdParty = false,
+				},
+				unusedLocalExclude = { "_*" },
+			},
+		},
+	})
+
+	nvim_lsp.clangd.setup({
+		settings = {
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+		},
+	})
+
+	nvim_lsp.gleam.setup({})
+
 	-- swift
 	nvim_lsp.sourcekit.setup({
-		capabilities = capabilities,
 		root_dir = function(filename, _)
 			local util = nvim_lsp.util
 			local root = util.root_pattern("buildServer.json")(filename)
 				or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
-				or util.find_git_ancestor(filename)
+				or vim.fs.dirname(vim.fs.find(".git", { path = filename, upward = true })[1])
 				or util.root_pattern("Package.swift")(filename)
 			if root then
 				return root
@@ -153,21 +120,11 @@ function M.config()
 		cmd = { "sourcekit-lsp" },
 	})
 
-	vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-	vim.api.nvim_create_autocmd("LspAttach", {
-		group = "LspAttach_inlayhints",
-		callback = function(args)
-			if not (args.data and args.data.client_id) then
-				return
-			end
-
-			local bufnr = args.buf
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			if client then
-				require("lsp-inlayhints").on_attach(client, bufnr)
-			end
-		end,
+	require("mason-lspconfig").setup({
+		ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "pylsp" },
 	})
+
+	-- gleam formatting
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(ev)

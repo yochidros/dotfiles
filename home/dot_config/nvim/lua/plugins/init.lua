@@ -35,14 +35,15 @@ return {
 	"nvim-lua/plenary.nvim",
 
 	---- Fuzzy finder
-	{
-		"airblade/vim-rooter",
-		event = "VeryLazy",
-		config = function()
-			vim.g.rooter_targets = { "*/.local/", "/", "*" }
-			vim.g.rooter_patterns = { ".git", "Makefile" }
-		end,
-	},
+	-- {
+	-- 	"airblade/vim-rooter",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		vim.g.rooter_manual_only = 1
+	-- 		vim.g.rooter_targets = { "*/.local/", "/", "*" }
+	-- 		vim.g.rooter_patterns = { ".git", "Makefile" }
+	-- 	end,
+	-- },
 
 	---- auto tag
 	{

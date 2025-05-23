@@ -4,10 +4,10 @@ local M = {
 	enabled = true,
 	opts = {
 		enabled = function()
-			local skk_enabled = vim.fn["skkeleton#is_enabled"]()
-			if skk_enabled then
-				return false
-			end
+			-- local skk_enabled = vim.fn["skkeleton#is_enabled"]()
+			-- if skk_enabled then
+			-- 	return false
+			-- end
 			return not vim.tbl_contains({ "markdown" }, vim.bo.filetype)
 		end,
 		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
@@ -65,7 +65,7 @@ local M = {
 						-- When `true`, will automatically select the first item in the completion list
 						preselect = true,
 						-- When `true`, inserts the completion item automatically when selecting it
-						auto_insert = false,
+						auto_insert = true,
 					},
 				},
 			},
@@ -121,7 +121,7 @@ local M = {
 				},
 			},
 			list = {
-				selection = { preselect = false, auto_insert = false },
+				selection = { preselect = true, auto_insert = false },
 			},
 			accept = {
 				auto_brackets = {
