@@ -1,9 +1,8 @@
 # common
 set -gx TERM xterm-256color
 alias ls='lsd'
+alias la='lsd -al'
 alias vim='nvim'
-alias dcdn='docker compose down'
-alias dcup='docker compose up'
 alias vv='select_nvim'
 
 set -g ANDROID_SDK_ROOT $HOME/Library/Android/sdk
@@ -25,8 +24,6 @@ set -Ux fish_user_paths /Applications/WezTerm.app/Contents/MacOS $fish_user_path
 alias imgcat='wezterm imgcat'
 # Rust
 set -x PATH $PATH $HOME/.cargo/bin
-set -x PATH $PATH $HOME/.local/bin
-# set -g JAVA_HOME /Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
 
 # swiftly
 set -x SWIFTLY_HOME_DIR "$HOME/.swiftly"
@@ -43,8 +40,8 @@ set -x EDITOR nvim
 # homebrew
 eval (/opt/homebrew/bin/brew shellenv)
 
-bind -M insert \cr _fzf_search_history
-bind -M insert \cF _fzf_search_directory
+bind -M insert ctrl-r _fzf_search_history
+bind -M insert ctrl-f _fzf_search_directory
 
 # deno
 set -x PATH $HOME/.deno/bin $PATH
@@ -66,6 +63,6 @@ set -x OPENAI_API_KEY (cat ~/.chatgpt)
 # startup
 starship init fish | source
 zoxide init fish | source
-atuin init fish | source
+cat ./atuin.fish | source
 mise activate fish | source
 
