@@ -6,6 +6,7 @@ local M = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"jonarrien/telescope-cmdline.nvim",
+		"nvim-telescope/telescope-file-browser.nvim",
 	},
 }
 
@@ -44,11 +45,18 @@ function M.config()
 	})
 	telescope.load_extension("ui-select")
 	telescope.load_extension("cmdline")
+	telescope.load_extension("file_browser")
 	vim.keymap.set("n", "<leader>ff", M["find_files"], {})
 	vim.keymap.set("n", "<C-g>", M["live_grep"], {})
 	vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
 	vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, {})
 	vim.keymap.set("n", "<leader>fc", ":silent Telescope cmdline<CR>", { noremap = true, desc = "Cmdline" })
+	vim.keymap.set(
+		"n",
+		"<leader>fp",
+		M["file_browser_insert_path"],
+		{ noremap = true, desc = "File Browser insert_path" }
+	)
 
 	vim.api.nvim_set_hl(0, "TelescopePromptNormal", { ctermbg = 255 })
 	vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { ctermbg = 255 })
@@ -68,6 +76,29 @@ function M.find_files()
 		multi_icon = "<>",
 	})
 end
+
+function M.file_browser_insert_path()
+	require("telescope").extensions.file_browser.file_browser({
+		attach_mappings = function(_, map)
+			map("i", "i", function(prompt_bufnr)
+				local entry = require("telescope.actions.state").get_selected_entry()
+				require("telescope.actions").close(prompt_bufnr)
+				if entry and entry.path then
+					vim.api.nvim_put({ entry.path }, "", false, true)
+				end
+			end)
+			map("n", "i", function(prompt_bufnr)
+				local entry = require("telescope.actions.state").get_selected_entry()
+				require("telescope.actions").close(prompt_bufnr)
+				if entry and entry.path then
+					vim.api.nvim_put({ entry.path }, "", false, true)
+				end
+			end)
+			return true
+		end,
+	})
+end
+
 function M.live_grep()
 	require("telescope.builtin").live_grep({
 		width = 0.1,

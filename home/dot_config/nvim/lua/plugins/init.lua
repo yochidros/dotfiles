@@ -27,9 +27,17 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = {},
 	},
+	-- {
+	-- 	"nvim-tree/nvim-web-devicons",
+	-- 	config = { default = true },
+	-- },
 	{
-		"nvim-tree/nvim-web-devicons",
-		config = { default = true },
+		"echasnovski/mini.nvim",
+		version = "*",
+		lazy = false,
+		config = function()
+			require("mini.icons").setup()
+		end,
 	},
 	---- Plenary
 	"nvim-lua/plenary.nvim",

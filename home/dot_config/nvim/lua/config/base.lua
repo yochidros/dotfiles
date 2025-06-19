@@ -69,6 +69,7 @@ vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 o.foldmethod = "indent"
 o.foldlevelstart = 99
 o.laststatus = 3
+o.lazyredraw = true
 -- o.foldlevel = 2
 
 -- reload current source
@@ -82,15 +83,4 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt.softtabstop = 0
 		vim.opt.expandtab = false
 	end,
-})
-
--- Podfileにrubyのsyntaxを当てる
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "Podfile", "*.podspec" },
-	command = "set filetype=ruby",
-})
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-	pattern = "*",
-	command = "set nopaste",
 })
