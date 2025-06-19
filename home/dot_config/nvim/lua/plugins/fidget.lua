@@ -22,6 +22,11 @@ function M.config()
 		progress = {
 			ignore = { "null-ls", "gleam" },
 		},
+		integration = {
+			["xcodebuild-nvim"] = {
+				enable = false, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
+			},
+		},
 	})
 
 	-- vim.api.nvim_create_autocmd("VimLeavePre", {

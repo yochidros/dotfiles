@@ -5,6 +5,7 @@ local M = {
 	dependencies = {
 		{
 			"vim-denops/denops.vim",
+			tag = "v7.0.5",
 			config = function()
 				vim.g["denops#deno"] = "/opt/homebrew/bin/deno"
 			end,

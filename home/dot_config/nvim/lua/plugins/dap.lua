@@ -1,6 +1,6 @@
 local M = {
 	"mfussenegger/nvim-dap",
-	event = "VeryLazy",
+	cmd = "LLDBStart",
 	config = function()
 		local dap = require("dap")
 		dap.configurations.rust = {

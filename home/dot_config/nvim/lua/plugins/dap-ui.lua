@@ -1,10 +1,6 @@
 return {
 	"rcarriga/nvim-dap-ui",
-	dependencies = {
-		"mfussenegger/nvim-dap",
-		"nvim-neotest/nvim-nio",
-	},
-	event = "VeryLazy",
+	cmd = "LLDBStart",
 	config = function()
 		require("dapui").setup({
 			controls = {
@@ -54,4 +50,8 @@ return {
 			dapui.close()
 		end
 	end,
+	dependencies = {
+		"mfussenegger/nvim-dap",
+		"nvim-neotest/nvim-nio",
+	},
 }
