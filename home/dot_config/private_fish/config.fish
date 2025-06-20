@@ -63,6 +63,6 @@ set -x OPENAI_API_KEY (cat ~/.chatgpt)
 # startup
 starship init fish | source
 zoxide init fish | source
-cat ./atuin.fish | source
+cat atuin.fish | source
 mise activate fish | source
 
