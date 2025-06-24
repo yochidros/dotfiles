@@ -1,6 +1,5 @@
 local M = {
 	"CopilotC-Nvim/CopilotChat.nvim",
-	-- event = "VeryLazy",
 	cmd = { "CopilotChat", "CopilotChatOpen", "CopilotChatClose", "CopilotChatAsk" },
 	dependencies = {
 		{ "zbirenbaum/copilot.lua" },

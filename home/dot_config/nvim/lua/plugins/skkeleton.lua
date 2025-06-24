@@ -1,6 +1,5 @@
 local M = {
 	"vim-skk/skkeleton",
-	-- これ以上に上げるとstreamsが見つからないエラーに遭遇する
 	lazy = false,
 	dependencies = {
 		{

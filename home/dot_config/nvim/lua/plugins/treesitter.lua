@@ -23,7 +23,7 @@ function M.config()
 		rainbow = {
 			enable = true,
 			extended_mode = true,
-			max_file_lines = nil,
+			max_file_lines = 12000,
 		},
 	})
 end

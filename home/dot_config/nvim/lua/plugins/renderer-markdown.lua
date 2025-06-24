@@ -1,12 +1,11 @@
 return {
 	"MeanderingProgrammer/render-markdown.nvim",
 	event = "VeryLazy",
-	dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-	-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+	dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
 	---@module 'render-markdown'
 	---@type render.md.UserConfig
 	opts = {
-		file_types = { "markdown", "copilot-chat", "Avante", "AvanteTodos", "txt" },
+		file_types = { "markdown", "copilot-chat", "Avante", "txt" },
 	},
 	ft = { "markdown", "Avante", "txt", "copilot-chat" },
 }

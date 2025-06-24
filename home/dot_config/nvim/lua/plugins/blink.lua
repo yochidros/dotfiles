@@ -160,10 +160,8 @@ local M = {
 			window = { border = "rounded" },
 		},
 		snippets = { preset = "luasnip" },
-		-- Default list of enabled providers defined so that you can extend it
-		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "copilot" },
+			default = { "lsp", "path", "snippets", "buffer", "avante", "copilot" },
 			providers = {
 				copilot = {
 					name = "copilot",
@@ -171,19 +169,21 @@ local M = {
 					score_offset = 100,
 					async = true,
 				},
+				avante = {
+					module = "blink-cmp-avante",
+					name = "Avante",
+					opts = {
+						-- options for blink-cmp-avante
+					},
+				},
 			},
 		},
-
-		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-		--
-		-- See the fuzzy documentation for more information
 		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
 	opts_extend = { "sources.default" },
 	dependencies = {
 		"giuxtaposition/blink-cmp-copilot",
+		"Kaiser-Yang/blink-cmp-avante",
 		{
 			"L3MON4D3/LuaSnip",
 			version = "v2.*",
