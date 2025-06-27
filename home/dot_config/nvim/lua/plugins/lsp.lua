@@ -99,6 +99,7 @@ function M.config()
 			filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 		},
 	})
+	nvim_lsp.harper_ls.setup({})
 
 	nvim_lsp.gleam.setup({})
 
