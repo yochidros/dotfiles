@@ -60,6 +60,9 @@ set -x OPENAI_API_KEY (cat ~/.chatgpt)
 # haskell
 # set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /Users/yochidros/.ghcup/bin $PATH # ghcup-env
 
+# uv
+set -x PATH $PATH ~/.local/bin
+
 # startup
 starship init fish | source
 zoxide init fish | source

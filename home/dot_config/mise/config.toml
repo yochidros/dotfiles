@@ -1,0 +1,12 @@
+[tools]
+ruby = "latest"
+node = "latest"
+go = "latest"
+python = "3.11"
+swiftformat = "latest"
+swiftlint = "0.57.1"
+uv = "latest"
+
+[settings]
+experimental = true
+idiomatic_version_file_enable_tools = []
