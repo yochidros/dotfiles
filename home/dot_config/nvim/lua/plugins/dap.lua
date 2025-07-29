@@ -1,6 +1,6 @@
 local M = {
 	"mfussenegger/nvim-dap",
-	cmd = "LLDBStart",
+	cmd = "DapBreakpoint",
 	config = function()
 		local dap = require("dap")
 		dap.configurations.rust = {

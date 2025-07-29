@@ -27,10 +27,6 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = {},
 	},
-	-- {
-	-- 	"nvim-tree/nvim-web-devicons",
-	-- 	config = { default = true },
-	-- },
 	{
 		"echasnovski/mini.nvim",
 		version = "*",
@@ -42,17 +38,6 @@ return {
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 
-	---- Fuzzy finder
-	-- {
-	-- 	"airblade/vim-rooter",
-	-- 	event = "VeryLazy",
-	-- 	config = function()
-	-- 		vim.g.rooter_manual_only = 1
-	-- 		vim.g.rooter_targets = { "*/.local/", "/", "*" }
-	-- 		vim.g.rooter_patterns = { ".git", "Makefile" }
-	-- 	end,
-	-- },
-
 	---- auto tag
 	{
 		"windwp/nvim-ts-autotag",
@@ -61,9 +46,6 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-
-	---- Silicon
-	-- { "segeljakt/vim-silicon", cmd = "Silicon" },
 
 	---- Align
 	{

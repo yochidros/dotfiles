@@ -122,7 +122,13 @@ function M.config()
 	})
 
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "pylsp" },
+		ensure_installed = { "lua_ls", "clangd", "pylsp" },
+		automatic_enable = {
+			exclude = {
+				"rust_analyzer",
+				"ts_ls",
+			},
+		},
 	})
 
 	-- gleam formatting
