@@ -75,6 +75,13 @@ o.lazyredraw = true
 -- reload current source
 vim.keymap.set("n", "<leader>rc", ":so $MYVIMRC<CR>", { silent = true, noremap = false })
 
+-- Workaround for save and close nvim by nvim-termial buffer opened.
+-- cf: nvim bugs: https://github.com/neovim/neovim/issues/14061
+vim.cmd([[
+  command! Z wa | qa
+  cabbrev wqa Z
+]])
+
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "make",
 	callback = function()
