@@ -2,6 +2,9 @@ local M = {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "VeryLazy",
+	dependencies = {
+		"copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+	},
 }
 
 function M.config()
@@ -9,6 +12,7 @@ function M.config()
 	require("copilot").setup({
 		suggestion = { enabled = false, debounce = 1 },
 		panel = { enabled = false },
+		nes = { enabled = false },
 	})
 end
 return M

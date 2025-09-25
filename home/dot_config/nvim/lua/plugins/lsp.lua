@@ -45,10 +45,6 @@ local M = {
 }
 
 function M.config()
-	local nvim_s, nvim_lsp = pcall(require, "lspconfig")
-	if not nvim_s then
-		return
-	end
 	require("lspconfig.ui.windows").default_options.border = {
 		{ "╭", "FloatBorder" },
 		{ "─", "FloatBorder" },
@@ -65,61 +61,7 @@ function M.config()
 	vim.lsp.config("*", {
 		capabilities = capabilities,
 	})
-
-	nvim_lsp.lua_ls.setup({
-		cmd = { "lua-language-server", "--force-accept-workspace" },
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-				},
-				diagnostics = {
-					globals = {
-						"vim",
-						"require",
-					},
-				},
-				hint = {
-					enable = true,
-				},
-				format = {
-					enable = false, -- Use StyLua
-				},
-				workspace = {
-					ignoreDir = { "*" },
-					checkThirdParty = false,
-				},
-				unusedLocalExclude = { "_*" },
-			},
-		},
-	})
-
-	nvim_lsp.clangd.setup({
-		settings = {
-			filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-		},
-	})
-	nvim_lsp.harper_ls.setup({})
-
-	nvim_lsp.gleam.setup({})
-
-	-- swift
-	nvim_lsp.sourcekit.setup({
-		root_dir = function(filename, _)
-			local util = nvim_lsp.util
-			local root = util.root_pattern("buildServer.json")(filename)
-				or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
-				or vim.fs.dirname(vim.fs.find(".git", { path = filename, upward = true })[1])
-				or util.root_pattern("Package.swift")(filename)
-			if root then
-				return root
-			else
-				return vim.fn.getcwd()
-			end
-		end,
-		filetypes = { "swift", "objc", "objcpp" },
-		cmd = { "sourcekit-lsp" },
-	})
+	vim.lsp.enable({ "clangd", "lua_ls", "gleam", "sourcekit" })
 
 	require("mason-lspconfig").setup({
 		ensure_installed = { "lua_ls", "clangd", "pylsp" },

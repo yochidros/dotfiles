@@ -4,10 +4,6 @@ local M = {
 	enabled = true,
 	opts = {
 		enabled = function()
-			-- local skk_enabled = vim.fn["skkeleton#is_enabled"]()
-			-- if skk_enabled then
-			-- 	return false
-			-- end
 			return not vim.tbl_contains({ "markdown" }, vim.bo.filetype)
 		end,
 		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
@@ -24,7 +20,8 @@ local M = {
 		-- See :h blink-cmp-config-keymap for defining your own keymap
 		keymap = {
 			preset = "enter",
-			["<C-e>"] = {},
+			["<CR>"] = { "select_and_accept", "fallback" },
+			["<C-e>"] = { "cancel", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			["<C-f>"] = { "scroll_documentation_down", "fallback" },
 		},
@@ -161,20 +158,13 @@ local M = {
 		},
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "avante", "copilot" },
+			default = { "lsp", "path", "snippets", "buffer", "copilot" },
 			providers = {
 				copilot = {
 					name = "copilot",
-					module = "blink-cmp-copilot",
+					module = "blink-copilot",
 					score_offset = 100,
 					async = true,
-				},
-				avante = {
-					module = "blink-cmp-avante",
-					name = "Avante",
-					opts = {
-						-- options for blink-cmp-avante
-					},
 				},
 			},
 		},
@@ -182,8 +172,8 @@ local M = {
 	},
 	opts_extend = { "sources.default" },
 	dependencies = {
-		"giuxtaposition/blink-cmp-copilot",
-		"Kaiser-Yang/blink-cmp-avante",
+		"fang2hou/blink-copilot",
+		-- "giuxtaposition/blink-cmp-copilot",
 		{
 			"L3MON4D3/LuaSnip",
 			version = "v2.*",

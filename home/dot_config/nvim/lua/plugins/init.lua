@@ -93,7 +93,44 @@ return {
 	},
 
 	---- Multi cursol
-	{ "mg979/vim-visual-multi", event = "VeryLazy", branch = "master" },
+	{
+		"mg979/vim-visual-multi",
+		event = "VeryLazy",
+		branch = "master",
+		init = function()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "visual_multi_exit",
+				callback = function()
+					local keymaps = vim.api.nvim_buf_get_keymap(0, "i")
+					for _, map in ipairs(keymaps) do
+						if map.desc == "blink.cmp" then
+							vim.keymap.del("i", map.lhs, { buffer = 0 })
+						end
+					end
+					require("blink.cmp.keymap.apply").keymap_to_current_buffer({
+						["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+						-- ["<C-c>"] = { "cancel", "fallback" },
+						["<C-e>"] = { "cancel", "fallback" },
+						-- ["<Esc>"] = { "cancel", "fallback" },
+						["<CR>"] = { "select_and_accept", "fallback" },
+						["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+						["<C-n>"] = { "select_next", "fallback_to_mappings" },
+						["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+						["<Tab>"] = { "select_next", "fallback" },
+						["<S-Tab>"] = { "select_prev", "fallback" },
+						["<C-d>"] = {
+							"scroll_documentation_down",
+							"fallback",
+						},
+						["<C-f>"] = {
+							"scroll_documentation_down",
+							"fallback",
+						},
+					})
+				end,
+			})
+		end,
+	},
 
 	---- Translator
 	{

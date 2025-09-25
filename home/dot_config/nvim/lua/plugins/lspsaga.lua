@@ -21,6 +21,10 @@ function M.config()
 		lightbulb = {
 			debounce = 500,
 		},
+		floaterm = {
+			height = 0.8,
+			width = 0.8,
+		},
 	})
 
 	-- lsp finder to find the cursor word definition and reference
@@ -61,7 +65,7 @@ function M.config()
 	end)
 
 	-- float terminal also you can pass the cli command in open_float_terminal function
-	vim.keymap.set("n", "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+	vim.keymap.set("n", "<A-d>", "<cmd>Lspsaga term_toggle fish<CR>")
 	vim.keymap.set("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga term_toggle<CR>]])
 end
 
