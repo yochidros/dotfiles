@@ -21,7 +21,22 @@ local M = {
 				Hint = "#10B981",
 			},
 		},
-		{ "williamboman/mason-lspconfig.nvim" },
+		{
+			"williamboman/mason-lspconfig.nvim",
+			opts = {
+				ensure_installed = { "lua_ls", "clangd", "pylsp" },
+				automatic_enable = {
+					exclude = {
+						"rust_analyzer",
+						"ts_ls",
+					},
+				},
+			},
+			dependencies = {
+				{ "mason-org/mason.nvim", opts = {} },
+				"neovim/nvim-lspconfig",
+			},
+		},
 		"saghen/blink.cmp",
 		{
 			"ray-x/lsp_signature.nvim",
@@ -58,19 +73,32 @@ function M.config()
 
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-	vim.lsp.config("*", {
-		capabilities = capabilities,
+	vim.lsp.enable({ --[[ "gleam", ]]
+		"sourcekit",
 	})
-	vim.lsp.enable({ "clangd", "lua_ls", "gleam", "sourcekit" })
 
-	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "clangd", "pylsp" },
-		automatic_enable = {
-			exclude = {
-				"rust_analyzer",
-				"ts_ls",
-			},
-		},
+	vim.lsp.config("*", {
+		on_attach = function(_, bufnr)
+			require("lsp_signature").on_attach({}, bufnr)
+			local bufopts = { noremap = true, silent = true, buffer = bufnr }
+			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+			-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+			vim.keymap.set("n", "<M-x>", vim.lsp.buf.signature_help, bufopts)
+			vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+			vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+			vim.keymap.set("n", "<leader>wl", function() end, bufopts)
+			vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set("n", "<leader>f", function()
+				vim.lsp.buf.format({ async = true })
+			end, bufopts)
+		end,
+		capabilities = capabilities,
 	})
 
 	-- gleam formatting
@@ -97,25 +125,6 @@ function M.config()
 					end,
 				})
 			end
-
-			require("lsp_signature").on_attach({}, bufnr)
-			local bufopts = { noremap = true, silent = true, buffer = bufnr }
-			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-			-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-			vim.keymap.set("n", "<M-x>", vim.lsp.buf.signature_help, bufopts)
-			vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-			vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-			vim.keymap.set("n", "<space>wl", function() end, bufopts)
-			vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-			vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-			vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-			vim.keymap.set("n", "<space>f", function()
-				vim.lsp.buf.format({ async = true })
-			end, bufopts)
 		end,
 	})
 end

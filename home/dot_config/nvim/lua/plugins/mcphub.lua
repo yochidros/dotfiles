@@ -7,13 +7,7 @@ local M = {
 	cmd = "MCPHub",
 	config = function()
 		local mcp = require("mcphub")
-		mcp.setup({
-			extensions = {
-				avante = {
-					make_slash_commands = true, -- make /slash commands from MCP server prompts
-				},
-			},
-		})
+		mcp.setup({})
 	end,
 }
 return M

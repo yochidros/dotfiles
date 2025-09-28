@@ -158,13 +158,19 @@ local M = {
 		},
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "copilot" },
+			default = { "lsp", "path", "snippets", "buffer", "copilot", "lazydev" },
 			providers = {
 				copilot = {
 					name = "copilot",
 					module = "blink-copilot",
 					score_offset = 100,
 					async = true,
+				},
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					-- make lazydev completions top priority (see `:h blink.cmp`)
+					score_offset = 100,
 				},
 			},
 		},
@@ -173,6 +179,17 @@ local M = {
 	opts_extend = { "sources.default" },
 	dependencies = {
 		"fang2hou/blink-copilot",
+		{
+			"folke/lazydev.nvim",
+			ft = "lua", -- only load on lua files
+			opts = {
+				library = {
+					-- See the configuration section for more details
+					-- Load luvit types when the `vim.uv` word is found
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				},
+			},
+		},
 		-- "giuxtaposition/blink-cmp-copilot",
 		{
 			"L3MON4D3/LuaSnip",
