@@ -2,10 +2,12 @@
 ruby = "latest"
 node = "latest"
 go = "latest"
-python = "3.11"
+python = "latest"
 swiftformat = "latest"
-swiftlint = "0.57.1"
+swiftlint = "latest"
 uv = "latest"
+
+"npm:@openai/codex" = "latest"
 
 [settings]
 experimental = true

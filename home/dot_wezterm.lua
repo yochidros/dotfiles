@@ -156,6 +156,13 @@ return {
 		},
 		{ key = "n", mods = "LEADER", action = act.RotatePanes("Clockwise") },
 
+		{
+			key = "S",
+			mods = "LEADER",
+			action = act.PaneSelect({
+				mode = "SwapWithActive",
+			}),
+		},
 		-- Split
 		{
 			key = "|",
