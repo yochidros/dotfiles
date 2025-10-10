@@ -1,5 +1,4 @@
 local function setup()
-	vim.g.lightline_skk_announce = true
 	local dark_theme = require("lualine.themes.gruvbox_dark")
 	local light_theme = require("lualine.themes.gruvbox_light")
 	local _ = require("config.dark_mode")
@@ -20,22 +19,43 @@ local function setup()
 				"os.date('%H:%M:%S')",
 				"filename",
 				"require'lsp-status'.status()",
+				{
+					function()
+						return " "
+					end,
+					color = function()
+						local status = require("sidekick.status").get()
+						if status then
+							return status.kind == "Error" and "DiagnosticError"
+								or status.busy and "DiagnosticWarn"
+								or "Special"
+						end
+					end,
+					cond = function()
+						local status = require("sidekick.status")
+						return status.get() ~= nil
+					end,
+				},
 			},
 		},
 		extensions = { "fugitive", "fern" },
 	})
 end
 
+local function opts(_, _)
+	vim.g.lightline_skk_announce = true
+	setup()
+end
+
 local M = {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
-	lazy = false,
 	dependencies = {
 		{
 			"yasunori0418/statusline_skk.vim",
 		},
 	},
-	opts = setup,
+	opts = opts,
 	refresh = setup,
 }
 

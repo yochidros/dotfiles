@@ -1,6 +1,18 @@
 local M = {
 	"vim-skk/skkeleton",
 	lazy = false,
+	enabled = function()
+		local candidates = {
+			"~/Library/Input Methods/macSKK.app",
+			"/Library/Input Methods/macSKK.app",
+		}
+		for _, path in ipairs(candidates) do
+			if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
+				return false
+			end
+		end
+		return true
+	end,
 	dependencies = {
 		{
 			"vim-denops/denops.vim",

@@ -24,6 +24,25 @@ local M = {
 			["<C-e>"] = { "cancel", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			["<Tab>"] = {
+				function(cmp)
+					if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+						cmp.hide()
+						vim.notify("Applying copilot NES")
+						return (
+							require("copilot-lsp.nes").apply_pending_nes()
+							and require("copilot-lsp.nes").walk_cursor_end_edit()
+						)
+					end
+					if cmp.snippet_active() then
+						return cmp.accept()
+					else
+						return cmp.select_and_accept()
+					end
+				end,
+				"snippet_forward",
+				"fallback",
+			},
 		},
 		cmdline = {
 			enabled = true,
@@ -178,7 +197,6 @@ local M = {
 	},
 	opts_extend = { "sources.default" },
 	dependencies = {
-		"fang2hou/blink-copilot",
 		{
 			"folke/lazydev.nvim",
 			ft = "lua", -- only load on lua files
@@ -189,6 +207,34 @@ local M = {
 					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				},
 			},
+		},
+		{
+			"copilotlsp-nvim/copilot-lsp",
+			dependencies = { "fang2hou/blink-copilot" },
+			init = function()
+				vim.g.copilot_nes_debounce = 500
+				vim.lsp.enable("copilot_ls")
+				vim.keymap.set("n", "<tab>", function()
+					local bufnr = vim.api.nvim_get_current_buf()
+					local state = vim.b[bufnr].nes_state
+					vim.notify("copilot NES state:", state)
+					if state then
+						vim.notify("Applying copilot NES")
+						-- Try to jump to the start of the suggestion edit.
+						-- If already at the start, then apply the pending suggestion and jump to the end of the edit.
+						local _ = require("copilot-lsp.nes").walk_cursor_start_edit()
+							or (
+								require("copilot-lsp.nes").apply_pending_nes()
+								and require("copilot-lsp.nes").walk_cursor_end_edit()
+							)
+						return nil
+					else
+						vim.notify("No copilot NES to apply")
+						-- Resolving the terminal's inability to distinguish between `TAB` and `<C-i>` in normal mode
+						return "<C-i>"
+					end
+				end, { desc = "Accept Copilot NES suggestion", expr = true })
+			end,
 		},
 		-- "giuxtaposition/blink-cmp-copilot",
 		{

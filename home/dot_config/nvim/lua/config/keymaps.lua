@@ -3,6 +3,7 @@ local keymap = vim.keymap
 -- window
 keymap.set("n", "<C-h>", "<C-w>h", { noremap = true })
 keymap.set("n", "<C-j>", "<C-w>j", { noremap = true })
+keymap.set("n", "<C-S-J>", "<C-w>j", { noremap = true })
 keymap.set("n", "<C-k>", "<C-w>k", { noremap = true })
 keymap.set("n", "<C-l>", "<C-w>l", { noremap = true })
 keymap.set("n", "sh", "<C-w>h", { noremap = true })
@@ -29,3 +30,5 @@ keymap.set("n", "no", ":noh<CR>", { silent = true })
 keymap.set("n", "<leader>m", "za", { desc = "Toggle fold" })
 
 keymap.set("n", "<leader>dt", ":r!echo -n '\\#\\#\\#\\# ' && date +\\%Y年\\%m月\\%d日\\ \\%H:\\%m:\\%S\\ \\%Z<CR>")
+
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
