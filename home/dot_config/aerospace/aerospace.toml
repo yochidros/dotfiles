@@ -237,11 +237,11 @@ esc = 'mode main'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.dt.Xcode'
-    run = 'move-node-to-workspace 1'
+    run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.iphonesimulator'
-    run = 'move-node-to-workspace 1'
+    run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
     if.app-id = 'com.openai.chat'
