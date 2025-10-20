@@ -33,7 +33,7 @@ function M.config()
 	end
 	require("obsidian-bridge").setup({
 		obsidian_server_address = "http://localhost:27123",
-		scroll_sync = true,
+		scroll_sync = false,
 	})
 	vim.cmd("set conceallevel=1")
 	obsidian.setup({
