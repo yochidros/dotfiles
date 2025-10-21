@@ -108,8 +108,7 @@ return {
 		"SF Pro Display",
 		"Noto Color Emoji",
 	}),
-	-- front_end = "WebGpu",
-	front_end = "OpenGL", -- Workaround for macOS 26 above. This issue is cursor moving is delayed after a while.
+	front_end = "WebGpu",
 	color_scheme = color_scheme,
 	warn_about_missing_glyphs = false,
 	adjust_window_size_when_changing_font_size = false,
