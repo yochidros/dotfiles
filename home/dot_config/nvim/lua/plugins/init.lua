@@ -59,20 +59,8 @@ return {
 		end,
 	},
 
-	---- Git
-	{
-		"airblade/vim-gitgutter",
-		event = "VeryLazy",
-		config = function()
-			vim.keymap.set("n", "[h", "<Plug>(GitGutterNextHunk)", { silent = true })
-			vim.keymap.set("n", "]h", "<Plug>(GitGutterPrevHunk)", { silent = true })
-			-- 記号の色を変更する
-			vim.cmd("highlight GitGutterAdd ctermfg=green")
-			vim.cmd("highlight GitGutterChange ctermfg=blue")
-			vim.cmd("highlight GitGutterDelete ctermfg=red")
-		end,
-	},
-	{ "APZelos/blamer.nvim", event = "VeryLazy" },
+	-- Git
+	-- moved to plugins/gitsign.lua
 
 	---- Scroll bar
 	{
@@ -166,7 +154,7 @@ return {
 		ft = "markdown",
 		build = "cd app && npx yarn install",
 		config = function()
-			vim.g.mkdp_browser = "firefox"
+			vim.g.mkdp_browser = "Browserosaurus"
 		end,
 	},
 	{

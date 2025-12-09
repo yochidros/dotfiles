@@ -31,4 +31,4 @@ keymap.set("n", "<leader>m", "za", { desc = "Toggle fold" })
 
 keymap.set("n", "<leader>dt", ":r!echo -n '\\#\\#\\#\\# ' && date +\\%Y年\\%m月\\%d日\\ \\%H:\\%m:\\%S\\ \\%Z<CR>")
 
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+-- vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })

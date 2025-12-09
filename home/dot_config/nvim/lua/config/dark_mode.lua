@@ -30,6 +30,11 @@ timer:start(
 			vim.api.nvim_set_option_value("background", "dark", {})
 		else
 			vim.api.nvim_set_option_value("background", "light", {})
+
+			-- git signs colors
+			vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#48dd98" })
+			vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff2039" })
+			vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#fabd2f" })
 		end
 	end)
 )

@@ -18,7 +18,9 @@ function M.config()
 		palette_overrides = {
 			-- dark2 = "#1d2021",
 		},
-		overrides = {},
+		overrides = {
+			SignColumn = { bg = "none" },
+		},
 		dim_inactive = true,
 		transparent_mode = false,
 	})
@@ -31,11 +33,17 @@ function M.config()
 	vim.cmd("colorscheme gruvbox")
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 	vim.api.nvim_set_hl(0, "FloatBorder", { fg = "white" })
+
+	if not is_dark_mode then
+		vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#48dd98" })
+		vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff2039" })
+		vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#fabd2f" })
+	end
 end
 
 return M
 --
--- M.colors = {
+-- Gruvbox.palette = {
 --   dark0_hard = "#1d2021",
 --   dark0 = "#282828",
 --   dark0_soft = "#32302f",
@@ -71,5 +79,23 @@ return M
 --   faded_purple = "#8f3f71",
 --   faded_aqua = "#427b58",
 --   faded_orange = "#af3a03",
+--   dark_red_hard = "#792329",
+--   dark_red = "#722529",
+--   dark_red_soft = "#7b2c2f",
+--   light_red_hard = "#fc9690",
+--   light_red = "#fc9487",
+--   light_red_soft = "#f78b7f",
+--   dark_green_hard = "#5a633a",
+--   dark_green = "#62693e",
+--   dark_green_soft = "#686d43",
+--   light_green_hard = "#d3d6a5",
+--   light_green = "#d5d39b",
+--   light_green_soft = "#cecb94",
+--   dark_aqua_hard = "#3e4934",
+--   dark_aqua = "#49503b",
+--   dark_aqua_soft = "#525742",
+--   light_aqua_hard = "#e6e9c1",
+--   light_aqua = "#e8e5b5",
+--   light_aqua_soft = "#e1dbac",
 --   gray = "#928374",
 -- }

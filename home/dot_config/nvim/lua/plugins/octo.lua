@@ -1,13 +1,12 @@
 local M = {
 	"pwntester/octo.nvim",
-	-- event = "VeryLazy",
+	event = "VeryLazy",
 	command = "Octo",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope.nvim",
 		"nvim-tree/nvim-web-devicons",
 	},
-	config = function() end,
 }
 function M.config()
 	local git_root = vim.fn.system({ "git", "rev-parse", "--show-toplevel" })
