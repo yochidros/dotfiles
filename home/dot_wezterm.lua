@@ -12,7 +12,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		}
 	end
 	return {
-		{ Text = string.format(" %d ", tab.tab_index + 1) },
+		{ Text = string.format(" %d", tab.tab_index + 1) },
 	}
 end)
 
@@ -463,14 +463,14 @@ return {
 	window_close_confirmation = "NeverPrompt", -- NeverPrompt/AlawaysPrompt
 	enable_scroll_bar = false,
 	window_padding = {
-		left = 16,
-		right = 16,
-		top = 16,
-		bottom = 8,
+		left = 4,
+		right = 4,
+		top = 4,
+		bottom = 0,
 	},
 	window_frame = {
 		font = wezterm.font({ family = "Roboto", weight = "Bold" }),
-		font_size = 13.0,
+		font_size = 12.0,
 		active_titlebar_bg = "#333333",
 		inactive_titlebar_bg = "#333333",
 	},
