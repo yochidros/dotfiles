@@ -41,14 +41,18 @@ function M.config()
 			-- 	-- tabnr (tabs only)   | int        | the "handle" of the tab, can be converted to its ordinal number using: `vim.api.nvim_tabpage_get_number(buf.tabnr)`
 			-- end,
 			max_name_length = 18,
-			max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+			-- max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
 			truncate_names = true, -- whether or not tab names should be truncated
-			tab_size = 12,
+			-- tab_size = 18,
 			diagnostics = "nvim_lsp", --| "coc",
 			diagnostics_update_in_insert = false,
 			-- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
 			diagnostics_indicator = function(count, level, diagnostics_dict, context)
-				return "(" .. count .. ")"
+				if level == "error" then
+					return "(" .. count .. ")"
+				else
+					return ""
+				end
 			end,
 			-- NOTE: this will be called a lot so don't do any heavy processing here
 			custom_filter = function(buf_number, buf_numbers)
@@ -87,8 +91,8 @@ function M.config()
 			-- can also be a table containing 2 custom separators
 			-- [focused and unfocused]. eg: { '|', '|' }
 			separator_style = "thin", --"slant", --| "thick" | "thin" | { 'any', 'any' },
-			enforce_regular_tabs = false, --false | true,
-			always_show_bufferline = false, --true | false,
+			enforce_regular_tabs = true, --false | true,
+			always_show_bufferline = true, --true | false,
 			hover = {
 				enabled = true,
 				delay = 200,

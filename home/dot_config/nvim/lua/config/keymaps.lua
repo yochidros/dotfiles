@@ -32,3 +32,14 @@ keymap.set("n", "<leader>m", "za", { desc = "Toggle fold" })
 keymap.set("n", "<leader>dt", ":r!echo -n '\\#\\#\\#\\# ' && date +\\%Y年\\%m月\\%d日\\ \\%H:\\%m:\\%S\\ \\%Z<CR>")
 
 -- vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+vim.keymap.set("t", "<F12>", [[<C-\><C-n>]], { noremap = true, silent = true })
+
+vim.api.nvim_create_user_command("TermianlClear", function()
+	vim.cmd("startinsert")
+	vim.api.nvim_input("clear" .. "<CR>")
+	local org_scrollback = vim.opt_local.scrollback._value
+	vim.cmd("set scrollback=1") -- Minimum is 1
+	vim.cmd("set scrollback=" .. org_scrollback)
+end, {
+	desc = "Clears the terminal's screen and can no longer use scrollback to find the previous input",
+})

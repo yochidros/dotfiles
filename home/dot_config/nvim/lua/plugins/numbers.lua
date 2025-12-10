@@ -1,5 +1,5 @@
 local M = {
-	"myusuf3/numbers.vim",
+	"akho/numbers.vim",
 	event = "InsertEnter",
 }
 
@@ -10,7 +10,8 @@ function M.config()
 	end
 
 	vim.api.nvim_command([[
-    let g:numbers_exclude = ['alpha', 'tagbar','w3m', 'Fern', 'vimshell', 'bufferline', 'terminal']
+    let g:numbers_exclude = ['alpha', 'tagbar','w3m', 'Fern', 'vimshell', 'bufferline', 'Gitui', 'gitui', 'Sidekick', 'FloatTerm']
+    let g:numbers_exclude_buftypes = [ 'acwrite', 'help', 'nofile', 'nowrite', 'quickfix', 'terminal' ]
   ]])
 end
 
