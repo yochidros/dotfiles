@@ -1,5 +1,6 @@
 local M = {
 	"lambdalisue/fern.vim",
+	enabled = false,
 	lazy = false,
 	priority = 499,
 	dependencies = {

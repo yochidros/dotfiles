@@ -10,7 +10,7 @@ local M = {
 			desc = "Show which-key menu",
 		},
 		{
-			"<space>q",
+			"<leader>q",
 			function()
 				vim.diagnostic.setloclist()
 			end,

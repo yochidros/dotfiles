@@ -32,7 +32,11 @@ function M.config()
 	end
 	vim.cmd("colorscheme gruvbox")
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-	vim.api.nvim_set_hl(0, "FloatBorder", { fg = "white" })
+	if is_dark_mode then
+		vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#ebdbb2" })
+	else
+		vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#3c3836" })
+	end
 
 	if not is_dark_mode then
 		vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#48dd98" })

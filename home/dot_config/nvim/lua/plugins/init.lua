@@ -27,14 +27,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = {},
 	},
-	{
-		"echasnovski/mini.nvim",
-		version = "*",
-		lazy = false,
-		config = function()
-			require("mini.icons").setup()
-		end,
-	},
+	{ "nvim-mini/mini.icons", version = false },
 	---- Plenary
 	"nvim-lua/plenary.nvim",
 

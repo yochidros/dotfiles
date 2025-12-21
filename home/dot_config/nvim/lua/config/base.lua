@@ -68,7 +68,7 @@ vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 -- o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldmethod = "indent"
 o.foldlevelstart = 99
-o.laststatus = 3
+o.laststatus = 0 -- 3
 o.lazyredraw = true
 -- o.foldlevel = 2
 

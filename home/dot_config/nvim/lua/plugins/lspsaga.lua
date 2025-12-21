@@ -22,8 +22,8 @@ function M.config()
 			debounce = 500,
 		},
 		floaterm = {
-			height = 0.8,
-			width = 0.8,
+			height = 0.9,
+			width = 0.9,
 		},
 	})
 

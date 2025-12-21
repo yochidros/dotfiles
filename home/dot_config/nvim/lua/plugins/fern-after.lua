@@ -1,5 +1,6 @@
 local M = {
 	"lambdalisue/fern-renderer-nerdfont.vim",
+	enabled = false,
 	event = "VeryLazy",
 	dependencies = {
 		"lambdalisue/glyph-palette.vim",
