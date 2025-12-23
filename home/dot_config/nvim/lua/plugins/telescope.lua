@@ -66,6 +66,7 @@ function M.config()
 	vim.api.nvim_create_autocmd("FileType", { pattern = "TelescopeResults", command = [[setlocal nofoldenable]] })
 end
 function M.find_files()
+	MiniFiles.close()
 	require("telescope.builtin").find_files({
 		width = 0.1,
 		preview_title = false,
