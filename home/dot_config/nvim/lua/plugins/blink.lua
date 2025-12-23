@@ -26,13 +26,8 @@ local M = {
 			["<C-f>"] = { "scroll_documentation_down", "fallback" },
 			["<Tab>"] = {
 				function(cmp)
-					if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-						cmp.hide()
-						vim.notify("Applying copilot NES")
-						return (
-							require("copilot-lsp.nes").apply_pending_nes()
-							and require("copilot-lsp.nes").walk_cursor_end_edit()
-						)
+					if require("sidekick").nes_jump_or_apply() then
+						return true
 					end
 					if cmp.snippet_active() then
 						return cmp.accept()
@@ -93,32 +88,32 @@ local M = {
 			nerd_font_variant = "normal",
 			use_nvim_cmp_as_default = false,
 			kind_icons = {
-				Text = "󰉿",
-				Method = "󰊕",
-				Function = "󰊕",
-				Constructor = "",
-				Field = "󰜢",
-				Variable = "󰆦",
-				Class = "󰠱",
-				Interface = "",
-				Module = "",
-				Property = "󰜢",
-				Unit = "󰑭",
-				Value = "󰎠",
+				Text = "󰉿 ",
+				Method = "󰊕 ",
+				Function = "󰊕 ",
+				Constructor = " ",
+				Field = "󰜢 ",
+				Variable = "󰆦 ",
+				Class = "󰠱 ",
+				Interface = " ",
+				Module = " ",
+				Property = "󰜢 ",
+				Unit = "󰑭 ",
+				Value = "󰎠 ",
 				Enum = "",
 				Keyword = "󰌋",
-				Snippet = "",
-				Color = "󰏘",
-				File = "󰈙",
-				Reference = "󰈇",
-				Folder = "󰉋",
-				EnumMember = "",
-				Constant = "󰏿",
-				Struct = "󰙅",
-				Event = "",
-				Operator = "󰆕",
+				Snippet = " ",
+				Color = "󰏘 ",
+				File = "󰈙 ",
+				Reference = "󰈇 ",
+				Folder = "󰉋 ",
+				EnumMember = " ",
+				Constant = "󰏿 ",
+				Struct = "󰙅 ",
+				Event = " ",
+				Operator = "󰆕 ",
 				TypeParameter = "",
-				Copilot = "",
+				Copilot = " ",
 			},
 		},
 		-- (Default) Only show the documentation popup when manually triggered
@@ -208,35 +203,14 @@ local M = {
 				},
 			},
 		},
-		{
-			"copilotlsp-nvim/copilot-lsp",
-			dependencies = { "fang2hou/blink-copilot" },
-			init = function()
-				vim.g.copilot_nes_debounce = 500
-				vim.lsp.enable("copilot_ls")
-				vim.keymap.set("n", "<tab>", function()
-					local bufnr = vim.api.nvim_get_current_buf()
-					local state = vim.b[bufnr].nes_state
-					vim.notify("copilot NES state:", state)
-					if state then
-						vim.notify("Applying copilot NES")
-						-- Try to jump to the start of the suggestion edit.
-						-- If already at the start, then apply the pending suggestion and jump to the end of the edit.
-						local _ = require("copilot-lsp.nes").walk_cursor_start_edit()
-							or (
-								require("copilot-lsp.nes").apply_pending_nes()
-								and require("copilot-lsp.nes").walk_cursor_end_edit()
-							)
-						return nil
-					else
-						vim.notify("No copilot NES to apply")
-						-- Resolving the terminal's inability to distinguish between `TAB` and `<C-i>` in normal mode
-						return "<C-i>"
-					end
-				end, { desc = "Accept Copilot NES suggestion", expr = true })
-			end,
-		},
-		-- "giuxtaposition/blink-cmp-copilot",
+		{ "fang2hou/blink-copilot" },
+		-- {
+		-- 	"copilotlsp-nvim/copilot-lsp",
+		-- 	init = function()
+		-- 		vim.g.copilot_nes_debounce = 500
+		-- 		vim.lsp.enable("copilot_ls")
+		-- 	end,
+		-- },
 		{
 			"L3MON4D3/LuaSnip",
 			version = "v2.*",
