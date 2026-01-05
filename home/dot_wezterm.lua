@@ -75,7 +75,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 			if _ps_name == "fish" then
 				ps_name = "🐟"
 			elseif _ps_name == "nvim" then
-				ps_name = ""
+				ps_name = " "
 			else
 				ps_name = _ps_name
 			end
@@ -87,14 +87,14 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 
 	if tab.is_active then
 		return {
-			{ Background = { Color = "#2288ff" } },
+			{ Background = { Color = "#5500aa" } },
+			{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
+		}
+	else
+		return {
 			{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
 		}
 	end
-
-	return {
-		{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
-	}
 end)
 
 wezterm.on("update-right-status", function(window, pane)
@@ -102,7 +102,7 @@ wezterm.on("update-right-status", function(window, pane)
 	local name = window:active_key_table()
 	if name then
 		name = name
-		local color = "#808080"
+		local color = "#FFFFFF"
 		if name == "resize_pane" then
 			color = "#3a2a5e"
 			name = "RESIZE NANE"
@@ -121,11 +121,12 @@ wezterm.on("update-right-status", function(window, pane)
 	end
 	-- "`Ctrl-s` = <LEADER>  " ..
 	window:set_right_status(name or wezterm.format({
-		{ Foreground = { AnsiColor = "Fuchsia" } },
+		-- { Foreground = { AnsiColor = "Red" } },
 		{ Attribute = { Italic = true } },
 		{ Text = " " .. date .. " " },
 	}))
 end)
+
 function recompute_padding(window)
 	local window_dims = window:get_dimensions()
 	local overrides = window:get_config_overrides() or {}
@@ -237,12 +238,19 @@ return {
 			action = act.RotatePanes("CounterClockwise"),
 		},
 		{ key = "n", mods = "LEADER", action = act.RotatePanes("Clockwise") },
+		{
+			key = "0",
+			mods = "CTRL",
+			action = act.PaneSelect({
+				mode = "SwapWithActiveKeepFocus",
+			}),
+		},
 
 		{
-			key = "S",
+			key = "s",
 			mods = "LEADER",
 			action = act.PaneSelect({
-				mode = "SwapWithActive",
+				mode = "SwapWithActiveKeepFocus",
 			}),
 		},
 		-- Split
@@ -552,13 +560,13 @@ return {
 	},
 	window_frame = {
 		font = wezterm.font({ family = "Roboto", weight = "Bold" }),
-		font_size = 12.0,
+		font_size = 14.0,
 		active_titlebar_bg = "#333333",
 		inactive_titlebar_bg = "#333333",
 	},
 	colors = {
 		tab_bar = {
-			background = "#0b00ff",
+			background = "#5500aa",
 			active_tab = {
 				bg_color = "#453861",
 				fg_color = "#fff",
