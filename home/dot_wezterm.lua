@@ -40,7 +40,15 @@ end)
 -- end)
 -- local wezterm = require("wezterm")
 
-local function last_path_component(uri)
+local function split(str, sep)
+	local result = {}
+	for part in string.gmatch(str, "([^" .. sep .. "]+)") do
+		table.insert(result, part)
+	end
+	return result
+end
+
+local function get_ellipsis_path(uri)
 	local path = uri.file_path
 	if not path then
 		return ""
@@ -58,21 +66,38 @@ local function last_path_component(uri)
 		return " 🏠"
 	end
 
+	local home_name = home:match("([^/]+)/*$")
 	-- 最後の要素だけ取り出す
-	return path:match("([^/]+)/*$") or path
+	local parent, name = path:match("([^/]+)/([^/]+)/*$")
+	-- if parent == home_name then
+	-- 	return string.format("~/%s/", name) or path
+	-- end
+	--
+	local replace_home = string.gsub(path, "^" .. home .. "/", "~/")
+	local name = ""
+	for _, value in ipairs(split(replace_home, "/")) do
+		local sub_n = string.sub(value, 1, 1)
+		if sub_n == "." then
+			name = name .. "/" .. string.sub(value, 1, 2)
+		else
+			name = name .. "/" .. sub_n
+		end
+	end
+	return name .. "/" or path
 end
 
-function basename(s)
+local function basename(s)
 	return string.gsub(s, "(.*[/\\])(.*)", "%2")
 end
+
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local name = last_path_component(tab.active_pane and tab.active_pane.current_working_dir)
+	local name = get_ellipsis_path(tab.active_pane and tab.active_pane.current_working_dir)
 	local ps_name = ""
 	for _, _tab in ipairs(tabs) do
 		if _tab.tab_id == tab.tab_id then
 			local ps = _tab.active_pane.foreground_process_name
 			local _ps_name, _ = basename(ps)
-			if _ps_name == "fish" then
+			if _ps_name == "fish" or string.gmatch(_ps_name, "fish") then
 				ps_name = "🐟"
 			elseif _ps_name == "nvim" then
 				ps_name = " "
@@ -82,17 +107,23 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		end
 	end
 	if name == "" then
-		name = "unknown"
+		name = "???"
 	end
 
+	local text = ""
+	if ps_name == "" then
+		text = string.format("%d %s", tab.tab_index + 1, name)
+	else
+		text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name)
+	end
 	if tab.is_active then
 		return {
 			{ Background = { Color = "#5500aa" } },
-			{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
+			{ Text = text },
 		}
 	else
 		return {
-			{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
+			{ Text = text },
 		}
 	end
 end)
