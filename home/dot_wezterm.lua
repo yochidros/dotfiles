@@ -28,14 +28,55 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 	window:set_config_overrides(overrides)
 end)
 
+-- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+-- 	if tab.is_active then
+-- 		return {
+-- 			{ Text = " " .. tab.tab_index + 1 .. " " },
+-- 		}
+-- 	end
+-- 	return {
+-- 		{ Text = string.format(" %d", tab.tab_index + 1) },
+-- 	}
+-- end)
+-- local wezterm = require("wezterm")
+
+local function last_path_component(uri)
+	local path = uri.file_path
+	if not path then
+		return ""
+	end
+
+	-- URI からプレフィクスを削除 (例: file:///Users/me/project)
+	path = path:gsub("^file://", "")
+
+	-- Windows の場合の "\" を "/" にそろえる
+	path = path:gsub("\\", "/")
+
+	local home = os.getenv("HOME")
+	-- ホームディレクトリそのものなら "~"
+	if home and (path == home or path == home .. "/") then
+		return " 🏠"
+	end
+
+	-- 最後の要素だけ取り出す
+	return path:match("([^/]+)/*$") or path
+end
+
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local name = last_path_component(tab.active_pane and tab.active_pane.current_working_dir)
+	if name == "" then
+		name = "unknown"
+	end
+
 	if tab.is_active then
 		return {
-			{ Text = " " .. tab.tab_index + 1 .. " " },
+			{ Background = { Color = "#2288ff" } },
+			{ Text = string.format("[%d] %s ", tab.tab_index + 1, name) },
 		}
 	end
+
 	return {
-		{ Text = string.format(" %d", tab.tab_index + 1) },
+		{ Text = string.format("[%d] %s", tab.tab_index + 1, name) },
 	}
 end)
 
@@ -61,10 +102,11 @@ wezterm.on("update-right-status", function(window, pane)
 		}))
 		return
 	end
+	-- "`Ctrl-s` = <LEADER>  " ..
 	window:set_right_status(name or wezterm.format({
 		{ Foreground = { AnsiColor = "Fuchsia" } },
 		{ Attribute = { Italic = true } },
-		{ Text = "`Ctrl-s` = <LEADER>  " .. date .. " " },
+		{ Text = " " .. date .. " " },
 	}))
 end)
 function recompute_padding(window)
@@ -505,8 +547,8 @@ return {
 				fg_color = "#fff",
 				intensity = "Bold",
 				underline = "None",
-				italic = true,
-				strikethrough = true,
+				italic = false,
+				strikethrough = false,
 			},
 			inactive_tab_edge = "NONE",
 			inactive_tab = {
