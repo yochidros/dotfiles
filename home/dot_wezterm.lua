@@ -62,8 +62,25 @@ local function last_path_component(uri)
 	return path:match("([^/]+)/*$") or path
 end
 
+function basename(s)
+	return string.gsub(s, "(.*[/\\])(.*)", "%2")
+end
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local name = last_path_component(tab.active_pane and tab.active_pane.current_working_dir)
+	local ps_name = ""
+	for _, _tab in ipairs(tabs) do
+		if _tab.tab_id == tab.tab_id then
+			local ps = _tab.active_pane.foreground_process_name
+			local _ps_name, _ = basename(ps)
+			if _ps_name == "fish" then
+				ps_name = "🐟"
+			elseif _ps_name == "nvim" then
+				ps_name = ""
+			else
+				ps_name = _ps_name
+			end
+		end
+	end
 	if name == "" then
 		name = "unknown"
 	end
@@ -71,12 +88,12 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	if tab.is_active then
 		return {
 			{ Background = { Color = "#2288ff" } },
-			{ Text = string.format("[%d] %s ", tab.tab_index + 1, name) },
+			{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
 		}
 	end
 
 	return {
-		{ Text = string.format("[%d] %s", tab.tab_index + 1, name) },
+		{ Text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name) },
 	}
 end)
 
