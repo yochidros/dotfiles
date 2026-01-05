@@ -4,6 +4,7 @@ alias ls='lsd'
 alias la='lsd -al'
 alias vim='nvim'
 alias vv='select_nvim'
+alias gitui="gitui -t gruvbox.ron"
 
 set -g ANDROID_SDK_ROOT $HOME/Library/Android/sdk
 # set -Ux fish_user_paths $HOME/Library/Android/sdk/platform-tools $fish_user_paths
