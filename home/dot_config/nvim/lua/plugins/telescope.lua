@@ -65,9 +65,22 @@ function M.config()
 	vim.api.nvim_set_hl(0, "TelescopeBorder", { ctermbg = 255 })
 	vim.api.nvim_create_autocmd("FileType", { pattern = "TelescopeResults", command = [[setlocal nofoldenable]] })
 end
+local function git_root()
+	local result = vim.system({ "git", "rev-parse", "--show-toplevel" }, { text = true }):wait()
+
+	if result.code ~= 0 then
+		return nil
+	end
+
+	return vim.trim(result.stdout)
+end
 function M.find_files()
 	MiniFiles.close()
+	local _git_root = git_root()
+
 	require("telescope.builtin").find_files({
+		cwd = _git_root or nil,
+		hidden = true,
 		width = 0.1,
 		preview_title = false,
 		results_title = false,
@@ -101,7 +114,9 @@ function M.file_browser_insert_path()
 end
 
 function M.live_grep()
+	local _git_root = git_root()
 	require("telescope.builtin").live_grep({
+		cwd = _git_root or nil,
 		width = 0.1,
 		preview_title = false,
 		results_title = false,
