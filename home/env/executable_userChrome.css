@@ -16,9 +16,7 @@
   }
   #urlbar {
     top: unset !important;
-    bottom: calc(
-      var(--urlbar-height) + 3 * var(--urlbar-margin-inline)
-    ) !important;
+    bottom: var(--urlbar-margin-inline) !important;
     box-shadow: none !important;
     display: flex !important;
     flex-direction: column !important;
@@ -65,7 +63,7 @@
     display: none;
   }
   #mainPopupSet panel.panel-no-padding {
-    margin-top: calc(-50vh + 40px) !important;
+    margin-top: 8px !important;
   }
   #mainPopupSet .panel-viewstack,
   #mainPopupSet popupnotification {
