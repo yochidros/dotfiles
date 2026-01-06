@@ -122,8 +122,8 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -80'
-alt-shift-equal = 'resize smart +80'
+alt-minus = 'resize smart -80'
+alt-equal = 'resize smart +80'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-1 = 'workspace 1'
