@@ -66,16 +66,9 @@ local function get_ellipsis_path(uri)
 		return " 🏠"
 	end
 
-	local home_name = home:match("([^/]+)/*$")
-	-- 最後の要素だけ取り出す
-	local parent, name = path:match("([^/]+)/([^/]+)/*$")
-	-- if parent == home_name then
-	-- 	return string.format("~/%s/", name) or path
-	-- end
-	--
-	local replace_home = string.gsub(path, "^" .. home .. "/", "~/")
+	local replace_path = string.gsub(path, "^" .. home .. "/", "~/")
 	local name = ""
-	for _, value in ipairs(split(replace_home, "/")) do
+	for _, value in ipairs(split(replace_path, "/")) do
 		local sub_n = string.sub(value, 1, 1)
 		if sub_n == "." then
 			name = name .. "/" .. string.sub(value, 1, 2)
@@ -92,15 +85,32 @@ end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local name = get_ellipsis_path(tab.active_pane and tab.active_pane.current_working_dir)
+	local wez = require("wezterm")
+	local mux = wez.mux
+	local pane_num = #mux.get_tab(tab.tab_id):panes()
+
 	local ps_name = ""
 	for _, _tab in ipairs(tabs) do
 		if _tab.tab_id == tab.tab_id then
-			local ps = _tab.active_pane.foreground_process_name
-			local _ps_name, _ = basename(ps)
-			if _ps_name == "fish" or string.gmatch(_ps_name, "fish") then
+			local local_panes = mux.get_tab(tab.tab_id):active_pane()
+			local argv = local_panes:get_foreground_process_info().argv
+			local _ps_name, _ = basename(argv[1])
+			if _ps_name == "fish" or string.match(_ps_name, "fish") then
 				ps_name = "🐟"
 			elseif _ps_name == "nvim" then
 				ps_name = " "
+			elseif _ps_name == "node" then
+				if #argv > 1 then
+					ps_name = " " .. basename(argv[2])
+				else
+					ps_name = " "
+				end
+			elseif _ps_name == "bun" then
+				if #argv > 1 then
+					ps_name = "" .. basename(argv[2])
+				else
+					ps_name = ""
+				end
 			else
 				ps_name = _ps_name
 			end
@@ -112,9 +122,17 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 
 	local text = ""
 	if ps_name == "" then
-		text = string.format("%d %s", tab.tab_index + 1, name)
+		if pane_num > 1 then
+			text = string.format("%d %s (%d)", tab.tab_index + 1, name, pane_num)
+		else
+			text = string.format("%d %s", tab.tab_index + 1, name)
+		end
 	else
-		text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name)
+		if pane_num > 1 then
+			text = string.format("%d %s %s (%d)", tab.tab_index + 1, name, ps_name, pane_num)
+		else
+			text = string.format("%d %s %s", tab.tab_index + 1, name, ps_name)
+		end
 	end
 	if tab.is_active then
 		return {
@@ -577,7 +595,7 @@ return {
 		},
 	},
 	tab_bar_at_bottom = true,
-	tab_max_width = 10,
+	tab_max_width = 160,
 	font_size = 14.0,
 	show_tab_index_in_tab_bar = false,
 	window_decorations = "RESIZE", -- TITLE/RESIZE
